@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router';
 import { Shield, TrendingUp, Zap } from 'lucide-react';
 import { ImpossibleTriangle } from '../components/ImpossibleTriangle';
+import { PageSection, SectionHeader, SurfaceCard, SurfacePanel } from '../components/site/PageLayout';
+import { deckNarrative } from '../../content/deckPublicContent';
+import { HeroBalanceScene } from '../components/HeroBalanceScene';
 
 export function Home() {
   const navigate = useNavigate();
@@ -10,7 +13,7 @@ export function Home() {
       {/* Hero Section */}
       <section
         id="home"
-        className="relative min-h-[calc(100vh-128px)] flex items-center justify-center -mt-8 overflow-hidden"
+        className="relative -mt-8 flex min-h-[calc(100vh-128px)] items-center justify-center overflow-hidden py-10"
       >
         {/* Animated Background */}
         <div className="absolute inset-0 z-0">
@@ -28,91 +31,63 @@ export function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 w-full max-w-[1300px] mx-auto px-6 md:px-12 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20">
+        <div className="page-container-wide relative z-10 grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           
-          {/* Left Column: Digital Yin-Yang Balance Board */}
-          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center animate-fade-in-up">
-            
-            {/* Balance Board Container with 3D Perspective */}
-            <div 
-              className="relative w-full max-w-[480px] aspect-square group"
-              style={{ perspective: '1200px' }}
-            >
-              
-              {/* 3D Transform Container */}
-              <div 
-                className="absolute inset-0 w-full h-full rounded-[40px] transition-transform duration-1000 group-hover:-translate-y-2 ease-out"
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                {/* Background layer with overflow hidden for the blur and borders */}
-                <div className="absolute inset-0 rounded-[40px] border border-[var(--gold-champagne)]/20 shadow-[0_0_60px_rgba(235,213,169,0.05)] bg-black/40 backdrop-blur-2xl overflow-hidden group-hover:shadow-[0_0_80px_rgba(235,213,169,0.15)] group-hover:border-[var(--gold-champagne)]/40 transition-all duration-1000">
-                  
-                  {/* Simple elegant gradient background */}
-                  <div className="absolute inset-0 bg-gradient-radial from-[var(--gold-champagne)]/10 via-transparent to-transparent" />
-                  
-                  {/* Subtle animated glow */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[var(--gold-champagne)]/5 rounded-full blur-3xl animate-pulse" />
+          {/* Left Column: 3D Balance Scene */}
+          <div className="order-2 flex w-full flex-col items-center justify-center animate-fade-in-up lg:order-1">
+            <div className="group relative w-full max-w-[560px] aspect-square overflow-hidden rounded-[40px] border border-[var(--gold-champagne)]/20 shadow-[0_0_60px_rgba(235,213,169,0.08)] transition-all duration-700 hover:border-[var(--gold-champagne)]/40 hover:shadow-[0_0_90px_rgba(235,213,169,0.18)]">
+              <HeroBalanceScene />
+
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.45)_100%)]" />
+
+              <div className="absolute inset-0 z-20 grid grid-cols-[1fr_auto] p-6 md:p-8">
+                <div className="flex items-end">
+                  <button
+                    onClick={() => navigate('/fund')}
+                    className="pointer-events-auto group/btn relative w-[170px] h-[170px] rounded-full border border-[var(--gold-dark)]/50 bg-black/45 backdrop-blur-md transition-all duration-500 hover:scale-[1.03] hover:border-[var(--gold-dark)] hover:bg-black/55"
+                  >
+                    <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_30%,rgba(155,126,42,0.35),transparent_70%)]" />
+                    <div className="relative z-10 flex h-full flex-col items-center justify-center gap-3">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--gold-dark)]/60 bg-black/40 text-[var(--gold-dark)]">
+                        <Zap className="h-6 w-6" />
+                      </div>
+                      <span className="text-[14px] font-medium tracking-widest text-white">探索基金产品</span>
+                    </div>
+                  </button>
                 </div>
 
-                {/* Floating Interactive Elements (TranslateZ for 3D effect) */}
-                <div 
-                  className="absolute inset-0 flex transition-transform duration-1000 ease-out group-hover:[transform:rotateX(8deg)_rotateY(-8deg)]"
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  {/* Left Half (Yin) */}
-                  <div 
-                    className="relative z-20 w-1/2 h-full flex flex-col items-center justify-center p-6 transition-transform duration-1000" 
-                    style={{ transform: 'translateZ(30px)' }}
+                <div className="flex flex-col justify-center gap-4">
+                  <button
+                    onClick={() => navigate('/rwafi')}
+                    className="pointer-events-auto group/btn relative h-[110px] w-[180px] rounded-[22px] border border-[var(--gold-champagne)]/45 bg-black/45 backdrop-blur-md transition-all duration-500 hover:scale-[1.03] hover:border-[var(--gold-champagne)]/70"
                   >
-                    <button
-                      onClick={() => navigate('/fund')}
-                      className="relative w-full aspect-square max-w-[160px] rounded-full group/btn flex flex-col items-center justify-center gap-4 transition-all duration-700 hover:scale-105"
-                    >
-                      {/* 3D Button Background */}
-                      <div className="absolute inset-0 rounded-full border border-[var(--gold-dark)]/40 bg-gradient-to-br from-[var(--gold-dark)]/20 to-black/80 shadow-[inset_0_0_30px_rgba(184,134,11,0.1),0_15px_30px_rgba(0,0,0,0.6)] group-hover/btn:shadow-[inset_0_0_50px_rgba(184,134,11,0.3),0_20px_40px_rgba(184,134,11,0.4)] group-hover/btn:border-[var(--gold-dark)] transition-all duration-700 backdrop-blur-md" />
-                      
-                      <div className="relative z-10 w-14 h-14 rounded-full bg-gradient-to-br from-[var(--gold-dark)]/40 to-black/60 border border-[var(--gold-dark)]/50 flex items-center justify-center text-[var(--gold-dark)] shadow-[0_0_20px_rgba(184,134,11,0.3)] group-hover/btn:scale-110 transition-transform duration-500">
-                        <Zap className="w-6 h-6" />
+                    <div className="absolute inset-0 rounded-[22px] bg-[radial-gradient(circle_at_30%_25%,rgba(212,175,55,0.3),transparent_72%)]" />
+                    <div className="relative z-10 flex h-full flex-col items-center justify-center gap-2">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--gold-champagne)]/45 bg-black/35 text-[var(--gold-champagne)]">
+                        <Shield className="h-5 w-5" />
                       </div>
-                      <span className="relative z-10 text-white font-[var(--font-body)] font-medium text-[15px] tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">探索基金产品</span>
-                    </button>
-                  </div>
+                      <span className="text-[13px] font-medium tracking-wide text-white">了解 RWAFi</span>
+                    </div>
+                  </button>
 
-                  {/* Right Half (Yang) */}
-                  <div 
-                    className="relative z-20 w-1/2 h-full flex flex-col items-center justify-center gap-8 p-6 transition-transform duration-1000" 
-                    style={{ transform: 'translateZ(40px)' }}
+                  <button
+                    onClick={() => navigate('/rwafi')}
+                    className="pointer-events-auto group/btn relative h-[110px] w-[180px] rounded-[22px] border border-[var(--gold-light)]/45 bg-black/45 backdrop-blur-md transition-all duration-500 hover:scale-[1.03] hover:border-[var(--gold-light)]/70"
                   >
-                    <button
-                      onClick={() => navigate('/rwafi')}
-                      className="relative w-full h-[110px] max-w-[170px] rounded-[24px] group/btn flex flex-col items-center justify-center gap-3 transition-all duration-700 hover:scale-105"
-                    >
-                      <div className="absolute inset-0 rounded-[24px] border border-[var(--gold-champagne)]/30 bg-gradient-to-br from-[var(--gold-champagne)]/10 to-black/90 shadow-[inset_0_2px_15px_rgba(255,255,255,0.05),0_15px_30px_rgba(0,0,0,0.6)] group-hover/btn:shadow-[inset_0_2px_20px_rgba(235,213,169,0.2),0_20px_40px_rgba(235,213,169,0.3)] group-hover/btn:border-[var(--gold-champagne)]/60 transition-all duration-700 backdrop-blur-md" />
-                      
-                      <div className="relative z-10 w-10 h-10 rounded-full bg-gradient-to-br from-[var(--gold-champagne)]/30 to-black/60 border border-[var(--gold-champagne)]/40 flex items-center justify-center text-[var(--gold-champagne)] shadow-[0_0_15px_rgba(235,213,169,0.2)] group-hover/btn:scale-110 transition-transform duration-500">
-                        <Shield className="w-5 h-5" />
+                    <div className="absolute inset-0 rounded-[22px] bg-[radial-gradient(circle_at_30%_25%,rgba(240,217,140,0.26),transparent_72%)]" />
+                    <div className="relative z-10 flex h-full flex-col items-center justify-center gap-2">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--gold-light)]/45 bg-black/35 text-[var(--gold-light)]">
+                        <TrendingUp className="h-5 w-5" />
                       </div>
-                      <span className="relative z-10 text-white font-[var(--font-body)] font-medium text-[14px] tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">了解 RWAFi</span>
-                    </button>
-
-                    <button
-                      onClick={() => navigate('/rwafi')}
-                      className="relative w-full h-[110px] max-w-[170px] rounded-[24px] group/btn flex flex-col items-center justify-center gap-3 transition-all duration-700 hover:scale-105"
-                    >
-                      <div className="absolute inset-0 rounded-[24px] border border-[var(--gold-light)]/30 bg-gradient-to-br from-[var(--gold-light)]/10 to-black/90 shadow-[inset_0_2px_15px_rgba(255,255,255,0.05),0_15px_30px_rgba(0,0,0,0.6)] group-hover/btn:shadow-[inset_0_2px_20px_rgba(218,165,32,0.2),0_20px_40px_rgba(218,165,32,0.3)] group-hover/btn:border-[var(--gold-light)]/60 transition-all duration-700 backdrop-blur-md" />
-                      
-                      <div className="relative z-10 w-10 h-10 rounded-full bg-gradient-to-br from-[var(--gold-light)]/30 to-black/60 border border-[var(--gold-light)]/40 flex items-center justify-center text-[var(--gold-light)] shadow-[0_0_15px_rgba(218,165,32,0.2)] group-hover/btn:scale-110 transition-transform duration-500">
-                        <TrendingUp className="w-5 h-5" />
-                      </div>
-                      <span className="relative z-10 text-white font-[var(--font-body)] font-medium text-[14px] tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">智赢先知预测</span>
-                    </button>
-                  </div>
+                      <span className="text-[13px] font-medium tracking-wide text-white">智赢先知预测</span>
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
 
             {/* Vision Statement (Below Balance Board) */}
-            <div className="mt-14 text-center max-w-[420px] px-6 relative z-10">
+            <SurfacePanel className="relative z-10 mt-10 w-full max-w-[460px] text-center">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-[var(--gold-champagne)]/50 to-transparent mb-6" />
               <p className="text-[14px] leading-relaxed font-[var(--font-body)] text-white/70 relative pt-5">
                 <span className="absolute -left-2 top-0 text-[var(--gold-champagne)] opacity-30 text-4xl font-[var(--font-heading)] leading-none">"</span>
@@ -120,12 +95,13 @@ export function Home() {
                 通过 UAQC 最佳实践，以金融科技赋能现实世界资产，共建开放的 <span className="text-white font-medium">RWAFi</span> 产业生态
                 <span className="absolute -right-2 bottom-0 text-[var(--gold-champagne)] opacity-30 text-4xl font-[var(--font-heading)] leading-none rotate-180">"</span>
               </p>
-            </div>
+            </SurfacePanel>
 
           </div>
 
           {/* Right Column: Title & Subtitle */}
-          <div className="w-full lg:w-1/2 flex flex-col items-start text-left animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <SurfacePanel className="order-1 w-full animate-fade-in-up lg:order-2" style={{ animationDelay: '0.2s' }}>
+          <div className="flex flex-col items-start text-left">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--gold-champagne)]/20 bg-gradient-to-r from-[var(--gold-champagne)]/10 to-transparent text-[var(--gold-champagne)] text-[13px] tracking-widest font-[var(--font-body)] mb-8">
               <span className="w-2 h-2 rounded-full bg-[var(--gold-champagne)] animate-pulse" />
               WEB3 资管引擎枢纽
@@ -145,7 +121,7 @@ export function Home() {
 
             <div className="w-24 h-[2px] bg-gradient-to-r from-[var(--gold-champagne)] to-transparent mb-6 opacity-50" />
 
-            <h2 className="font-[var(--font-body)] text-xl md:text-2xl mb-10 text-white/80 font-light tracking-wide">
+            <h2 className="text-xl md:text-2xl mb-10 text-white/80 font-light tracking-wide">
               重塑资本主权，定义 Web3 资管枢纽
             </h2>
 
@@ -161,6 +137,7 @@ export function Home() {
               </span>
             </div>
           </div>
+          </SurfacePanel>
           
         </div>
 
@@ -172,21 +149,69 @@ export function Home() {
         </div>
       </section>
 
+      <PageSection className="py-10">
+        <SectionHeader
+          kicker={deckNarrative.marketWindow.title}
+          title="资产合法化之后，收益基础设施正在重构"
+          description="市场从“资产上链”进入“收益验证”阶段，合规、透明与资产效率将成为下一阶段竞争核心。"
+        />
+        <div className="grid gap-[var(--grid-gap)] md:grid-cols-3">
+          {deckNarrative.marketWindow.points.map((point) => (
+            <SurfaceCard key={point} className="h-full bg-black/35">
+              <p className="text-sm leading-relaxed text-white/72">{point}</p>
+            </SurfaceCard>
+          ))}
+        </div>
+      </PageSection>
+
+      <PageSection className="py-8">
+        <SectionHeader
+          title="Proof Snapshot"
+          subtitle="公开口径关键指标"
+          description="用于帮助机构与合作方快速理解平台结构与能力边界，不作为收益承诺。"
+          align="center"
+        />
+        <div className="grid gap-[var(--grid-gap)] sm:grid-cols-2 lg:grid-cols-4">
+          {deckNarrative.proofSnapshot.map((item) => (
+            <SurfaceCard key={item.label} className="text-center">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/45">{item.label}</p>
+              <p className="mt-3 text-3xl font-[var(--font-display)] text-[var(--gold-champagne)]">{item.value}</p>
+              <p className="mt-2 text-xs text-white/56">{item.note}</p>
+            </SurfaceCard>
+          ))}
+        </div>
+      </PageSection>
+
+      <PageSection className="py-8">
+        <SectionHeader
+          title="Who We Serve"
+          subtitle="不同角色，不同路径"
+          description="在统一基础设施之上，提供面向机构、渠道与链上用户的差异化协作方式。"
+        />
+        <div className="grid gap-[var(--grid-gap)] md:grid-cols-3">
+          {deckNarrative.whoWeServe.map((role) => (
+            <SurfaceCard key={role.title} className="flex h-full flex-col justify-between bg-black/30">
+              <div>
+                <h4 className="text-xl font-semibold text-white">{role.title}</h4>
+                <p className="mt-3 text-sm leading-relaxed text-white/66">{role.desc}</p>
+              </div>
+              <button className="mt-6 inline-flex w-fit items-center rounded-lg border border-[var(--layout-border-strong)] px-4 py-2 text-xs uppercase tracking-[0.12em] text-[var(--gold-light)] transition-colors hover:bg-black/40">
+                {role.cta}
+              </button>
+            </SurfaceCard>
+          ))}
+        </div>
+      </PageSection>
+
       {/* Moat Section */}
-      <section className="py-24 bg-gradient-to-b from-[var(--deep-black)] to-[var(--space-gray)]">
-        <div className="max-w-7xl mx-auto px-8">
-          <h3
-            className="text-center font-[var(--font-display)] text-4xl mb-12"
-            style={{ color: 'var(--gold-champagne)' }}
-          >
-            突破"不可能三角"
-          </h3>
+      <PageSection className="bg-gradient-to-b from-[var(--deep-black)] to-[var(--space-gray)]">
+        <SectionHeader align="center" title='突破"不可能三角"' className="mb-10" />
 
           {/* 3D Impossible Triangle */}
           <ImpossibleTriangle />
 
           {/* Moat Cards */}
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="mt-10 grid gap-[var(--grid-gap)] md:grid-cols-3">
             {[
               {
                 icon: <Shield className="w-8 h-8" />,
@@ -204,24 +229,23 @@ export function Home() {
                 desc: '10+ 年经验及 IPO 操盘背景的合规领袖',
               },
             ].map((card, i) => (
-              <div
+              <SurfaceCard
                 key={i}
-                className="group p-8 bg-gradient-to-br from-black/60 to-[var(--muted-gray)]/40 border border-white/10 rounded-xl hover:border-[var(--gold-champagne)]/50 transition-all duration-500 hover:scale-105"
+                className="group bg-gradient-to-br from-black/60 to-[var(--muted-gray)]/40 p-8 transition-all duration-500 hover:scale-105 hover:border-[var(--gold-champagne)]/50"
               >
                 <div className="mb-4 text-[var(--gold-champagne)] group-hover:scale-110 transition-transform">
                   {card.icon}
                 </div>
-                <h4 className="text-xl font-[var(--font-body)] font-semibold mb-3 text-white">
+                <h4 className="text-xl font-semibold mb-3 text-white">
                   {card.title}
                 </h4>
                 <p className="text-white/60 font-[var(--font-body)] text-sm leading-relaxed">
                   {card.desc}
                 </p>
-              </div>
+              </SurfaceCard>
             ))}
           </div>
-        </div>
-      </section>
+      </PageSection>
     </>
   );
 }

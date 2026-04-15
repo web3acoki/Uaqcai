@@ -1,6 +1,8 @@
 import { ChevronRight, Globe } from 'lucide-react';
 import { ComposableMap, Geographies, Geography, Marker, Line } from 'react-simple-maps';
 import { useState, useEffect } from 'react';
+import { PageSection, SectionHeader, SurfaceCard, SurfacePanel } from '../components/site/PageLayout';
+import { deckNarrative } from '../../content/deckPublicContent';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -134,19 +136,9 @@ export function Fund() {
   }, []);
 
   return (
-    <section className="py-20 bg-[var(--space-gray)] min-h-screen">
-      <div className="max-w-7xl mx-auto px-8">
-        <div className="text-center mb-16">
-          <h2
-            className="font-[var(--font-display)] text-5xl mb-4"
-            style={{ color: 'var(--gold-champagne)' }}
-          >
-            合规资管引擎
-          </h2>
-          <p className="font-[var(--font-body)] text-xl text-white/70">
-            筑牢机构安全垫
-          </p>
-        </div>
+    <div className="page-shell">
+      <PageSection className="pb-6">
+        <SectionHeader align="center" title="合规资管引擎" subtitle="筑牢机构安全垫" />
 
         <div className="mb-12">
           <h3 className="font-[var(--font-body)] text-2xl mb-2 text-white">
@@ -161,7 +153,7 @@ export function Fund() {
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-[var(--grid-gap)] md:grid-cols-2 lg:grid-cols-3">
           {[
             {
               number: '4号产品',
@@ -214,16 +206,16 @@ export function Fund() {
               colorStyle: { text: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.05)', border: 'rgba(255, 255, 255, 0.15)' },
             },
           ].map((product, i) => (
-            <div
+            <SurfaceCard
               key={i}
-              className={`group flex flex-col relative p-6 bg-black/40 backdrop-blur-md rounded-xl transition-all duration-500 hover:-translate-y-1 ${
+              className={`group relative flex flex-col bg-black/40 p-6 transition-all duration-500 hover:-translate-y-1 ${
                 product.featured
                   ? 'border border-[var(--gold-champagne)]/60 shadow-[0_4px_20px_rgba(212,175,55,0.15)]'
                   : 'border border-white/10 hover:border-white/30'
               }`}
             >
               <div className="flex items-start justify-between mb-4">
-                <span className="text-sm font-[var(--font-body)] text-white/50 font-medium">
+                <span className="text-sm font-medium text-white/50">
                   {product.number}
                 </span>
                 <span
@@ -238,12 +230,12 @@ export function Fund() {
                 </span>
               </div>
 
-              <h4 className="text-xl font-[var(--font-body)] font-semibold mb-2 text-white group-hover:text-[var(--gold-light)] transition-colors">
+              <h4 className="text-xl font-semibold mb-2 text-white group-hover:text-[var(--gold-light)] transition-colors">
                 {product.title}
               </h4>
 
               <p
-                className="text-sm mb-4 font-[var(--font-body)] font-medium"
+                className="text-sm mb-4 font-medium"
                 style={{ color: product.featured ? 'var(--gold-champagne)' : 'rgba(255,255,255,0.7)' }}
               >
                 {product.position}
@@ -255,17 +247,45 @@ export function Fund() {
 
               {product.featured && (
                 <div className="mt-auto pt-4">
-                  <button className="w-full py-3 bg-gradient-to-r from-[var(--gold-dark)] to-[var(--gold-champagne)] text-black font-[var(--font-body)] font-semibold rounded hover:brightness-110 transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                  <button className="w-full py-3 bg-gradient-to-r from-[var(--gold-dark)] to-[var(--gold-champagne)] text-black font-semibold rounded hover:brightness-110 transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)]">
                     优先 RWA 映射
                   </button>
                 </div>
               )}
-            </div>
+            </SurfaceCard>
           ))}
         </div>
 
+        <SurfacePanel className="mt-14 bg-gradient-to-br from-[var(--gold-champagne)]/6 to-black/35">
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <h3 className="text-2xl font-[var(--font-display)] text-[var(--gold-champagne)]">
+                {deckNarrative.fundEvidence.title}
+              </h3>
+              <div className="mt-5 space-y-3">
+                {deckNarrative.fundEvidence.highlights.map((item) => (
+                  <p key={item} className="text-sm leading-relaxed text-white/72">
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <SurfaceCard className="bg-black/35">
+              <p className="text-xs uppercase tracking-[0.18em] text-[var(--gold-light)]">Risk Control Pillars</p>
+              <ul className="mt-4 space-y-3">
+                {deckNarrative.fundEvidence.riskControls.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm text-white/72">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[var(--gold-champagne)]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </SurfaceCard>
+          </div>
+        </SurfacePanel>
+
         {/* CTA Banner */}
-        <div className="mt-20 p-8 md:p-12 bg-gradient-to-r from-[#111] to-black border border-[var(--gold-champagne)]/20 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 shadow-[0_0_40px_rgba(212,175,55,0.03)] relative overflow-hidden">
+        <SurfacePanel className="relative mt-20 overflow-hidden bg-gradient-to-r from-[#111] to-black p-8 md:p-12">
           {/* Subtle gold accent */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--gold-champagne)]/10 rounded-full blur-[80px] translate-x-1/2 -translate-y-1/2" />
           
@@ -277,13 +297,13 @@ export function Fund() {
               预约合作渠道尽调，获取《私募备忘录》及详细合规文件
             </p>
           </div>
-          <button className="relative z-10 whitespace-nowrap px-8 py-4 bg-gradient-to-r from-[var(--gold-dark)] to-[var(--gold-champagne)] text-black font-[var(--font-body)] font-semibold rounded hover:brightness-110 transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+          <button className="relative z-10 whitespace-nowrap px-8 py-4 bg-gradient-to-r from-[var(--gold-dark)] to-[var(--gold-champagne)] text-black font-semibold rounded hover:brightness-110 transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)]">
             提交尽调申请 <ChevronRight className="inline w-4 h-4 ml-2" />
           </button>
-        </div>
+        </SurfacePanel>
 
         {/* Global Network Map (Independent Row) */}
-        <div className="mt-12 p-10 md:p-16 bg-[#080808] border border-white/5 rounded-2xl relative overflow-hidden group shadow-2xl">
+        <SurfacePanel className="relative mt-12 overflow-hidden bg-[#080808] p-10 md:p-16">
           {/* Subtle vignette / center glow */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.06)_0%,_transparent_70%)]" />
           
@@ -344,7 +364,7 @@ export function Fund() {
                       className="w-12 h-8 object-cover rounded border border-white/20 shadow-md"
                     />
                     <div>
-                      <h5 className="text-lg font-[var(--font-display)] text-[var(--gold-champagne)] font-semibold">
+                      <h5 className="text-lg text-[var(--gold-champagne)] font-semibold">
                         {selectedNode.name}
                       </h5>
                       <p className="text-xs text-white/60 font-[var(--font-body)]">{selectedNode.desc}</p>
@@ -548,8 +568,24 @@ export function Fund() {
               EST. 2024
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </SurfacePanel>
+
+        <SurfacePanel className="mt-12">
+          <h3 className="text-2xl font-[var(--font-display)] text-[var(--gold-champagne)]">尽调流程说明</h3>
+          <p className="mt-2 text-sm text-white/64">
+            面向机构与渠道合作方，以下为公开版对接流程。具体合规要求将根据司法辖区与业务类型确认。
+          </p>
+          <div className="mt-8 grid gap-[var(--grid-gap)] md:grid-cols-4">
+            {deckNarrative.dueDiligenceFlow.map((item) => (
+              <SurfaceCard key={item.step} className="bg-black/30">
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--gold-light)]">{item.step}</p>
+                <h4 className="mt-2 text-lg font-semibold text-white">{item.title}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-white/66">{item.desc}</p>
+              </SurfaceCard>
+            ))}
+          </div>
+        </SurfacePanel>
+      </PageSection>
+    </div>
   );
 }

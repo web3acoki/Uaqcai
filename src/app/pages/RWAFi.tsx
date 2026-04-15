@@ -1,25 +1,22 @@
 import { ArrowRight, Target, Layers, Coins, TrendingUp, Zap, Lock } from 'lucide-react';
 import { PowerCalculator } from '../components/PowerCalculator';
+import { PageSection, SectionHeader, SurfaceCard, SurfacePanel } from '../components/site/PageLayout';
+import { deckNarrative } from '../../content/deckPublicContent';
 
 export function RWAFi() {
   return (
-    <section className="py-20 bg-[var(--deep-black)] min-h-screen">
-      <div className="max-w-7xl mx-auto px-8">
+    <div className="page-shell">
+      <PageSection>
         {/* DeFi Products */}
         <div className="mb-32">
-          <div className="text-center mb-4">
-            <h3 className="font-[var(--font-display)] text-4xl mb-3" style={{ color: 'var(--gold-champagne)' }}>
-              DeFi 流量引擎
-            </h3>
-            <p className="font-[var(--font-body)] text-lg text-white/60 mb-2">
-              非标策略矩阵，放大增长上限
-            </p>
-            <p className="font-[var(--font-body)] text-sm text-white/40 max-w-3xl mx-auto">
-              以敏捷迭代为核心，聚焦链上 C 端用户增长与资产效率提升
-            </p>
-          </div>
+          <SectionHeader
+            align="center"
+            title="DeFi 流量引擎"
+            subtitle="非标策略矩阵，放大增长上限"
+            description="以敏捷迭代为核心，聚焦链上 C 端用户增长与资产效率提升"
+          />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+          <div className="mt-12 grid gap-[var(--grid-gap)] md:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 title: '智赢先知预测市场',
@@ -71,9 +68,9 @@ export function RWAFi() {
                 color: 'gold-dark',
               },
             ].map((product, i) => (
-              <div
+              <SurfaceCard
                 key={i}
-                className="group relative p-6 bg-gradient-to-br from-white/[0.03] to-transparent border border-white/10 rounded-xl hover:border-[var(--gold-champagne)]/50 transition-all duration-500 hover:scale-105 overflow-hidden"
+                className="group relative overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent transition-all duration-500 hover:scale-105 hover:border-[var(--gold-champagne)]/50"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--gold-champagne)]/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
 
@@ -94,7 +91,7 @@ export function RWAFi() {
                     </span>
                   </div>
 
-                  <h4 className="text-lg font-[var(--font-body)] font-semibold mb-1 text-white">
+                  <h4 className="text-lg font-semibold mb-1 text-white">
                     {product.title}
                     {product.subtitle && (
                       <span className="ml-2 text-sm font-normal text-white/40">
@@ -114,28 +111,33 @@ export function RWAFi() {
                     {product.desc}
                   </p>
                 </div>
-              </div>
+              </SurfaceCard>
             ))}
           </div>
         </div>
 
+        <SurfacePanel className="mb-16 bg-gradient-to-br from-[var(--gold-champagne)]/6 to-black/25">
+          <h3 className="text-2xl font-[var(--font-display)] text-[var(--gold-champagne)]">增长飞轮（公开版）</h3>
+          <p className="mt-2 text-sm text-white/66">
+            通过流量、资产与治理三层协同构建长期增长循环，以下为机制解释，不构成收益承诺。
+          </p>
+          <div className="mt-7 grid gap-[var(--grid-gap)] md:grid-cols-3">
+            {deckNarrative.rwafiFlywheel.map((item) => (
+              <SurfaceCard key={item.title} className="bg-black/32">
+                <h4 className="text-lg font-semibold text-white">{item.title}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-white/66">{item.desc}</p>
+              </SurfaceCard>
+            ))}
+          </div>
+        </SurfacePanel>
+
         {/* RWAFi Portal */}
         <div className="mb-32">
-          <div className="text-center mb-16">
-            <h2
-              className="font-[var(--font-display)] text-5xl mb-4"
-              style={{ color: 'var(--gold-champagne)' }}
-            >
-              RWAFi 门户
-            </h2>
-            <p className="font-[var(--font-body)] text-xl text-white/70">
-              连接传统资产与 Web3 股权的桥梁
-            </p>
-          </div>
+          <SectionHeader align="center" title="RWAFi 门户" subtitle="连接传统资产与 Web3 股权的桥梁" />
 
           {/* How it Works */}
           <div className="mb-16">
-            <h3 className="text-2xl font-[var(--font-body)] font-semibold mb-12 text-center text-white">
+            <h3 className="text-2xl font-semibold mb-12 text-center text-white">
               运作原理
             </h3>
 
@@ -144,21 +146,21 @@ export function RWAFi() {
                 { step: '01', title: '法定资产', desc: 'USDC 或法币' },
                 { step: '02', title: '认购基金', desc: '智赢 4 号合规基金' },
                 { step: '03', title: '智能合约', desc: '1:1 链上映射' },
-                { step: '04', title: '铸造资产', desc: '$uUAQC 链上资产' },
+                { step: '04', title: '铸造资产', desc: '$UAQC 链上资产' },
               ].map((item, i) => (
                 <div key={i} className="relative">
-                  <div className="p-6 bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-xl text-center">
+                  <SurfaceCard className="bg-gradient-to-br from-white/5 to-transparent text-center">
                     <div
                       className="text-4xl font-[var(--font-display)] mb-3 opacity-30"
                       style={{ color: 'var(--gold-champagne)' }}
                     >
                       {item.step}
                     </div>
-                    <h4 className="text-lg font-[var(--font-body)] font-semibold mb-2 text-white">
+                    <h4 className="text-lg font-semibold mb-2 text-white">
                       {item.title}
                     </h4>
                     <p className="text-sm text-white/60">{item.desc}</p>
-                  </div>
+                  </SurfaceCard>
                   {i < 3 && (
                     <div className="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 z-10">
                       <ArrowRight className="w-6 h-6 text-[var(--gold-champagne)]/30" />
@@ -170,25 +172,36 @@ export function RWAFi() {
           </div>
 
           {/* Token Economics */}
-          <div className="mb-16 p-8 bg-gradient-to-br from-[var(--gold-champagne)]/5 to-transparent border border-[var(--gold-champagne)]/20 rounded-2xl">
-            <h3 className="text-2xl font-[var(--font-body)] font-semibold mb-6 text-white">
+          <SurfacePanel className="mb-16 bg-gradient-to-br from-[var(--gold-champagne)]/5 to-transparent p-8">
+            <h3 className="text-2xl font-semibold mb-6 text-white">
               双轨代币经济学
             </h3>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="p-6 bg-black/30 rounded-xl border border-[var(--gold-light)]/30">
+              <SurfaceCard className="bg-black/30 border-[var(--gold-light)]/30">
                 <div className="text-3xl mb-3" style={{ color: 'var(--gold-light)' }}>$UAQ</div>
                 <p className="text-white/70 font-[var(--font-body)] text-sm">
                   底层资产分红权代币 · 持有即享受基金收益分配
                 </p>
-              </div>
-              <div className="p-6 bg-black/30 rounded-xl border border-[var(--gold-champagne)]/30">
+              </SurfaceCard>
+              <SurfaceCard className="bg-black/30 border-[var(--gold-champagne)]/30">
                 <div className="text-3xl mb-3" style={{ color: 'var(--gold-champagne)' }}>$UAQC</div>
                 <p className="text-white/70 font-[var(--font-body)] text-sm">
                   顶层股权与治理代币 · 通过质押 $UAQ 获取，实现从理财客到股东的跨越
                 </p>
-              </div>
+              </SurfaceCard>
             </div>
-          </div>
+          </SurfacePanel>
+
+          <SurfacePanel className="mb-16">
+            <h3 className="text-2xl font-[var(--font-display)] text-[var(--gold-champagne)]">Token Utility（公开口径）</h3>
+            <div className="mt-5 grid gap-[var(--grid-gap)] md:grid-cols-3">
+              {deckNarrative.tokenUtilityPublic.map((item) => (
+                <SurfaceCard key={item} className="bg-black/30">
+                  <p className="text-sm leading-relaxed text-white/68">{item}</p>
+                </SurfaceCard>
+              ))}
+            </div>
+          </SurfacePanel>
 
           {/* Power Calculator */}
           <div className="mt-20">
@@ -202,9 +215,12 @@ export function RWAFi() {
             </div>
 
             <PowerCalculator />
+            <p className="mx-auto mt-5 max-w-3xl text-center text-xs leading-relaxed text-white/48">
+              该测算仅用于机制演示，不构成对未来收益、价格或流动性的任何承诺。请结合风险偏好与适用法域要求审慎评估。
+            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </PageSection>
+    </div>
   );
 }

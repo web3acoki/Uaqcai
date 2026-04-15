@@ -52,6 +52,25 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Layout tokens for full-site typography and spacing system */
+  --layout-max-width: 1240px;
+  --layout-max-width-wide: 1320px;
+  --section-space-y: clamp(4.5rem, 7vw, 8rem);
+  --content-space-y: clamp(1.4rem, 2.5vw, 2.8rem);
+  --grid-gap: clamp(1rem, 1.8vw, 1.75rem);
+  --panel-radius: 1.25rem;
+  --card-radius: 1rem;
+  --layout-surface-0: #07070c;
+  --layout-surface-1: #0e0e16;
+  --layout-surface-2: #161625;
+  --layout-border-subtle: rgba(255, 255, 255, 0.1);
+  --layout-border-strong: rgba(212, 175, 55, 0.32);
+  --layout-text-primary: rgba(255, 255, 255, 0.95);
+  --layout-text-secondary: rgba(255, 255, 255, 0.7);
+  --layout-text-tertiary: rgba(255, 255, 255, 0.54);
+  --layout-shadow-card: 0 14px 40px rgba(0, 0, 0, 0.32);
+  --layout-shadow-panel: 0 20px 56px rgba(0, 0, 0, 0.38);
 }
 
 .dark {
@@ -191,5 +210,56 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply min-h-screen;
+    background: linear-gradient(180deg, var(--layout-surface-0) 0%, var(--layout-surface-1) 100%);
+    color: var(--layout-text-primary);
+  }
+
+  .page-container {
+    width: min(calc(100% - 2rem), var(--layout-max-width));
+    margin-inline: auto;
+  }
+
+  .page-container-wide {
+    width: min(calc(100% - 2rem), var(--layout-max-width-wide));
+    margin-inline: auto;
+  }
+
+  .page-section {
+    padding-block: var(--section-space-y);
+  }
+
+  .section-kicker {
+    @apply inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em];
+    color: var(--gold-light);
+  }
+
+  .section-title {
+    @apply font-[var(--font-display)] leading-[1.1] tracking-wide;
+    color: var(--gold-champagne);
+  }
+
+  .section-subtitle {
+    color: var(--layout-text-secondary);
+  }
+
+  .surface-panel {
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+    border: 1px solid var(--layout-border-subtle);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--layout-shadow-panel);
+    backdrop-filter: blur(14px);
+  }
+
+  .surface-card {
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+    border: 1px solid var(--layout-border-subtle);
+    border-radius: var(--card-radius);
+    box-shadow: var(--layout-shadow-card);
   }
 }

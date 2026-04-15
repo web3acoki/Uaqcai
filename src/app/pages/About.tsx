@@ -1,43 +1,35 @@
 import { ChevronRight } from 'lucide-react';
+import { PageSection, SectionHeader, SurfaceCard, SurfacePanel } from '../components/site/PageLayout';
+import { deckNarrative } from '../../content/deckPublicContent';
 
 export function About() {
   return (
-    <section className="py-20 bg-[var(--space-gray)] min-h-screen">
-      <div className="max-w-7xl mx-auto px-8">
-        <div className="text-center mb-16">
-          <h2
-            className="font-[var(--font-display)] text-5xl mb-4"
-            style={{ color: 'var(--gold-champagne)' }}
-          >
-            投资者关系
-          </h2>
-          <p className="font-[var(--font-body)] text-xl text-white/70">
-            通往百亿估值的价值桥梁
-          </p>
-        </div>
+    <div className="page-shell">
+      <PageSection>
+        <SectionHeader align="center" title="投资者关系" subtitle="通往百亿估值的价值桥梁" />
 
         {/* Compliance & Licenses */}
         <div className="mb-20">
-          <h3 className="text-2xl font-[var(--font-body)] font-semibold mb-8 text-white text-center">
+          <h3 className="text-2xl font-semibold mb-8 text-white text-center">
             合规与审计墙
           </h3>
 
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
+          <div className="mb-8 grid gap-[var(--grid-gap)] md:grid-cols-4">
             {[
               { name: '香港 SFC', license: '4/9 号牌照' },
               { name: '新加坡 MAS', license: 'MPI/DPT/CMS' },
               { name: 'BVI', license: 'AM 牌照' },
               { name: '美国', license: 'MSB 牌照' },
             ].map((item, i) => (
-              <div
+              <SurfaceCard
                 key={i}
-                className="p-6 bg-black/40 border border-[var(--gold-champagne)]/20 rounded-xl text-center hover:border-[var(--gold-champagne)]/50 transition-all"
+                className="bg-black/40 text-center transition-all hover:border-[var(--gold-champagne)]/50"
               >
-                <div className="text-lg font-[var(--font-body)] font-semibold text-white mb-2">
+                <div className="text-lg font-semibold text-white mb-2">
                   {item.name}
                 </div>
                 <div className="text-sm text-[var(--gold-champagne)]">{item.license}</div>
-              </div>
+              </SurfaceCard>
             ))}
           </div>
 
@@ -47,9 +39,24 @@ export function About() {
           </div>
         </div>
 
+        <SurfacePanel className="mb-20">
+          <h3 className="text-2xl font-[var(--font-display)] text-[var(--gold-champagne)]">团队与治理框架（公开版）</h3>
+          <p className="mt-2 text-sm text-white/64">
+            以策略治理、合规治理与社区治理三层协作，确保执行效率与透明度平衡。
+          </p>
+          <div className="mt-7 grid gap-[var(--grid-gap)] md:grid-cols-3">
+            {deckNarrative.governancePublic.map((item) => (
+              <SurfaceCard key={item.title} className="bg-black/30">
+                <h4 className="text-lg font-semibold text-white">{item.title}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-white/66">{item.desc}</p>
+              </SurfaceCard>
+            ))}
+          </div>
+        </SurfacePanel>
+
         {/* Capital Roadmap */}
         <div className="mb-20">
-          <h3 className="text-2xl font-[var(--font-body)] font-semibold mb-12 text-white text-center">
+          <h3 className="text-2xl font-semibold mb-12 text-white text-center">
             资本进阶路线图
           </h3>
 
@@ -84,13 +91,13 @@ export function About() {
                     style={{ borderColor: `var(--${stage.color})` }}
                   >
                     <div
-                      className="text-2xl font-[var(--font-display)] font-bold"
+                      className="text-2xl font-bold"
                       style={{ color: `var(--${stage.color})` }}
                     >
                       {stage.year}
                     </div>
                   </div>
-                  <h4 className="text-xl font-[var(--font-body)] font-semibold mb-3 text-white">
+                  <h4 className="text-xl font-semibold mb-3 text-white">
                     {stage.title}
                   </h4>
                   <p className="text-sm text-white/60 font-[var(--font-body)] leading-relaxed">
@@ -102,13 +109,26 @@ export function About() {
           </div>
         </div>
 
+        <SurfacePanel className="mb-20 bg-gradient-to-br from-[var(--gold-champagne)]/6 to-black/35">
+          <h3 className="text-2xl font-[var(--font-display)] text-[var(--gold-champagne)]">公开里程碑证据点</h3>
+          <div className="mt-6 grid gap-[var(--grid-gap)] md:grid-cols-3">
+            {deckNarrative.milestonesPublic.map((item) => (
+              <SurfaceCard key={item.year} className="bg-black/35">
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--gold-light)]">{item.year}</p>
+                <h4 className="mt-2 text-lg font-semibold text-white">{item.focus}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-white/66">{item.note}</p>
+              </SurfaceCard>
+            ))}
+          </div>
+        </SurfacePanel>
+
         {/* Algorithm Model */}
-        <div className="mb-20 p-8 bg-gradient-to-br from-black/60 to-transparent border border-white/10 rounded-2xl">
-          <h3 className="text-2xl font-[var(--font-body)] font-semibold mb-6 text-white text-center">
+        <SurfacePanel className="mb-20 bg-gradient-to-br from-black/60 to-transparent p-8">
+          <h3 className="text-2xl font-semibold mb-6 text-white text-center">
             三维算力分配模型
           </h3>
           <div className="text-center">
-            <div className="inline-block p-6 bg-black/40 border border-[var(--gold-champagne)]/30 rounded-xl">
+            <SurfaceCard className="inline-block bg-black/40 border-[var(--gold-champagne)]/30 p-6">
               <p className="text-lg font-[var(--font-body)] text-white/80 mb-4">
                 算力权重 =
               </p>
@@ -125,14 +145,14 @@ export function About() {
                   存续因子 (锁定长效)
                 </span>
               </div>
-            </div>
+            </SurfaceCard>
           </div>
-        </div>
+        </SurfacePanel>
 
         {/* Newsroom */}
         <div>
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-2xl font-[var(--font-body)] font-semibold text-white">
+            <h3 className="text-2xl font-semibold text-white">
               动态与新闻
             </h3>
             <button className="text-sm font-[var(--font-body)] text-[var(--gold-champagne)] hover:underline flex items-center gap-2">
@@ -140,7 +160,7 @@ export function About() {
             </button>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid gap-[var(--grid-gap)] md:grid-cols-3">
             {[
               {
                 date: '2026-04-10',
@@ -161,9 +181,9 @@ export function About() {
                 desc: '首周交易量突破 1000 万美元',
               },
             ].map((news, i) => (
-              <div
+              <SurfaceCard
                 key={i}
-                className="group p-6 bg-black/40 border border-white/10 rounded-xl hover:border-[var(--gold-champagne)]/50 transition-all hover:scale-105 cursor-pointer"
+                className="group cursor-pointer bg-black/40 transition-all hover:scale-105 hover:border-[var(--gold-champagne)]/50"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-xs text-white/40 font-[var(--font-body)]">
@@ -179,15 +199,16 @@ export function About() {
                     {news.tag}
                   </span>
                 </div>
-                <h4 className="text-lg font-[var(--font-body)] font-semibold mb-2 text-white group-hover:text-[var(--gold-champagne)] transition-colors">
+                <h4 className="text-lg font-semibold mb-2 text-white group-hover:text-[var(--gold-champagne)] transition-colors">
                   {news.title}
                 </h4>
                 <p className="text-sm text-white/60 font-[var(--font-body)]">{news.desc}</p>
-              </div>
+              </SurfaceCard>
             ))}
           </div>
         </div>
-      </div>
-    </section>
+
+      </PageSection>
+    </div>
   );
 }
