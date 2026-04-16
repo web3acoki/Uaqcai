@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 import { Shield, TrendingUp, Zap } from 'lucide-react';
 import { ImpossibleTriangle } from '../components/ImpossibleTriangle';
+import { HeroBalanceScene } from '../components/HeroBalanceScene';
 
 export function Home() {
   const navigate = useNavigate();
@@ -44,6 +45,8 @@ export function Home() {
                 className="absolute inset-0 w-full h-full rounded-[40px] transition-transform duration-1000 group-hover:-translate-y-2 ease-out"
                 style={{ transformStyle: 'preserve-3d' }}
               >
+                <HeroBalanceScene />
+
                 {/* Background layer with overflow hidden for the blur and borders */}
                 <div className="absolute inset-0 rounded-[40px] border border-[var(--gold-champagne)]/20 shadow-[0_0_60px_rgba(235,213,169,0.05)] bg-black/40 backdrop-blur-2xl overflow-hidden group-hover:shadow-[0_0_80px_rgba(235,213,169,0.15)] group-hover:border-[var(--gold-champagne)]/40 transition-all duration-1000">
                   
