@@ -1,11 +1,8 @@
-import { useNavigate } from 'react-router';
 import { Shield, TrendingUp, Zap } from 'lucide-react';
 import { ImpossibleTriangle } from '../components/ImpossibleTriangle';
-import { HeroBalanceScene } from '../components/HeroBalanceScene';
+import { ZenithBalanceHero } from '../components/ZenithBalanceHero';
 
 export function Home() {
-  const navigate = useNavigate();
-
   return (
     <>
       {/* Hero Section */}
@@ -34,85 +31,7 @@ export function Home() {
           {/* Left Column: Digital Yin-Yang Balance Board */}
           <div className="w-full lg:w-1/2 flex flex-col items-center justify-center animate-fade-in-up">
             
-            {/* Balance Board Container with 3D Perspective */}
-            <div 
-              className="relative w-full max-w-[480px] aspect-square group"
-              style={{ perspective: '1200px' }}
-            >
-              
-              {/* 3D Transform Container */}
-              <div 
-                className="absolute inset-0 w-full h-full rounded-[40px] transition-transform duration-1000 group-hover:-translate-y-2 ease-out"
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                <HeroBalanceScene className="opacity-90" />
-
-                {/* Background layer with overflow hidden for the blur and borders */}
-                <div className="pointer-events-none absolute inset-0 rounded-[40px] border border-[var(--gold-champagne)]/20 shadow-[0_0_60px_rgba(235,213,169,0.05)] bg-black/15 backdrop-blur-md overflow-hidden group-hover:shadow-[0_0_80px_rgba(235,213,169,0.15)] group-hover:border-[var(--gold-champagne)]/40 transition-all duration-1000">
-                  
-                  {/* Simple elegant gradient background */}
-                  <div className="absolute inset-0 bg-gradient-radial from-[var(--gold-champagne)]/10 via-transparent to-transparent" />
-                  
-                  {/* Subtle animated glow */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[var(--gold-champagne)]/5 rounded-full blur-3xl animate-pulse" />
-                </div>
-
-                {/* Floating Interactive Elements (TranslateZ for 3D effect) */}
-                <div 
-                  className="absolute inset-0 flex transition-transform duration-1000 ease-out group-hover:[transform:rotateX(8deg)_rotateY(-8deg)]"
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  {/* Left Half (Yin) */}
-                  <div 
-                    className="relative z-20 w-1/2 h-full flex flex-col items-center justify-center p-6 transition-transform duration-1000" 
-                    style={{ transform: 'translateZ(30px)' }}
-                  >
-                    <button
-                      onClick={() => navigate('/fund')}
-                      className="relative w-full aspect-square max-w-[160px] rounded-full group/btn flex flex-col items-center justify-center gap-4 transition-all duration-700 hover:scale-105"
-                    >
-                      {/* 3D Button Background */}
-                      <div className="absolute inset-0 rounded-full border border-[var(--gold-dark)]/40 bg-gradient-to-br from-[var(--gold-dark)]/20 to-black/80 shadow-[inset_0_0_30px_rgba(184,134,11,0.1),0_15px_30px_rgba(0,0,0,0.6)] group-hover/btn:shadow-[inset_0_0_50px_rgba(184,134,11,0.3),0_20px_40px_rgba(184,134,11,0.4)] group-hover/btn:border-[var(--gold-dark)] transition-all duration-700 backdrop-blur-md" />
-                      
-                      <div className="relative z-10 w-14 h-14 rounded-full bg-gradient-to-br from-[var(--gold-dark)]/40 to-black/60 border border-[var(--gold-dark)]/50 flex items-center justify-center text-[var(--gold-dark)] shadow-[0_0_20px_rgba(184,134,11,0.3)] group-hover/btn:scale-110 transition-transform duration-500">
-                        <Zap className="w-6 h-6" />
-                      </div>
-                      <span className="relative z-10 text-white font-[var(--font-body)] font-medium text-[15px] tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">探索基金产品</span>
-                    </button>
-                  </div>
-
-                  {/* Right Half (Yang) */}
-                  <div 
-                    className="relative z-20 w-1/2 h-full flex flex-col items-center justify-center gap-8 p-6 transition-transform duration-1000" 
-                    style={{ transform: 'translateZ(40px)' }}
-                  >
-                    <button
-                      onClick={() => navigate('/rwafi')}
-                      className="relative w-full h-[110px] max-w-[170px] rounded-[24px] group/btn flex flex-col items-center justify-center gap-3 transition-all duration-700 hover:scale-105"
-                    >
-                      <div className="absolute inset-0 rounded-[24px] border border-[var(--gold-champagne)]/30 bg-gradient-to-br from-[var(--gold-champagne)]/10 to-black/90 shadow-[inset_0_2px_15px_rgba(255,255,255,0.05),0_15px_30px_rgba(0,0,0,0.6)] group-hover/btn:shadow-[inset_0_2px_20px_rgba(235,213,169,0.2),0_20px_40px_rgba(235,213,169,0.3)] group-hover/btn:border-[var(--gold-champagne)]/60 transition-all duration-700 backdrop-blur-md" />
-                      
-                      <div className="relative z-10 w-10 h-10 rounded-full bg-gradient-to-br from-[var(--gold-champagne)]/30 to-black/60 border border-[var(--gold-champagne)]/40 flex items-center justify-center text-[var(--gold-champagne)] shadow-[0_0_15px_rgba(235,213,169,0.2)] group-hover/btn:scale-110 transition-transform duration-500">
-                        <Shield className="w-5 h-5" />
-                      </div>
-                      <span className="relative z-10 text-white font-[var(--font-body)] font-medium text-[14px] tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">了解 RWAFi</span>
-                    </button>
-
-                    <button
-                      onClick={() => navigate('/rwafi')}
-                      className="relative w-full h-[110px] max-w-[170px] rounded-[24px] group/btn flex flex-col items-center justify-center gap-3 transition-all duration-700 hover:scale-105"
-                    >
-                      <div className="absolute inset-0 rounded-[24px] border border-[var(--gold-light)]/30 bg-gradient-to-br from-[var(--gold-light)]/10 to-black/90 shadow-[inset_0_2px_15px_rgba(255,255,255,0.05),0_15px_30px_rgba(0,0,0,0.6)] group-hover/btn:shadow-[inset_0_2px_20px_rgba(218,165,32,0.2),0_20px_40px_rgba(218,165,32,0.3)] group-hover/btn:border-[var(--gold-light)]/60 transition-all duration-700 backdrop-blur-md" />
-                      
-                      <div className="relative z-10 w-10 h-10 rounded-full bg-gradient-to-br from-[var(--gold-light)]/30 to-black/60 border border-[var(--gold-light)]/40 flex items-center justify-center text-[var(--gold-light)] shadow-[0_0_15px_rgba(218,165,32,0.2)] group-hover/btn:scale-110 transition-transform duration-500">
-                        <TrendingUp className="w-5 h-5" />
-                      </div>
-                      <span className="relative z-10 text-white font-[var(--font-body)] font-medium text-[14px] tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">智赢先知预测</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ZenithBalanceHero />
 
             {/* Vision Statement (Below Balance Board) */}
             <div className="mt-14 text-center max-w-[420px] px-6 relative z-10">
