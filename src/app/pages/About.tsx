@@ -1,9 +1,10 @@
 import { ChevronRight } from 'lucide-react';
+import { GlassReveal } from '../components/site/GlassReveal';
 
 export function About() {
   return (
-    <section className="py-20 bg-[var(--space-gray)] min-h-screen">
-      <div className="max-w-7xl mx-auto px-8">
+    <section className="min-h-screen bg-transparent py-20">
+      <div className="page-container">
         <div className="text-center mb-16">
           <h2
             className="font-[var(--font-display)] text-5xl mb-4"
@@ -29,15 +30,15 @@ export function About() {
               { name: 'BVI', license: 'AM 牌照' },
               { name: '美国', license: 'MSB 牌照' },
             ].map((item, i) => (
-              <div
+              <GlassReveal
                 key={i}
-                className="p-6 bg-black/40 border border-[var(--gold-champagne)]/20 rounded-xl text-center hover:border-[var(--gold-champagne)]/50 transition-all"
+                variant="muted"
+                interactive
+                className="rounded-xl p-6 text-center ring-1 ring-[var(--gold-champagne)]/18 transition-all hover:ring-[var(--gold-champagne)]/40"
               >
-                <div className="text-lg font-[var(--font-body)] font-semibold text-white mb-2">
-                  {item.name}
-                </div>
+                <div className="mb-2 text-lg font-semibold text-white">{item.name}</div>
                 <div className="text-sm text-[var(--gold-champagne)]">{item.license}</div>
-              </div>
+              </GlassReveal>
             ))}
           </div>
 
@@ -103,7 +104,7 @@ export function About() {
         </div>
 
         {/* Algorithm Model */}
-        <div className="mb-20 p-8 bg-gradient-to-br from-black/60 to-transparent border border-white/10 rounded-2xl">
+        <div className="mb-20 rounded-2xl border border-white/10 bg-gradient-to-br from-black/60 to-[rgba(11,11,16,0.36)] p-8">
           <h3 className="text-2xl font-[var(--font-body)] font-semibold mb-6 text-white text-center">
             三维算力分配模型
           </h3>
@@ -135,9 +136,15 @@ export function About() {
             <h3 className="text-2xl font-[var(--font-body)] font-semibold text-white">
               动态与新闻
             </h3>
-            <button className="text-sm font-[var(--font-body)] text-[var(--gold-champagne)] hover:underline flex items-center gap-2">
-              查看全部动态 <ChevronRight className="w-4 h-4" />
-            </button>
+            <GlassReveal
+              as="button"
+              type="button"
+              variant="muted"
+              interactive
+              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-[var(--gold-champagne)] hover:underline"
+            >
+              查看全部动态 <ChevronRight className="h-4 w-4" />
+            </GlassReveal>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -161,16 +168,15 @@ export function About() {
                 desc: '首周交易量突破 1000 万美元',
               },
             ].map((news, i) => (
-              <div
+              <GlassReveal
                 key={i}
-                className="group p-6 bg-black/40 border border-white/10 rounded-xl hover:border-[var(--gold-champagne)]/50 transition-all hover:scale-105 cursor-pointer"
+                interactive
+                className="group cursor-pointer rounded-xl p-6 transition-all hover:scale-105"
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-xs text-white/40 font-[var(--font-body)]">
-                    {news.date}
-                  </span>
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="text-xs text-white/40">{news.date}</span>
                   <span
-                    className="px-2 py-1 text-xs font-[var(--font-body)] rounded"
+                    className="rounded px-2 py-1 text-xs"
                     style={{
                       backgroundColor: 'var(--gold-champagne)20',
                       color: 'var(--gold-champagne)',
@@ -179,11 +185,11 @@ export function About() {
                     {news.tag}
                   </span>
                 </div>
-                <h4 className="text-lg font-[var(--font-body)] font-semibold mb-2 text-white group-hover:text-[var(--gold-champagne)] transition-colors">
+                <h4 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-[var(--gold-champagne)]">
                   {news.title}
                 </h4>
-                <p className="text-sm text-white/60 font-[var(--font-body)]">{news.desc}</p>
-              </div>
+                <p className="text-sm text-white/60">{news.desc}</p>
+              </GlassReveal>
             ))}
           </div>
         </div>

@@ -1,34 +1,115 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router';
 import { X } from 'lucide-react';
+
+/** ms; keep in sync with `--nav-duration-enter` / `--nav-duration-exit` */
+const MORPH_ENTER_MS = 520;
+const MORPH_EXIT_MS = 900;
+/** 向下超过该值进入胶囊；上滚用更低阈值滞回，避免在边界反复形变 */
+const SCROLL_COMPACT_PX = 8;
+const SCROLL_EXPAND_PX = 4;
+
+/** Only morph these — not `all` (cuts subpixel jitter / horizontal “snap”) */
+const NAV_SHELL_TRANSITION_PROPERTY =
+  'max-width, padding-left, padding-right, border-radius, border-color, background-color, box-shadow, backdrop-filter' as const;
+
+type NavMorphPhase = 'idle' | 'toCompact' | 'toExpanded';
+
+/**
+ * CSS transition for the bar: must match the morph **in flight**, not only `scrolled`.
+ * Otherwise expanded→pill wrongly picks exit easing (overshoot) → horizontal snap/jerk.
+ */
+function navChromeTransition(phase: NavMorphPhase, scrolled: boolean) {
+  if (phase === 'toCompact') {
+    return {
+      transitionDuration: 'var(--nav-duration-enter)',
+      transitionTimingFunction: 'var(--nav-ease-enter)',
+    } as const;
+  }
+  if (phase === 'toExpanded') {
+    return {
+      transitionDuration: 'var(--nav-duration-exit)',
+      transitionTimingFunction: 'var(--nav-ease-exit)',
+    } as const;
+  }
+  return scrolled
+    ? {
+        transitionDuration: 'var(--nav-duration-exit)',
+        transitionTimingFunction: 'var(--nav-ease-exit)',
+      }
+    : {
+        transitionDuration: 'var(--nav-duration-enter)',
+        transitionTimingFunction: 'var(--nav-ease-enter)',
+      };
+}
 
 export function Layout() {
   const [tickerVisible, setTickerVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
-  const [navCompact, setNavCompact] = useState(false);
+  const [morphPhase, setMorphPhase] = useState<NavMorphPhase>('idle');
   const location = useLocation();
+  const scrolledRef = useRef(false);
+  const morphTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const chromeTx = navChromeTransition(morphPhase, scrolled);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setScrolled(scrollPosition > 10);
-      setNavCompact(scrollPosition > 100);
+    const clearMorphTimer = () => {
+      if (morphTimeoutRef.current != null) {
+        window.clearTimeout(morphTimeoutRef.current);
+        morphTimeoutRef.current = null;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const applyScroll = () => {
+      const y = window.scrollY;
+      const prev = scrolledRef.current;
+      const next = prev ? y > SCROLL_EXPAND_PX : y > SCROLL_COMPACT_PX;
+      if (prev === next) return;
+
+      scrolledRef.current = next;
+      setScrolled(next);
+      clearMorphTimer();
+
+      if (next) {
+        setMorphPhase('toCompact');
+        morphTimeoutRef.current = window.setTimeout(() => {
+          setMorphPhase('idle');
+          morphTimeoutRef.current = null;
+        }, MORPH_ENTER_MS);
+      } else {
+        setMorphPhase('toExpanded');
+        morphTimeoutRef.current = window.setTimeout(() => {
+          setMorphPhase('idle');
+          morphTimeoutRef.current = null;
+        }, MORPH_EXIT_MS);
+      }
+    };
+
+    applyScroll();
+    window.addEventListener('scroll', applyScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', applyScroll);
+      clearMorphTimer();
+    };
   }, []);
 
   // Scroll to top when path changes
   useEffect(() => {
     window.scrollTo(0, 0);
+    scrolledRef.current = false;
+    setScrolled(false);
+    setMorphPhase('idle');
+    if (morphTimeoutRef.current != null) {
+      window.clearTimeout(morphTimeoutRef.current);
+      morphTimeoutRef.current = null;
+    }
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-[var(--deep-black)] text-white overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-[var(--deep-black)] text-white">
       {/* Global Ticker */}
       {tickerVisible && (
-        <div className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a] border-b border-white/10 h-[40px] flex items-center justify-center px-6 animate-fade-in transition-all">
+        <div className="fixed top-0 left-0 right-0 z-50 flex h-[40px] items-center justify-center border-b border-white/10 bg-[rgba(8,8,12,0.82)] px-6 backdrop-blur-xl animate-fade-in transition-all">
           <div className="flex items-center gap-3 text-xs md:text-sm font-[var(--font-body)] text-white/90">
             <span className="hidden sm:inline tracking-wide">Ondo and Binance Bring Tokenized Securities to Hundreds of Millions</span>
             <span className="sm:hidden truncate max-w-[200px] tracking-wide">Tokenized Securities Live on Binance</span>
@@ -50,34 +131,31 @@ export function Layout() {
 
       {/* Sticky Navigation */}
       <nav
-        className={`fixed left-0 right-0 z-40 flex justify-center transition-all duration-[600ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${
+        className={`fixed left-0 right-0 z-40 flex justify-center ${
           tickerVisible ? 'top-[40px]' : 'top-0'
         }`}
         style={{
           paddingTop: scrolled ? '20px' : '0px',
+          transitionProperty: 'padding-top',
+          ...chromeTx,
         }}
       >
         <div 
-          className={`flex items-center justify-between transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`flex items-center justify-between ${
             scrolled 
-              ? 'w-full max-w-[780px] h-[64px] bg-transparent backdrop-blur-md border border-white/10 rounded-[20px] px-4 shadow-[0_8px_32px_rgba(0,0,0,0.2)]' 
-              : 'w-full max-w-[1400px] h-[80px] bg-transparent border-transparent rounded-none shadow-none px-6 md:px-10'
+              ? 'h-[58px] w-full max-w-[min(var(--nav-pill-max),calc(100%-2rem))] rounded-[12px] border border-[rgba(255,255,255,0.12)] bg-[rgba(10,10,14,0.42)] px-7 shadow-[0_14px_42px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl' 
+              : 'h-[58px] w-full max-w-[min(100%,var(--layout-page-max))] rounded-none border border-transparent bg-transparent px-[var(--layout-page-gutter)] shadow-none'
           }`}
+          style={{
+            ...chromeTx,
+            transitionProperty: NAV_SHELL_TRANSITION_PROPERTY,
+          }}
         >
-          {/* Logo */}
+          {/* Logo — no horizontal Motion here (was fighting max-width shrink → rightward jerk) */}
           <Link to="/" className="z-10 shrink-0">
-            <div
-              className="transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center"
-              style={{
-                paddingLeft: scrolled ? '12px' : '0px'
-              }}
-            >
+            <div className="flex items-center">
               <span
-                className="font-[var(--font-display)] tracking-wider font-bold transition-all duration-[1500ms]"
-                style={{ 
-                  color: 'var(--gold-champagne)',
-                  fontSize: '24px' 
-                }}
+                className="font-[var(--font-display)] font-bold tracking-wider text-[var(--gold-champagne)] text-[24px]"
               >
                 UAQC
               </span>
@@ -86,9 +164,11 @@ export function Layout() {
 
           {/* Center Links */}
           <div 
-            className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2 pointer-events-auto transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+            className="pointer-events-auto absolute left-1/2 hidden -translate-x-1/2 items-center justify-center md:flex"
             style={{
-              gap: scrolled ? '2.5rem' : '3.5rem'
+              gap: scrolled ? '2.5rem' : '3.5rem',
+              ...chromeTx,
+              transitionProperty: 'gap',
             }}
           >
             {['Home', 'Fund', 'RWAFi', 'About'].map((item) => {
@@ -99,24 +179,24 @@ export function Layout() {
                 <Link
                   key={item}
                   to={path}
-                  className={`relative group transition-colors duration-300 ${isActive ? 'text-[var(--gold-champagne)]' : 'text-white/80 hover:text-[var(--gold-champagne)]'}`}
+                  className={`group relative transition-colors duration-200 ease-[var(--nav-ease)] ${isActive ? 'text-[var(--gold-champagne)]' : 'text-white/78 hover:text-[var(--gold-light)]'}`}
                 >
-                  <span 
-                    className="font-[var(--font-body)] tracking-wide font-medium transition-all duration-[1500ms]"
-                    style={{ fontSize: '15px' }}
-                  >
+                  <span className="font-[var(--font-body)] font-medium tracking-wide text-[15px]">
                     {item}
                   </span>
-                  <div className={`absolute -bottom-1.5 left-0 h-[2px] bg-[var(--gold-champagne)] transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`} />
+                  <div
+                    className={`absolute -bottom-1.5 left-0 h-[2px] bg-[var(--gold-champagne)] transition-all ease-[var(--nav-ease)] ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
+                    style={{ transitionDuration: 'var(--nav-link-underline-ms)' }}
+                  />
                 </Link>
               );
             })}
           </div>
 
-          {/* Right Action */}
-          <div className="flex items-center z-10 shrink-0">
-            <button 
-              className="flex items-center justify-center font-[var(--font-body)] font-bold bg-[var(--gold-champagne)] text-black rounded-lg hover:bg-[#FFF5D1] transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_15px_rgba(235,213,169,0.15)] hover:shadow-[0_0_25px_rgba(235,213,169,0.4)] text-[15px] px-6 h-[40px]"
+          <div className="z-10 flex shrink-0 items-center">
+            <button
+              type="button"
+              className="flex h-[40px] items-center justify-center rounded-lg bg-[var(--gold-champagne)] px-6 text-[15px] font-bold text-black shadow-[0_8px_24px_rgba(212,175,55,0.2)] transition-colors duration-200 ease-[var(--nav-ease)] hover:bg-[#FFF1C8] hover:shadow-[0_10px_30px_rgba(235,213,169,0.38)]"
             >
               Launch App
             </button>
@@ -125,13 +205,13 @@ export function Layout() {
       </nav>
 
       {/* Main Content */}
-      <main style={{ paddingTop: tickerVisible ? '128px' : '88px', minHeight: 'calc(100vh - 200px)' }}>
+      <main style={{ paddingTop: tickerVisible ? '120px' : '80px', minHeight: 'calc(100vh - 200px)' }}>
         <Outlet />
       </main>
 
       {/* Footer */}
-      <footer className="bg-black border-t border-white/10 py-16 mt-auto">
-        <div className="max-w-7xl mx-auto px-8">
+      <footer className="mt-auto border-t border-white/10 bg-black py-16">
+        <div className="page-container">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
               <h4 className="font-[var(--font-body)] font-semibold mb-4 text-white">

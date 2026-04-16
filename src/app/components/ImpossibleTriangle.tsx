@@ -12,6 +12,7 @@ import {
 import { motion } from 'motion/react';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { GlassReveal } from './site/GlassReveal';
 
 type PillarPointProps = {
   position: [number, number, number];
@@ -139,7 +140,7 @@ export function ImpossibleTriangle() {
   ];
 
   return (
-    <div className="relative w-full max-w-[1200px] mx-auto mb-20 py-16">
+    <div className="page-container relative mb-20 py-16">
       <div
         className="relative w-full max-w-[760px] mx-auto mb-16"
         onMouseEnter={() => setIsHovered(true)}
@@ -185,42 +186,35 @@ export function ImpossibleTriangle() {
 
       <div className="grid grid-cols-1 gap-6 px-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, i) => (
-          <motion.div
+          <GlassReveal
             key={i}
-            className="group relative"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 + 0.3, duration: 0.6 }}
+            variant="muted"
+            interactive
+            className="group relative rounded-xl p-8 transition-all duration-700 hover:scale-[1.02]"
+            style={{
+              borderColor: `${stat.color}22`,
+            }}
           >
             <div
-              className="relative rounded-xl border bg-black/40 p-8 backdrop-blur-sm transition-all duration-700 hover:scale-[1.02] hover:bg-black/50"
+              className="absolute top-0 right-0 left-0 h-[1px] opacity-40"
               style={{
-                borderColor: `${stat.color}15`,
+                background: `linear-gradient(to right, transparent, ${stat.color}80, transparent)`,
               }}
-            >
-              <div
-                className="absolute top-0 right-0 left-0 h-[1px] opacity-40"
-                style={{
-                  background: `linear-gradient(to right, transparent, ${stat.color}80, transparent)`,
-                }}
-              />
+            />
 
-              <div className="text-center">
-                <div
-                  className="mb-4 text-5xl font-[var(--font-display)] transition-all duration-300"
-                  style={{
-                    color: stat.color,
-                    textShadow: `0 0 15px ${stat.color}30`,
-                  }}
-                >
-                  {stat.value}
-                </div>
-                <div className="text-[13px] font-[var(--font-body)] leading-relaxed tracking-wide text-white/50">
-                  {stat.label}
-                </div>
+            <div className="text-center">
+              <div
+                className="mb-4 text-5xl font-[var(--font-display)] transition-all duration-300"
+                style={{
+                  color: stat.color,
+                  textShadow: `0 0 15px ${stat.color}30`,
+                }}
+              >
+                {stat.value}
               </div>
+              <div className="text-[13px] leading-relaxed tracking-wide text-white/50">{stat.label}</div>
             </div>
-          </motion.div>
+          </GlassReveal>
         ))}
       </div>
 

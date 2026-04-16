@@ -1,5 +1,6 @@
 import { Shield, TrendingUp, Zap } from 'lucide-react';
 import { ImpossibleTriangle } from '../components/ImpossibleTriangle';
+import { GlassReveal } from '../components/site/GlassReveal';
 import { ZenithBalanceHero } from '../components/ZenithBalanceHero';
 
 export function Home() {
@@ -8,33 +9,34 @@ export function Home() {
       {/* Hero Section */}
       <section
         id="home"
-        className="relative min-h-[calc(100vh-128px)] flex items-center justify-center -mt-8 overflow-hidden"
+        className="relative -mt-8 flex min-h-[calc(100vh-128px)] items-center justify-center overflow-hidden px-2"
       >
-        {/* Animated Background */}
+        {/* Atmospheric Background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--deep-black)] via-[#0a0a0a] to-[var(--deep-black)]" />
-
-          {/* Grid overlay */}
+          <div className="absolute inset-0 bg-[var(--atmosphere-base)]" />
+          <div className="absolute inset-0 bg-[var(--atmosphere-mist)] opacity-80" />
+          <div className="absolute -left-[20%] top-[-16%] h-[72vh] w-[72vw] rounded-full bg-[radial-gradient(circle,_rgba(240,217,140,0.2)_0%,_rgba(240,217,140,0)_72%)] blur-3xl" />
+          <div className="absolute -right-[12%] top-[30%] h-[58vh] w-[58vw] rounded-full bg-[radial-gradient(circle,_rgba(212,175,55,0.16)_0%,_rgba(212,175,55,0)_70%)] blur-3xl" />
           <div
-            className="absolute inset-0 opacity-10"
+            className="absolute inset-0 opacity-[0.06]"
             style={{
-              backgroundImage: `linear-gradient(var(--gold-champagne) 1px, transparent 1px),
-                                linear-gradient(90deg, var(--gold-champagne) 1px, transparent 1px)`,
-              backgroundSize: '40px 40px',
+              backgroundImage: 'var(--atmosphere-grid)',
+              backgroundSize: '72px 72px',
             }}
           />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,9,0.05)_0%,rgba(5,5,9,0.38)_56%,rgba(5,5,9,0.68)_100%)]" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 w-full max-w-[1300px] mx-auto px-6 md:px-12 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20">
+        <div className="relative z-10 mx-auto flex w-full max-w-[min(100%,var(--layout-page-max))] flex-col-reverse items-center justify-between gap-16 px-[var(--layout-page-gutter)] lg:flex-row lg:gap-24">
           
           {/* Left Column: Digital Yin-Yang Balance Board */}
-          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center animate-fade-in-up">
+          <div className="flex w-full flex-col items-center justify-center animate-fade-in-up lg:w-1/2">
             
             <ZenithBalanceHero />
 
             {/* Vision Statement (Below Balance Board) */}
-            <div className="mt-14 text-center max-w-[420px] px-6 relative z-10">
+            <div className="relative z-10 mt-16 max-w-[440px] px-6 text-center">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-[var(--gold-champagne)]/50 to-transparent mb-6" />
               <p className="text-[14px] leading-relaxed font-[var(--font-body)] text-white/70 relative pt-5">
                 <span className="absolute -left-2 top-0 text-[var(--gold-champagne)] opacity-30 text-4xl font-[var(--font-heading)] leading-none">"</span>
@@ -47,16 +49,16 @@ export function Home() {
           </div>
 
           {/* Right Column: Title & Subtitle */}
-          <div className="w-full lg:w-1/2 flex flex-col items-start text-left animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--gold-champagne)]/20 bg-gradient-to-r from-[var(--gold-champagne)]/10 to-transparent text-[var(--gold-champagne)] text-[13px] tracking-widest font-[var(--font-body)] mb-8">
+          <div className="flex w-full flex-col items-start text-left animate-fade-in-up lg:w-1/2" style={{ animationDelay: '0.2s' }}>
+            <div className="mb-9 inline-flex items-center gap-2 rounded-full border border-[var(--gold-champagne)]/30 bg-gradient-to-r from-[var(--gold-champagne)]/14 to-transparent px-4 py-1.5 text-[13px] tracking-[0.22em] text-[var(--gold-champagne)]">
               <span className="w-2 h-2 rounded-full bg-[var(--gold-champagne)] animate-pulse" />
               WEB3 资管引擎枢纽
             </div>
 
             <h1
-              className="font-[var(--font-display)] mb-6 leading-[1.1] tracking-wide"
+              className="mb-7 font-[var(--font-display)] leading-[1.08] tracking-[0.02em]"
               style={{
-                fontSize: 'clamp(3rem, 5vw, 4.5rem)',
+                fontSize: 'clamp(3.1rem, 5vw, 4.8rem)',
                 color: 'var(--gold-champagne)',
               }}
             >
@@ -65,13 +67,13 @@ export function Home() {
               AI 资管引擎
             </h1>
 
-            <div className="w-24 h-[2px] bg-gradient-to-r from-[var(--gold-champagne)] to-transparent mb-6 opacity-50" />
+            <div className="mb-7 h-[2px] w-28 bg-gradient-to-r from-[var(--gold-champagne)]/90 to-transparent opacity-50" />
 
-            <h2 className="font-[var(--font-body)] text-xl md:text-2xl mb-10 text-white/80 font-light tracking-wide">
+            <h2 className="mb-12 max-w-[580px] text-xl font-light tracking-[0.02em] text-white/84 md:text-2xl">
               重塑资本主权，定义 Web3 资管枢纽
             </h2>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 font-[var(--font-body)] text-[13px] tracking-widest text-white/40">
+            <div className="flex flex-col items-start gap-6 text-[13px] tracking-[0.18em] text-white/46 sm:flex-row sm:items-center">
               <span className="flex items-center gap-3">
                 <div className="w-1 h-1 rounded-full bg-[var(--gold-light)] shadow-[0_0_8px_var(--gold-light)]" />
                 AI 驱动 ALPHA
@@ -95,8 +97,8 @@ export function Home() {
       </section>
 
       {/* Moat Section */}
-      <section className="py-24 bg-gradient-to-b from-[var(--deep-black)] to-[var(--space-gray)]">
-        <div className="max-w-7xl mx-auto px-8">
+      <section className="bg-gradient-to-b from-transparent via-[rgba(10,10,15,0.7)] to-[rgba(16,16,24,0.9)] py-24">
+        <div className="page-container">
           <h3
             className="text-center font-[var(--font-display)] text-4xl mb-12"
             style={{ color: 'var(--gold-champagne)' }}
@@ -126,20 +128,17 @@ export function Home() {
                 desc: '10+ 年经验及 IPO 操盘背景的合规领袖',
               },
             ].map((card, i) => (
-              <div
+              <GlassReveal
                 key={i}
-                className="group p-8 bg-gradient-to-br from-black/60 to-[var(--muted-gray)]/40 border border-white/10 rounded-xl hover:border-[var(--gold-champagne)]/50 transition-all duration-500 hover:scale-105"
+                interactive
+                className="group rounded-xl p-8 transition-all duration-500 hover:scale-105"
               >
-                <div className="mb-4 text-[var(--gold-champagne)] group-hover:scale-110 transition-transform">
+                <div className="mb-4 text-[var(--gold-champagne)] transition-transform group-hover:scale-110">
                   {card.icon}
                 </div>
-                <h4 className="text-xl font-[var(--font-body)] font-semibold mb-3 text-white">
-                  {card.title}
-                </h4>
-                <p className="text-white/60 font-[var(--font-body)] text-sm leading-relaxed">
-                  {card.desc}
-                </p>
-              </div>
+                <h4 className="mb-3 text-xl font-semibold text-white">{card.title}</h4>
+                <p className="text-sm leading-relaxed text-white/60">{card.desc}</p>
+              </GlassReveal>
             ))}
           </div>
         </div>

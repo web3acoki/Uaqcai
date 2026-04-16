@@ -1,6 +1,7 @@
 import { ChevronRight, Globe } from 'lucide-react';
 import { ComposableMap, Geographies, Geography, Marker, Line } from 'react-simple-maps';
 import { useState, useEffect } from 'react';
+import { GlassReveal } from '../components/site/GlassReveal';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -134,8 +135,8 @@ export function Fund() {
   }, []);
 
   return (
-    <section className="py-20 bg-[var(--space-gray)] min-h-screen">
-      <div className="max-w-7xl mx-auto px-8">
+    <section className="min-h-screen bg-transparent py-20">
+      <div className="page-container">
         <div className="text-center mb-16">
           <h2
             className="font-[var(--font-display)] text-5xl mb-4"
@@ -214,12 +215,12 @@ export function Fund() {
               colorStyle: { text: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.05)', border: 'rgba(255, 255, 255, 0.15)' },
             },
           ].map((product, i) => (
-            <div
+            <GlassReveal
               key={i}
-              className={`group flex flex-col relative p-6 bg-black/40 backdrop-blur-md rounded-xl transition-all duration-500 hover:-translate-y-1 ${
-                product.featured
-                  ? 'border border-[var(--gold-champagne)]/60 shadow-[0_4px_20px_rgba(212,175,55,0.15)]'
-                  : 'border border-white/10 hover:border-white/30'
+              interactive
+              variant="muted"
+              className={`group relative flex flex-col rounded-xl p-6 transition-all duration-500 hover:-translate-y-1 ${
+                product.featured ? 'ring-1 ring-[var(--gold-champagne)]/45' : ''
               }`}
             >
               <div className="flex items-start justify-between mb-4">
@@ -255,17 +256,23 @@ export function Fund() {
 
               {product.featured && (
                 <div className="mt-auto pt-4">
-                  <button className="w-full py-3 bg-gradient-to-r from-[var(--gold-dark)] to-[var(--gold-champagne)] text-black font-[var(--font-body)] font-semibold rounded hover:brightness-110 transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                  <GlassReveal
+                    as="button"
+                    type="button"
+                    tone="gold"
+                    interactive
+                    className="w-full rounded py-3 font-semibold shadow-[0_0_15px_rgba(212,175,55,0.28)] transition-all hover:brightness-110"
+                  >
                     优先 RWA 映射
-                  </button>
+                  </GlassReveal>
                 </div>
               )}
-            </div>
+            </GlassReveal>
           ))}
         </div>
 
         {/* CTA Banner */}
-        <div className="mt-20 p-8 md:p-12 bg-gradient-to-r from-[#111] to-black border border-[var(--gold-champagne)]/20 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 shadow-[0_0_40px_rgba(212,175,55,0.03)] relative overflow-hidden">
+        <div className="relative mt-20 flex flex-col items-center justify-between gap-8 overflow-hidden rounded-2xl border border-[var(--gold-champagne)]/16 bg-gradient-to-r from-[rgba(12,12,18,0.76)] to-[rgba(8,8,12,0.6)] p-8 shadow-[0_0_40px_rgba(212,175,55,0.03)] md:flex-row md:p-12">
           {/* Subtle gold accent */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--gold-champagne)]/10 rounded-full blur-[80px] translate-x-1/2 -translate-y-1/2" />
           
@@ -277,13 +284,19 @@ export function Fund() {
               预约合作渠道尽调，获取《私募备忘录》及详细合规文件
             </p>
           </div>
-          <button className="relative z-10 whitespace-nowrap px-8 py-4 bg-gradient-to-r from-[var(--gold-dark)] to-[var(--gold-champagne)] text-black font-[var(--font-body)] font-semibold rounded hover:brightness-110 transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-            提交尽调申请 <ChevronRight className="inline w-4 h-4 ml-2" />
-          </button>
+          <GlassReveal
+            as="button"
+            type="button"
+            tone="gold"
+            interactive
+            className="relative z-10 whitespace-nowrap rounded px-8 py-4 font-semibold shadow-[0_0_20px_rgba(212,175,55,0.22)] transition-all hover:brightness-110"
+          >
+            提交尽调申请 <ChevronRight className="ml-2 inline h-4 w-4" />
+          </GlassReveal>
         </div>
 
         {/* Global Network Map (Independent Row) */}
-        <div className="mt-12 p-10 md:p-16 bg-[#080808] border border-white/5 rounded-2xl relative overflow-hidden group shadow-2xl">
+        <div className="group relative mt-12 overflow-hidden rounded-2xl border border-white/8 bg-[rgba(7,7,10,0.66)] p-10 shadow-2xl md:p-16">
           {/* Subtle vignette / center glow */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.06)_0%,_transparent_70%)]" />
           

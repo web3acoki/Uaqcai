@@ -14,6 +14,44 @@
   --deep-black: #0A0A0F;
   --space-gray: #1A1A24;
   --muted-gray: #2A2A3A;
+  --atmosphere-base: linear-gradient(180deg, #06060a 0%, #090910 42%, #0b0b13 100%);
+  --atmosphere-mist:
+    radial-gradient(circle at 16% 14%, rgba(212, 175, 55, 0.16) 0%, rgba(212, 175, 55, 0) 42%),
+    radial-gradient(circle at 84% -4%, rgba(240, 217, 140, 0.14) 0%, rgba(240, 217, 140, 0) 40%),
+    radial-gradient(circle at 52% 68%, rgba(155, 126, 42, 0.09) 0%, rgba(155, 126, 42, 0) 48%);
+  --atmosphere-veil: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    rgba(255, 255, 255, 0.005) 35%,
+    rgba(255, 255, 255, 0.018) 100%
+  );
+  --atmosphere-grid:
+    linear-gradient(rgba(212, 175, 55, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.045) 1px, transparent 1px);
+
+  /* Page width (Ondo OUSG measured: MuiContainer maxWidthXl + 44px gutter) */
+  --layout-page-max: 1600px;
+  --layout-page-gutter: 44px;
+  /* Scrolled nav pill ~898px @ 1920 viewport */
+  --nav-pill-max: 900px;
+  /* Nav: asymmetric — next morph from expanded→pill uses enter; from pill→expanded uses exit */
+  --nav-ease-enter: cubic-bezier(0.2, 0, 0, 1);
+  --nav-duration-enter: 520ms;
+  /* Exit: slightly longer + soft overshoot to pair with Motion spring on logo/CTA */
+  --nav-ease-exit: cubic-bezier(0.34, 1.12, 0.56, 1);
+  --nav-duration-exit: 900ms;
+  --nav-ease: var(--nav-ease-enter);
+  --nav-link-underline-ms: 280ms;
+
+  /* Glassmorphism (scroll-reveal surfaces) */
+  --glass-blur: 18px;
+  --glass-blur-muted: 12px;
+  --glass-bg: rgba(255, 255, 255, 0.055);
+  --glass-bg-deep: rgba(8, 8, 12, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-border-strong: rgba(255, 255, 255, 0.2);
+  --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --glass-shade: 0 12px 40px rgba(0, 0, 0, 0.28);
 
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
@@ -140,6 +178,10 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    background-color: var(--deep-black);
+    background-image: var(--atmosphere-mist), var(--atmosphere-veil), var(--atmosphere-base);
+    background-attachment: fixed;
+    color: rgba(255, 255, 255, 0.92);
   }
 
   /**
@@ -191,5 +233,93 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+}
+
+@layer components {
+  .page-container {
+    width: 100%;
+    max-width: var(--layout-page-max);
+    margin-inline: auto;
+    padding-inline: var(--layout-page-gutter);
+  }
+
+  .glass-surface {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid var(--glass-border);
+    background-color: var(--glass-bg-deep);
+    background-image: linear-gradient(
+      152deg,
+      rgba(255, 255, 255, 0.09) 0%,
+      rgba(255, 255, 255, 0.02) 38%,
+      transparent 52%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: var(--glass-inset), var(--glass-shade);
+  }
+
+  .glass-surface::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.45;
+    background: linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.04) 78%,
+      transparent 100%
+    );
+  }
+
+  .glass-surface > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .glass-surface--muted {
+    backdrop-filter: blur(var(--glass-blur-muted));
+    -webkit-backdrop-filter: blur(var(--glass-blur-muted));
+    background-color: rgba(6, 6, 10, 0.42);
+  }
+
+  .glass-surface--interactive {
+    cursor: pointer;
+    transition:
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  .glass-surface--interactive:hover {
+    border-color: var(--glass-border-strong);
+    box-shadow: var(--glass-inset), 0 16px 48px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(212, 175, 55, 0.12);
+  }
+
+  .glass-surface.glass-surface--gold {
+    color: #0a0a0c;
+    font-weight: 700;
+    background-color: rgba(8, 8, 10, 0.2);
+    background-image: linear-gradient(
+        152deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.06) 48%,
+        rgba(255, 255, 255, 0.12) 100%
+      ),
+      linear-gradient(100deg, #8a7028, #c9a43a, #e8cf7a);
+    border-color: rgba(255, 255, 255, 0.26);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glass-surface {
+      --glass-blur: 10px;
+      --glass-blur-muted: 8px;
+    }
   }
 }

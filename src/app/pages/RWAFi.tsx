@@ -1,10 +1,11 @@
 import { ArrowRight, Target, Layers, Coins, TrendingUp, Zap, Lock } from 'lucide-react';
 import { PowerCalculator } from '../components/PowerCalculator';
+import { GlassReveal } from '../components/site/GlassReveal';
 
 export function RWAFi() {
   return (
-    <section className="py-20 bg-[var(--deep-black)] min-h-screen">
-      <div className="max-w-7xl mx-auto px-8">
+    <section className="min-h-screen bg-transparent py-20">
+      <div className="page-container">
         {/* DeFi Products */}
         <div className="mb-32">
           <div className="text-center mb-4">
@@ -71,11 +72,12 @@ export function RWAFi() {
                 color: 'gold-dark',
               },
             ].map((product, i) => (
-              <div
+              <GlassReveal
                 key={i}
-                className="group relative p-6 bg-gradient-to-br from-white/[0.03] to-transparent border border-white/10 rounded-xl hover:border-[var(--gold-champagne)]/50 transition-all duration-500 hover:scale-105 overflow-hidden"
+                interactive
+                className="group relative overflow-hidden rounded-xl p-6 transition-all duration-500 hover:scale-105"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--gold-champagne)]/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 bg-gradient-to-br from-[var(--gold-champagne)]/10 to-transparent opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
 
                 <div className="relative">
                   <div className="flex items-start justify-between mb-4">
@@ -114,7 +116,7 @@ export function RWAFi() {
                     {product.desc}
                   </p>
                 </div>
-              </div>
+              </GlassReveal>
             ))}
           </div>
         </div>
@@ -147,18 +149,16 @@ export function RWAFi() {
                 { step: '04', title: '铸造资产', desc: '$uUAQC 链上资产' },
               ].map((item, i) => (
                 <div key={i} className="relative">
-                  <div className="p-6 bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-xl text-center">
+                  <GlassReveal variant="muted" className="rounded-xl p-6 text-center">
                     <div
-                      className="text-4xl font-[var(--font-display)] mb-3 opacity-30"
+                      className="mb-3 text-4xl font-[var(--font-display)] opacity-30"
                       style={{ color: 'var(--gold-champagne)' }}
                     >
                       {item.step}
                     </div>
-                    <h4 className="text-lg font-[var(--font-body)] font-semibold mb-2 text-white">
-                      {item.title}
-                    </h4>
+                    <h4 className="mb-2 text-lg font-semibold text-white">{item.title}</h4>
                     <p className="text-sm text-white/60">{item.desc}</p>
-                  </div>
+                  </GlassReveal>
                   {i < 3 && (
                     <div className="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 z-10">
                       <ArrowRight className="w-6 h-6 text-[var(--gold-champagne)]/30" />
@@ -170,25 +170,23 @@ export function RWAFi() {
           </div>
 
           {/* Token Economics */}
-          <div className="mb-16 p-8 bg-gradient-to-br from-[var(--gold-champagne)]/5 to-transparent border border-[var(--gold-champagne)]/20 rounded-2xl">
-            <h3 className="text-2xl font-[var(--font-body)] font-semibold mb-6 text-white">
-              双轨代币经济学
-            </h3>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="p-6 bg-black/30 rounded-xl border border-[var(--gold-light)]/30">
-                <div className="text-3xl mb-3" style={{ color: 'var(--gold-light)' }}>$UAQ</div>
-                <p className="text-white/70 font-[var(--font-body)] text-sm">
-                  底层资产分红权代币 · 持有即享受基金收益分配
-                </p>
+          <GlassReveal interactive className="mb-16 rounded-2xl p-8 ring-1 ring-[var(--gold-champagne)]/22">
+            <h3 className="mb-6 text-2xl font-semibold text-white">双轨代币经济学</h3>
+            <div className="grid gap-8 md:grid-cols-2">
+              <div className="rounded-xl border border-[var(--gold-light)]/28 bg-black/25 p-6">
+                <div className="mb-3 text-3xl" style={{ color: 'var(--gold-light)' }}>
+                  $UAQ
+                </div>
+                <p className="text-sm text-white/70">底层资产分红权代币 · 持有即享受基金收益分配</p>
               </div>
-              <div className="p-6 bg-black/30 rounded-xl border border-[var(--gold-champagne)]/30">
-                <div className="text-3xl mb-3" style={{ color: 'var(--gold-champagne)' }}>$UAQC</div>
-                <p className="text-white/70 font-[var(--font-body)] text-sm">
-                  顶层股权与治理代币 · 通过质押 $UAQ 获取，实现从理财客到股东的跨越
-                </p>
+              <div className="rounded-xl border border-[var(--gold-champagne)]/28 bg-black/25 p-6">
+                <div className="mb-3 text-3xl" style={{ color: 'var(--gold-champagne)' }}>
+                  $UAQC
+                </div>
+                <p className="text-sm text-white/70">顶层股权与治理代币 · 通过质押 $UAQ 获取，实现从理财客到股东的跨越</p>
               </div>
             </div>
-          </div>
+          </GlassReveal>
 
           {/* Power Calculator */}
           <div className="mt-20">
