@@ -45,10 +45,10 @@ export function Home() {
                 className="absolute inset-0 w-full h-full rounded-[40px] transition-transform duration-1000 group-hover:-translate-y-2 ease-out"
                 style={{ transformStyle: 'preserve-3d' }}
               >
-                <HeroBalanceScene />
+                <HeroBalanceScene className="opacity-90" />
 
                 {/* Background layer with overflow hidden for the blur and borders */}
-                <div className="absolute inset-0 rounded-[40px] border border-[var(--gold-champagne)]/20 shadow-[0_0_60px_rgba(235,213,169,0.05)] bg-black/40 backdrop-blur-2xl overflow-hidden group-hover:shadow-[0_0_80px_rgba(235,213,169,0.15)] group-hover:border-[var(--gold-champagne)]/40 transition-all duration-1000">
+                <div className="pointer-events-none absolute inset-0 rounded-[40px] border border-[var(--gold-champagne)]/20 shadow-[0_0_60px_rgba(235,213,169,0.05)] bg-black/15 backdrop-blur-md overflow-hidden group-hover:shadow-[0_0_80px_rgba(235,213,169,0.15)] group-hover:border-[var(--gold-champagne)]/40 transition-all duration-1000">
                   
                   {/* Simple elegant gradient background */}
                   <div className="absolute inset-0 bg-gradient-radial from-[var(--gold-champagne)]/10 via-transparent to-transparent" />
