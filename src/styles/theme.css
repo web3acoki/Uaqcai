@@ -32,6 +32,10 @@
   /* Page width (Ondo OUSG measured: MuiContainer maxWidthXl + 44px gutter) */
   --layout-page-max: 1600px;
   --layout-page-gutter: 44px;
+
+  @media (max-width: 639px) {
+    --layout-page-gutter: 16px;
+  }
   /* Scrolled nav pill ~898px @ 1920 viewport */
   --nav-pill-max: 900px;
   /* Nav: asymmetric — next morph from expanded→pill uses enter; from pill→expanded uses exit */

@@ -1,6 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router';
-import { X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from './ui/sheet';
 
 /** ms; keep in sync with `--nav-duration-enter` / `--nav-duration-exit` */
 const MORPH_ENTER_MS = 520;
@@ -43,10 +50,13 @@ function navChromeTransition(phase: NavMorphPhase, scrolled: boolean) {
       };
 }
 
+const NAV_ITEMS = ['Home', 'Fund', 'RWAFi', 'About'] as const;
+
 export function Layout() {
   const [tickerVisible, setTickerVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [morphPhase, setMorphPhase] = useState<NavMorphPhase>('idle');
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const location = useLocation();
   const scrolledRef = useRef(false);
   const morphTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -99,6 +109,7 @@ export function Layout() {
     scrolledRef.current = false;
     setScrolled(false);
     setMorphPhase('idle');
+    setMobileNavOpen(false);
     if (morphTimeoutRef.current != null) {
       window.clearTimeout(morphTimeoutRef.current);
       morphTimeoutRef.current = null;
@@ -143,7 +154,7 @@ export function Layout() {
         <div 
           className={`flex items-center justify-between ${
             scrolled 
-              ? 'h-[58px] w-full max-w-[min(var(--nav-pill-max),calc(100%-2rem))] rounded-[12px] border border-[rgba(255,255,255,0.12)] bg-[rgba(10,10,14,0.42)] px-7 shadow-[0_14px_42px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl' 
+              ? 'h-[58px] w-full max-w-[min(var(--nav-pill-max),calc(100%-2rem))] rounded-[12px] border border-[rgba(255,255,255,0.12)] bg-[rgba(10,10,14,0.42)] px-4 shadow-[0_14px_42px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl md:px-7' 
               : 'h-[58px] w-full max-w-[min(100%,var(--layout-page-max))] rounded-none border border-transparent bg-transparent px-[var(--layout-page-gutter)] shadow-none'
           }`}
           style={{
@@ -154,9 +165,7 @@ export function Layout() {
           {/* Logo — no horizontal Motion here (was fighting max-width shrink → rightward jerk) */}
           <Link to="/" className="z-10 shrink-0">
             <div className="flex items-center">
-              <span
-                className="font-[var(--font-display)] font-bold tracking-wider text-[var(--gold-champagne)] text-[24px]"
-              >
+              <span className="font-[var(--font-display)] font-bold tracking-wider text-[var(--gold-champagne)] text-[20px] md:text-[24px]">
                 UAQC
               </span>
             </div>
@@ -171,7 +180,7 @@ export function Layout() {
               transitionProperty: 'gap',
             }}
           >
-            {['Home', 'Fund', 'RWAFi', 'About'].map((item) => {
+            {NAV_ITEMS.map((item) => {
               const path = item === 'Home' ? '/' : `/${item.toLowerCase()}`;
               const isActive = location.pathname === path;
               
@@ -193,16 +202,65 @@ export function Layout() {
             })}
           </div>
 
-          <div className="z-10 flex shrink-0 items-center">
+          <div className="z-10 flex shrink-0 items-center gap-2 md:gap-3">
             <button
               type="button"
-              className="flex h-[40px] items-center justify-center rounded-lg bg-[var(--gold-champagne)] px-6 text-[15px] font-bold text-black shadow-[0_8px_24px_rgba(212,175,55,0.2)] transition-colors duration-200 ease-[var(--nav-ease)] hover:bg-[#FFF1C8] hover:shadow-[0_10px_30px_rgba(235,213,169,0.38)]"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/14 bg-white/[0.06] text-white transition-colors hover:bg-white/10 md:hidden"
+              aria-label="打开菜单"
+              onClick={() => setMobileNavOpen(true)}
+            >
+              <Menu size={22} strokeWidth={2} />
+            </button>
+            <button
+              type="button"
+              className="flex h-11 min-h-[44px] min-w-0 items-center justify-center rounded-lg bg-[var(--gold-champagne)] px-3 text-sm font-bold text-black shadow-[0_8px_24px_rgba(212,175,55,0.2)] transition-colors duration-200 ease-[var(--nav-ease)] hover:bg-[#FFF1C8] hover:shadow-[0_10px_30px_rgba(235,213,169,0.38)] md:h-10 md:px-6 md:text-[15px]"
             >
               Launch App
             </button>
           </div>
         </div>
       </nav>
+
+      <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+        <SheetContent
+          side="right"
+          className="z-[100] flex h-full max-h-[100dvh] w-[min(100%,20rem)] flex-col gap-0 border-l border-white/10 bg-[var(--deep-black)] p-0 text-white sm:max-w-sm [&>button]:text-white/70 [&>button]:hover:text-[var(--gold-champagne)]"
+        >
+          <SheetHeader className="shrink-0 border-b border-white/10 px-5 py-4 text-left">
+            <SheetTitle className="font-[var(--font-body)] text-base font-semibold tracking-wide text-white">
+              导航
+            </SheetTitle>
+            <SheetDescription className="sr-only">站点主导航链接</SheetDescription>
+          </SheetHeader>
+          <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto px-2 py-3" aria-label="主导航">
+            {NAV_ITEMS.map((item) => {
+              const path = item === 'Home' ? '/' : `/${item.toLowerCase()}`;
+              const isActive = location.pathname === path;
+              return (
+                <Link
+                  key={item}
+                  to={path}
+                  onClick={() => setMobileNavOpen(false)}
+                  className={`rounded-lg px-4 py-3.5 text-[15px] font-medium font-[var(--font-body)] transition-colors hover:text-[var(--gold-light)] ${
+                    isActive ? 'bg-white/[0.06] text-[var(--gold-champagne)]' : 'text-white/80 active:bg-white/5'
+                  }`}
+                >
+                  {item}
+                </Link>
+              );
+            })}
+          </nav>
+          <div className="shrink-0 border-t border-white/10 p-4">
+            <button
+              type="button"
+              className="flex h-12 w-full items-center justify-center rounded-lg bg-[var(--gold-champagne)] text-[15px] font-bold text-black shadow-[0_8px_24px_rgba(212,175,55,0.2)]"
+              onClick={() => setMobileNavOpen(false)}
+            >
+              Launch App
+            </button>
+          </div>
+        </SheetContent>
+      </Sheet>
 
       {/* Main Content */}
       <main style={{ paddingTop: tickerVisible ? '120px' : '80px', minHeight: 'calc(100vh - 200px)' }}>
