@@ -53,6 +53,7 @@ export function PowerCalculator() {
   const [investment, setInvestment] = useState(10_000_000);
   const [months, setMonths] = useState(24);
   const [activeTip, setActiveTip] = useState<'time' | 'scale' | 'lock' | null>(null);
+  const [showFormulaDetail, setShowFormulaDetail] = useState(false);
 
   const lockFactor = useMemo(() => Number((months / 24).toFixed(4)), [months]);
   const multiplier = useMemo(
@@ -109,60 +110,126 @@ export function PowerCalculator() {
     },
   ];
 
+  const capsuleClass =
+    'h-12 w-full rounded-full border bg-black/45 px-6 text-sm font-[var(--font-body)] text-white transition-colors focus:outline-none';
+
   return (
-    <div className="panel-card panel-card--featured relative mx-auto w-full max-w-5xl rounded-[var(--radius-panel)] p-6 md:p-10">
-      <div className="mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-start md:justify-between">
-        <div>
-          <h3 className="mb-2 text-3xl font-[var(--font-display)]" style={{ color: 'var(--gold-champagne)' }}>
+    <div className="panel-card panel-card--featured relative mx-auto w-full max-w-6xl rounded-[var(--radius-panel)] p-5 md:p-6">
+      <div className="mb-4 flex flex-col gap-2 xl:flex-row xl:items-end xl:justify-between">
+        <div className="min-w-0">
+          <h3 className="mb-1 text-2xl font-[var(--font-display)] md:text-3xl" style={{ color: 'var(--gold-champagne)' }}>
             UAQC 核心股权算力权重模拟器
           </h3>
-          <p className="max-w-2xl text-sm font-[var(--font-body)] text-white/60">
-            基于时间、规模、存续三因子，实时测算 POW 机制下核心股权释放效率与预计代币份额。
+          <p className="max-w-2xl text-xs font-[var(--font-body)] text-white/60 md:text-sm">
+            时间、规模、存续三因子实时联动，快速得到核心股权释放效率与预计代币份额。
           </p>
         </div>
-
-        <div className="grid grid-cols-2 gap-3 md:min-w-[360px]">
-          <div className="rounded-xl border border-[var(--gold-light)]/30 bg-black/35 p-3">
-            <div className="mb-1 text-xs text-white/50">时间因子</div>
-            <div className="text-xl font-[var(--font-display)] font-bold" style={{ color: 'var(--gold-light)' }}>
+        <div className="grid grid-cols-2 gap-2 xl:w-[360px]">
+          <div className="rounded-full border border-[var(--gold-light)]/30 bg-black/35 px-4 py-2">
+            <div className="text-[11px] text-white/45">时间因子</div>
+            <div className="text-base font-[var(--font-display)] font-bold" style={{ color: 'var(--gold-light)' }}>
               {timeFactor.toFixed(2)}
             </div>
           </div>
-          <div className="rounded-xl border border-[var(--gold-champagne)]/30 bg-black/35 p-3">
-            <div className="mb-1 text-xs text-white/50">规模因子</div>
-            <div className="text-xl font-[var(--font-display)] font-bold" style={{ color: 'var(--gold-champagne)' }}>
+          <div className="rounded-full border border-[var(--gold-champagne)]/30 bg-black/35 px-4 py-2">
+            <div className="text-[11px] text-white/45">规模因子</div>
+            <div className="text-base font-[var(--font-display)] font-bold" style={{ color: 'var(--gold-champagne)' }}>
               {scaleFactor.toFixed(2)}
-            </div>
-          </div>
-          <div className="rounded-xl border border-[var(--gold-dark)]/30 bg-black/35 p-3">
-            <div className="mb-1 text-xs text-white/50">存续因子(月数/24)</div>
-            <div className="text-xl font-[var(--font-display)] font-bold" style={{ color: 'var(--gold-dark)' }}>
-              {lockFactor.toFixed(2)}
-            </div>
-          </div>
-          <div className="rounded-xl border border-[var(--gold-champagne)]/40 bg-black/45 p-3">
-            <div className="mb-1 text-xs text-white/50">综合算力乘数</div>
-            <div className="text-2xl font-[var(--font-display)] font-bold transition-all duration-300" style={{ color: 'var(--gold-champagne)' }}>
-              {multiplier.toFixed(2)}x
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mb-8 grid items-stretch gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="relative flex h-[310px] items-center justify-center md:h-[360px]">
+      <div className="grid gap-4 xl:grid-cols-[1.05fr_1fr_1.05fr]">
+        <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+          <div className="mb-3 text-xs uppercase tracking-[0.16em] text-white/45">参数输入</div>
+          <div className="space-y-3">
+            <select
+              value={timeFactor}
+              onChange={(e) => setTimeFactor(Number(e.target.value))}
+              className={`${capsuleClass} border-[var(--gold-light)]/35 focus:border-[var(--gold-light)]`}
+              aria-label="入场时间（时间因子）"
+            >
+              {timeOptions.map((opt) => (
+                <option key={opt.label} value={opt.value}>
+                  {opt.label} ({opt.value})
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={scaleFactor}
+              onChange={(e) => setScaleFactor(Number(e.target.value))}
+              className={`${capsuleClass} border-[var(--gold-champagne)]/35 focus:border-[var(--gold-champagne)]`}
+              aria-label="资金规模（规模因子）"
+            >
+              {scaleOptions.map((opt) => (
+                <option key={opt.label} value={opt.value}>
+                  {opt.label} ({opt.value})
+                </option>
+              ))}
+            </select>
+
+            <input
+              type="number"
+              min={1}
+              max={MAX_INVESTMENT}
+              step={10_000}
+              value={investment}
+              onChange={(e) => setInvestment(clamp(Number(e.target.value), 0, MAX_INVESTMENT))}
+              className={`${capsuleClass} border-white/20 focus:border-[var(--gold-light)]`}
+              aria-label="投资额（美元）"
+            />
+
+            <div className="rounded-3xl border border-[var(--gold-dark)]/35 bg-black/35 px-4 py-3">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-xs text-white/60">存续周期（月）</span>
+                <span className="text-xs font-semibold text-[var(--gold-dark)]">{months} 月</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <input
+                  type="range"
+                  min={MIN_MONTHS}
+                  max={MAX_MONTHS}
+                  value={months}
+                  onChange={(e) => setMonths(Number(e.target.value))}
+                  className="w-full accent-[var(--gold-dark)]"
+                />
+                <input
+                  type="number"
+                  min={MIN_MONTHS}
+                  max={MAX_MONTHS}
+                  value={months}
+                  onChange={(e) => setMonths(clamp(Number(e.target.value), MIN_MONTHS, MAX_MONTHS))}
+                  className="h-10 w-20 rounded-full border border-[var(--gold-dark)]/45 bg-black/45 px-3 text-right text-sm text-white focus:outline-none"
+                />
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-3 text-[11px] text-white/45">
+            建议投资区间 100,000 ~ 500,000,000，当前 {formatNumber(investment, 0)} 美元。
+          </p>
+          {invalidInvestment && (
+            <p className="mt-2 rounded-full border border-red-300/40 bg-red-950/30 px-3 py-1 text-[11px] text-red-100/90">
+              投资额需大于 0。
+            </p>
+          )}
+        </div>
+
+        <div className="relative flex h-[250px] items-center justify-center rounded-2xl border border-white/10 bg-black/20 p-4">
           <div
             className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300 ease-out"
             style={{
-              width: `${getCircleSize(multiplier)}px`,
-              height: `${getCircleSize(multiplier)}px`,
+              width: `${getCircleSize(multiplier) - 22}px`,
+              height: `${getCircleSize(multiplier) - 22}px`,
               background: 'radial-gradient(circle, var(--gold-champagne)40, var(--gold-champagne)10, transparent)',
-              boxShadow: `0 0 ${18 + multiplier * 12}px var(--gold-champagne)45`,
+              boxShadow: `0 0 ${14 + multiplier * 9}px var(--gold-champagne)45`,
             }}
           >
             <div className="text-center">
-              <div className="mb-1 text-sm font-[var(--font-body)] text-white/70">综合算力</div>
-              <div className="text-4xl font-[var(--font-display)] font-bold md:text-5xl" style={{ color: 'var(--gold-champagne)' }}>
+              <div className="mb-1 text-xs font-[var(--font-body)] text-white/70">综合算力</div>
+              <div className="text-3xl font-[var(--font-display)] font-bold md:text-4xl" style={{ color: 'var(--gold-champagne)' }}>
                 {multiplier.toFixed(2)}x
               </div>
             </div>
@@ -174,13 +241,13 @@ export function PowerCalculator() {
               <div key={factor.id} className="absolute transition-all duration-300" style={factor.position}>
                 <svg
                   className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  style={{ width: '400px', height: '400px', zIndex: -1 }}
+                  style={{ width: '300px', height: '300px', zIndex: -1 }}
                 >
                   <line
-                    x1="200"
-                    y1="200"
-                    x2={factor.lineTo.x2}
-                    y2={factor.lineTo.y2}
+                    x1="150"
+                    y1="150"
+                    x2={factor.id === 'time' ? '36' : factor.id === 'scale' ? '264' : '150'}
+                    y2={factor.id === 'lock' ? '264' : '36'}
                     stroke={`var(--${factor.color})`}
                     strokeWidth="1"
                     strokeDasharray="4 4"
@@ -192,170 +259,97 @@ export function PowerCalculator() {
                   type="button"
                   onClick={() => setActiveTip(isActive ? null : factor.id)}
                   onBlur={() => setActiveTip((prev) => (prev === factor.id ? null : prev))}
-                  className="relative flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 focus:scale-105 focus:outline-none"
+                  className="relative flex h-16 w-16 cursor-pointer flex-col items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 focus:scale-105 focus:outline-none"
                   style={{
                     background: `radial-gradient(circle, var(--${factor.color})30, var(--${factor.color})08)`,
                     borderColor: `var(--${factor.color})`,
-                    boxShadow: `0 0 ${10 + factor.value * 10}px var(--${factor.color})45`,
+                    boxShadow: `0 0 ${8 + factor.value * 8}px var(--${factor.color})45`,
                   }}
                   aria-label={`${factor.label}，当前 ${factor.value.toFixed(2)}`}
                 >
-                  <div className="mb-1" style={{ color: `var(--${factor.color})` }}>
-                    {factor.icon}
+                  <div style={{ color: `var(--${factor.color})` }}>
+                    {factor.id === 'time' && <Clock className="h-4 w-4" />}
+                    {factor.id === 'scale' && <DollarSign className="h-4 w-4" />}
+                    {factor.id === 'lock' && <Lock className="h-4 w-4" />}
                   </div>
-                  <div className="text-xl font-[var(--font-display)] font-bold" style={{ color: `var(--${factor.color})` }}>
+                  <div className="text-sm font-[var(--font-display)] font-bold" style={{ color: `var(--${factor.color})` }}>
                     {factor.value.toFixed(1)}
                   </div>
                 </button>
 
                 <div
-                  className={`absolute top-full left-1/2 mt-2 w-48 -translate-x-1/2 rounded bg-black/90 p-2 text-center text-xs text-white/80 transition-opacity ${isActive ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+                  className={`absolute top-full left-1/2 mt-2 w-40 -translate-x-1/2 rounded bg-black/90 p-2 text-center text-[11px] text-white/80 transition-opacity ${isActive ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
                 >
                   {factor.tooltip}
                 </div>
               </div>
             );
           })}
+
+          <div className="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-2">
+            <div className="rounded-full border border-[var(--gold-light)]/30 bg-black/35 px-3 py-1 text-center text-[11px] text-white/80">
+              时间 {timeFactor.toFixed(1)}
+            </div>
+            <div className="rounded-full border border-[var(--gold-champagne)]/30 bg-black/35 px-3 py-1 text-center text-[11px] text-white/80">
+              规模 {scaleFactor.toFixed(1)}
+            </div>
+            <div className="rounded-full border border-[var(--gold-dark)]/30 bg-black/35 px-3 py-1 text-center text-[11px] text-white/80">
+              存续 {lockFactor.toFixed(2)}
+            </div>
+          </div>
         </div>
 
-        <div className="rounded-2xl border border-[var(--gold-champagne)]/30 bg-black/25 p-5">
-          <div className="mb-4 text-sm font-[var(--font-body)] text-white/60">预计释放结果</div>
-          <div className="mb-5 rounded-xl border border-[var(--gold-champagne)]/25 bg-black/35 p-4">
-            <div className="mb-1 text-xs text-white/50">预计可释放核心股权代币数量</div>
+        <div className="rounded-2xl border border-[var(--gold-champagne)]/30 bg-black/20 p-4">
+          <div className="mb-3 text-xs uppercase tracking-[0.16em] text-white/45">结果输出</div>
+          <div className="rounded-3xl border border-[var(--gold-champagne)]/30 bg-black/35 p-4">
+            <div className="text-[11px] text-white/50">预计可释放核心股权代币数量</div>
             <div className="text-3xl font-[var(--font-display)] font-bold leading-tight transition-all duration-300" style={{ color: 'var(--gold-champagne)' }}>
               {invalidInvestment ? '--' : formatNumber(tokenAmount, 2)}
             </div>
-            <div className="mt-1 text-xs text-white/45">单位：UAQC（模拟测算）</div>
+            <div className="text-[11px] text-white/45">单位：UAQC（模拟测算）</div>
           </div>
 
-          <div className="space-y-2 text-sm font-[var(--font-body)] text-white/70">
-            <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/25 px-3 py-2">
-              <span>投资额占资金盘比例</span>
-              <span className="font-semibold text-white">{participationRatio.toFixed(4)}%</span>
+          <div className="mt-3 grid grid-cols-3 gap-2 text-[11px] font-[var(--font-body)] text-white/70">
+            <div className="rounded-2xl border border-white/10 bg-black/25 px-2 py-2 text-center">
+              <div className="text-white/45">资金占比</div>
+              <div className="font-semibold text-white">{participationRatio.toFixed(4)}%</div>
             </div>
-            <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/25 px-3 py-2">
-              <span>核心释放池</span>
-              <span className="font-semibold text-white">{formatNumber(CORE_TOKEN_POOL, 0)}</span>
+            <div className="rounded-2xl border border-white/10 bg-black/25 px-2 py-2 text-center">
+              <div className="text-white/45">释放池</div>
+              <div className="font-semibold text-white">{formatNumber(CORE_TOKEN_POOL, 0)}</div>
             </div>
-            <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/25 px-3 py-2">
-              <span>存续周期</span>
-              <span className="font-semibold text-white">{months} 个月</span>
+            <div className="rounded-2xl border border-white/10 bg-black/25 px-2 py-2 text-center">
+              <div className="text-white/45">存续周期</div>
+              <div className="font-semibold text-white">{months}个月</div>
             </div>
+          </div>
+          <div className="mt-3 rounded-2xl border border-white/10 bg-black/25 p-3">
+            <div className="text-[11px] text-white/50">简式公式</div>
+            <p className="mt-1 text-xs text-white/80">
+              代币数量 = 投资额 ÷ 10亿 × 4000万 × 时间因子 × 规模因子 × 存续因子
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowFormulaDetail((prev) => !prev)}
+              className="mt-2 h-9 rounded-full border border-white/20 px-4 text-xs text-white/80 transition-colors hover:border-[var(--gold-champagne)]/40"
+            >
+              {showFormulaDetail ? '收起详细拆解' : '查看详细拆解'}
+            </button>
+            {showFormulaDetail && (
+              <p className="mt-2 rounded-xl border border-white/10 bg-black/35 px-3 py-2 text-xs text-white/70">
+                = {formatNumber(investment, 0)} ÷ {formatNumber(TOTAL_CAPITAL, 0)} × {formatNumber(CORE_TOKEN_POOL, 0)} × {timeFactor.toFixed(2)} × {scaleFactor.toFixed(2)} × ({months} ÷ 24)
+              </p>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="mb-7 grid gap-5 md:grid-cols-2">
-        <div>
-          <label className="mb-2 block text-sm font-[var(--font-body)] text-white/70">
-            入场时间（时间因子）
-          </label>
-          <select
-            value={timeFactor}
-            onChange={(e) => setTimeFactor(Number(e.target.value))}
-            className="w-full rounded-lg border border-[var(--gold-light)]/30 bg-black/50 px-4 py-3 font-[var(--font-body)] text-white transition-colors focus:border-[var(--gold-light)] focus:outline-none"
-          >
-            {timeOptions.map((opt) => (
-              <option key={opt.label} value={opt.value}>
-                {opt.label} ({opt.value})
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-[var(--font-body)] text-white/70">
-            资金规模（规模因子）
-          </label>
-          <select
-            value={scaleFactor}
-            onChange={(e) => setScaleFactor(Number(e.target.value))}
-            className="w-full rounded-lg border border-[var(--gold-champagne)]/30 bg-black/50 px-4 py-3 font-[var(--font-body)] text-white transition-colors focus:border-[var(--gold-champagne)] focus:outline-none"
-          >
-            {scaleOptions.map((opt) => (
-              <option key={opt.label} value={opt.value}>
-                {opt.label} ({opt.value})
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-[var(--font-body)] text-white/70">
-            投资额（美元）
-          </label>
-          <input
-            type="number"
-            min={1}
-            max={MAX_INVESTMENT}
-            step={10_000}
-            value={investment}
-            onChange={(e) => setInvestment(clamp(Number(e.target.value), 0, MAX_INVESTMENT))}
-            className="w-full rounded-lg border border-white/20 bg-black/50 px-4 py-3 font-[var(--font-body)] text-white transition-colors focus:border-[var(--gold-light)] focus:outline-none"
-          />
-          <p className="mt-2 text-xs font-[var(--font-body)] text-white/45">
-            建议输入范围：100,000 ~ 500,000,000。当前：{formatNumber(investment, 0)} 美元
-          </p>
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-[var(--font-body)] text-white/70">
-            存续周期（月）
-          </label>
-          <div className="flex items-center gap-3">
-            <input
-              type="range"
-              min={MIN_MONTHS}
-              max={MAX_MONTHS}
-              value={months}
-              onChange={(e) => setMonths(Number(e.target.value))}
-              className="w-full accent-[var(--gold-dark)]"
-            />
-            <input
-              type="number"
-              min={MIN_MONTHS}
-              max={MAX_MONTHS}
-              value={months}
-              onChange={(e) => setMonths(clamp(Number(e.target.value), MIN_MONTHS, MAX_MONTHS))}
-              className="w-24 rounded-lg border border-[var(--gold-dark)]/40 bg-black/50 px-3 py-2 text-right font-[var(--font-body)] text-white focus:border-[var(--gold-dark)] focus:outline-none"
-            />
-          </div>
-          <p className="mt-2 text-xs font-[var(--font-body)] text-white/45">
-            存续因子 = {months} / 24 = {lockFactor.toFixed(4)}
-          </p>
-        </div>
-      </div>
-
-      {invalidInvestment && (
-        <div className="mb-5 rounded-lg border border-red-300/40 bg-red-950/30 px-4 py-3 text-sm text-red-100/90">
-          投资额需大于 0 才能进行测算，请输入有效数字。
-        </div>
-      )}
-
-      <div className="rounded-xl border border-white/15 bg-black/20 p-4">
-        <h4 className="mb-3 text-lg font-[var(--font-body)] font-semibold" style={{ color: 'var(--gold-champagne)' }}>
-          计算公式拆解
-        </h4>
-        <div className="space-y-2 font-[var(--font-body)] text-sm text-white/70">
-          <p>
-            代币数量 = 投资额 ÷ 10亿 × 4000万 × 时间因子 × 规模因子 × (存续月数 ÷ 24)
-          </p>
-          <p className="rounded-lg border border-white/10 bg-black/30 px-3 py-2">
-            = {formatNumber(investment, 0)} ÷ {formatNumber(TOTAL_CAPITAL, 0)} × {formatNumber(CORE_TOKEN_POOL, 0)} × {timeFactor.toFixed(2)} × {scaleFactor.toFixed(2)} × ({months} ÷ 24)
-          </p>
-          <p className="rounded-lg border border-[var(--gold-champagne)]/30 bg-black/40 px-3 py-2 text-base font-semibold text-white">
-            结果：{invalidInvestment ? '--' : `${formatNumber(tokenAmount, 2)} UAQC`}
-          </p>
-        </div>
-      </div>
-
-      <button className="lux-button mt-6 w-full py-4 text-lg font-[var(--font-body)] font-bold">
-        提交战略节点申请
-      </button>
-
-      <div className="mt-5 rounded-lg border border-white/10 bg-black/20 p-4">
-        <p className="text-center text-xs leading-relaxed text-white/55">
-          模拟结果用于战略节点评估参考，实际释放规则以链上与治理公告为准。
+      <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-white/10 bg-black/15 p-3 md:flex-row md:items-center md:justify-between">
+        <button className="lux-button h-12 rounded-full px-8 text-sm font-[var(--font-body)] font-bold md:w-auto">
+          提交战略节点申请
+        </button>
+        <p className="text-[11px] text-white/50 md:text-right">
+          模拟结果仅供战略节点评估参考，实际释放规则以链上与治理公告为准。
         </p>
       </div>
     </div>
