@@ -435,12 +435,12 @@ export function RWAFi() {
           </GlassReveal>
 
           {/* Power Calculator */}
-          <div className="mt-20">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-[var(--font-display)] mb-4" style={{ color: 'var(--gold-champagne)' }}>
+          <div className="mt-16">
+            <div className="mb-6 text-center">
+              <h3 className="content-block-title mb-3 text-white">
                 POW 算力机制
               </h3>
-              <p className="text-white/60 font-[var(--font-body)] max-w-2xl mx-auto">
+              <p className="mx-auto max-w-2xl font-[var(--font-body)] text-sm text-white/60">
                 测算您的 40% 核心股权释放极差
               </p>
             </div>
