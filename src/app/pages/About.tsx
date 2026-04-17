@@ -116,13 +116,9 @@ export function About() {
   }, []);
 
   return (
-    <section className="section-shell min-h-screen bg-transparent">
+    <section className="section-shell min-h-screen bg-transparent !pt-[max(2rem,calc(var(--section-space)-1.5rem))] !pb-[var(--section-space)]">
       <div className="page-container">
-        <div className="mb-16 text-center">
-          <span className="brand-kicker mb-4">
-            <span className="brand-dot" />
-            {t('about.kicker')}
-          </span>
+        <div className="mb-10 text-center md:mb-12">
           <h2 className="section-heading mb-4">
             {t('about.heroTitle')}
           </h2>

@@ -103,15 +103,11 @@ export function RWAFi() {
   }, [location.hash]);
 
   return (
-    <section className="section-shell min-h-screen bg-transparent">
+    <section className="section-shell min-h-screen bg-transparent !pt-[max(2rem,calc(var(--section-space)-1.5rem))] !pb-[var(--section-space)]">
       <div className="page-container">
         {/* DeFi Products */}
-        <div className="mb-32">
-          <div className="mb-4 text-center">
-            <span className="brand-kicker mb-4">
-              <span className="brand-dot" />
-              {t('rwafi.kicker')}
-            </span>
+        <div className="mb-24 md:mb-28">
+          <div className="mb-2 text-center md:mb-3">
             <h3 className="section-heading mb-3">
               {t('rwafi.title')}
             </h3>
@@ -120,7 +116,7 @@ export function RWAFi() {
             </p>
           </div>
 
-          <div className="panel-grid mt-12 md:grid-cols-2 lg:grid-cols-3">
+          <div className="panel-grid mt-8 md:grid-cols-2 lg:grid-cols-3 md:mt-10">
             {rwProducts.map((product) => (
               <GlassReveal
                 key={product.key}
