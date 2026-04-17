@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router';
 import { Menu, X } from 'lucide-react';
+import uaqcNavLogo from '@/public/UAQC2.png';
 import {
   Sheet,
   SheetContent,
@@ -8,6 +9,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from './ui/sheet';
+import { LocaleProvider, useLocale, useT } from '@/i18n/locale';
+import type { MessageKey } from '@/i18n/messages';
 
 /** ms; keep in sync with `--nav-duration-enter` / `--nav-duration-exit` */
 const MORPH_ENTER_MS = 520;
@@ -52,7 +55,24 @@ function navChromeTransition(phase: NavMorphPhase, scrolled: boolean) {
 
 const NAV_ITEMS = ['Home', 'Fund', 'RWAFi', 'About'] as const;
 
+const NAV_LABEL_KEY: Record<(typeof NAV_ITEMS)[number], MessageKey> = {
+  Home: 'nav.routeHome',
+  Fund: 'nav.routeFund',
+  RWAFi: 'nav.routeRWAFi',
+  About: 'nav.routeAbout',
+};
+
 export function Layout() {
+  return (
+    <LocaleProvider>
+      <LayoutContent />
+    </LocaleProvider>
+  );
+}
+
+function LayoutContent() {
+  const t = useT();
+  const { locale, setLocale } = useLocale();
   const [tickerVisible, setTickerVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [morphPhase, setMorphPhase] = useState<NavMorphPhase>('idle');
@@ -166,7 +186,7 @@ export function Layout() {
           <Link to="/" className="z-10 shrink-0">
             <div className="flex items-center">
               <img
-                src="/@fs/e:/uaqc-ai/Uaqcai/src/public/UAQC2.png"
+                src={uaqcNavLogo}
                 alt="UAQC"
                 className="h-9 w-auto object-contain md:h-11"
                 loading="eager"
@@ -195,7 +215,7 @@ export function Layout() {
                   className={`group relative transition-colors duration-200 ease-[var(--nav-ease)] ${isActive ? 'text-[var(--gold-light)]/95' : 'text-white/78 hover:text-white/92'}`}
                 >
                   <span className="font-[var(--font-body)] text-[15px] font-medium tracking-[0.06em]">
-                    {item}
+                    {t(NAV_LABEL_KEY[item])}
                   </span>
                   <div
                     className={`absolute -bottom-1.5 left-0 h-[2px] bg-[var(--gold-dark)]/70 transition-all ease-[var(--nav-ease)] ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
@@ -210,16 +230,24 @@ export function Layout() {
             <button
               type="button"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/14 bg-white/[0.06] text-white transition-colors hover:bg-white/10 md:hidden"
-              aria-label="打开菜单"
+              aria-label={t('nav.openMenu')}
               onClick={() => setMobileNavOpen(true)}
             >
               <Menu size={20} strokeWidth={2} />
             </button>
             <button
               type="button"
+              onClick={() => setLocale(locale === 'zh' ? 'en' : 'zh')}
+              className="flex h-10 shrink-0 items-center justify-center rounded-lg border border-white/14 bg-white/[0.04] px-2.5 text-[11px] font-medium tracking-wide text-white/85 transition-colors hover:border-white/22 hover:bg-white/[0.08] md:h-9 md:px-3 md:text-xs"
+              aria-label={locale === 'zh' ? t('nav.langToEnAria') : t('nav.langToZhAria')}
+            >
+              {locale === 'zh' ? t('nav.langToEn') : t('nav.langToZh')}
+            </button>
+            <button
+              type="button"
               className="lux-button flex h-10 min-h-[40px] min-w-0 items-center justify-center px-3 text-xs md:h-9 md:px-5 md:text-sm"
             >
-              Launch App
+              {t('nav.launchApp')}
             </button>
           </div>
         </div>
@@ -232,11 +260,11 @@ export function Layout() {
         >
           <SheetHeader className="shrink-0 border-b border-white/10 px-5 py-4 text-left">
             <SheetTitle className="font-[var(--font-body)] text-base font-semibold tracking-wide text-white">
-              导航
+              {t('nav.sheetTitle')}
             </SheetTitle>
-            <SheetDescription className="sr-only">站点主导航链接</SheetDescription>
+            <SheetDescription className="sr-only">{t('nav.sheetDesc')}</SheetDescription>
           </SheetHeader>
-          <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto px-2 py-3" aria-label="主导航">
+          <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto px-2 py-3" aria-label={t('nav.mainNav')}>
             {NAV_ITEMS.map((item) => {
               const path = item === 'Home' ? '/' : `/${item.toLowerCase()}`;
               const isActive = location.pathname === path;
@@ -249,18 +277,26 @@ export function Layout() {
                     isActive ? 'bg-white/[0.06] text-[var(--gold-light)]/95' : 'text-white/80 active:bg-white/5'
                   }`}
                 >
-                  {item}
+                  {t(NAV_LABEL_KEY[item])}
                 </Link>
               );
             })}
           </nav>
-          <div className="shrink-0 border-t border-white/10 p-4">
+          <div className="shrink-0 space-y-2 border-t border-white/10 p-4">
+            <button
+              type="button"
+              onClick={() => setLocale(locale === 'zh' ? 'en' : 'zh')}
+              className="flex h-11 w-full items-center justify-center rounded-lg border border-white/14 bg-white/[0.04] text-sm font-medium text-white/88 transition-colors hover:bg-white/[0.08]"
+              aria-label={locale === 'zh' ? t('nav.langToEnAria') : t('nav.langToZhAria')}
+            >
+              {locale === 'zh' ? t('nav.langToEn') : t('nav.langToZh')}
+            </button>
             <button
               type="button"
               className="lux-button flex h-12 w-full items-center justify-center text-[15px]"
               onClick={() => setMobileNavOpen(false)}
             >
-              Launch App
+              {t('nav.launchApp')}
             </button>
           </div>
         </SheetContent>
@@ -278,7 +314,7 @@ export function Layout() {
             <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
               <div className="space-y-2">
                 <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.14em] text-white/68">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--taiji-gold-soft)]/85 shadow-[0_0_6px_rgba(184,154,74,0.3)]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--taiji-gold-soft)]/85 shadow-[0_0_6px_rgba(245,166,35,0.35)]" />
                   UAQC Investor Desk
                 </span>
                 <p className="text-sm text-white/50">Institutional gateway for compliant digital asset operations</p>
@@ -289,24 +325,22 @@ export function Layout() {
             <div className="mb-10 grid gap-[calc(var(--footer-grid-gap)*0.88)] md:grid-cols-3">
               <div>
                 <h4 className="mb-2 text-[12px] font-[var(--font-body)] font-medium tracking-[0.08em] text-white/76">
-                  机构业务
+                  {t('footer.institutional')}
                 </h4>
                 <p className="text-sm text-white/58">institutional@uaqc.net</p>
-                <p className="mt-1.5 text-xs text-white/38">机构合作与尽调通道</p>
+                <p className="mt-1.5 text-xs text-white/38">{t('footer.institutionalSub')}</p>
               </div>
               <div>
                 <h4 className="mb-2 text-[12px] font-[var(--font-body)] font-medium tracking-[0.08em] text-white/76">
-                  全球运营中心
+                  {t('footer.ops')}
                 </h4>
-                <p className="text-sm leading-relaxed text-white/58">
-                  新加坡总枢纽 · 香港 Web3 中心
-                  <br />
-                  日本东京研发中心 · 美国
+                <p className="text-sm leading-relaxed text-white/58 whitespace-pre-line">
+                  {t('footer.opsBody')}
                 </p>
               </div>
               <div>
                 <h4 className="mb-2 text-[12px] font-[var(--font-body)] font-medium tracking-[0.08em] text-white/76">
-                  社群链接
+                  {t('footer.community')}
                 </h4>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
                   <a href="#" className="text-sm tracking-[0.06em] text-white/54 transition-colors hover:text-white/78">

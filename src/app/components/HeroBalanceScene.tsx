@@ -60,7 +60,7 @@ export function HeroBalanceScene({ className = '' }: HeroBalanceSceneProps) {
           reducedMotion ? '' : 'animate-[spin_16s_linear_infinite]'
         }`}
       >
-        <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,rgba(212,175,55,0.72)_0deg,rgba(240,217,140,0.52)_140deg,rgba(0,0,0,0.18)_180deg,rgba(155,126,42,0.6)_280deg,rgba(212,175,55,0.72)_360deg)]" />
+        <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,rgba(245,166,35,0.72)_0deg,rgba(255,199,100,0.52)_140deg,rgba(0,0,0,0.18)_180deg,rgba(194,120,10,0.62)_280deg,rgba(245,166,35,0.72)_360deg)]" />
         <div className="absolute inset-[8%] rounded-full bg-black/55" />
       </div>
 
@@ -68,7 +68,7 @@ export function HeroBalanceScene({ className = '' }: HeroBalanceSceneProps) {
         <path
           d="M50 12 C68 12, 75 25, 67 40 C59 55, 38 53, 35 65 C33 74, 39 84, 50 88"
           fill="none"
-          stroke="rgba(240,217,140,0.75)"
+          stroke="rgba(255,199,100,0.78)"
           strokeWidth="1.4"
           strokeLinecap="round"
           className={reducedMotion ? '' : 'animate-[spin_20s_linear_infinite] origin-center'}
@@ -76,15 +76,15 @@ export function HeroBalanceScene({ className = '' }: HeroBalanceSceneProps) {
         <path
           d="M50 12 C68 12, 75 25, 67 40 C59 55, 38 53, 35 65 C33 74, 39 84, 50 88"
           fill="none"
-          stroke="rgba(212,175,55,0.45)"
+          stroke="rgba(245,166,35,0.48)"
           strokeWidth="0.8"
           strokeLinecap="round"
           className={reducedMotion ? '' : 'animate-[spin_26s_linear_infinite_reverse] origin-center'}
         />
       </svg>
 
-      <div className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-[135%] rounded-full bg-[var(--gold-light)] shadow-[0_0_26px_rgba(240,217,140,0.65)]" />
-      <div className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 translate-y-[115%] rounded-full bg-[var(--gold-dark)] shadow-[0_0_20px_rgba(155,126,42,0.6)]" />
+      <div className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-[135%] rounded-full bg-[var(--gold-light)] shadow-[0_0_26px_rgba(255,199,100,0.68)]" />
+      <div className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 translate-y-[115%] rounded-full bg-[var(--gold-dark)] shadow-[0_0_20px_rgba(194,120,10,0.62)]" />
 
       {particles.map((p) => (
         <span
@@ -98,15 +98,15 @@ export function HeroBalanceScene({ className = '' }: HeroBalanceSceneProps) {
             opacity: p.opacity,
             animationDuration: `${p.duration}s`,
             animationDelay: `${p.delay}s`,
-            boxShadow: '0 0 10px rgba(212,175,55,0.45)',
+            boxShadow: '0 0 10px rgba(245,166,35,0.48)',
             transformOrigin: '50% 50%',
           }}
         />
       ))}
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.26)_0%,transparent_62%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_64%_28%,rgba(240,217,140,0.16),transparent_58%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_36%_74%,rgba(155,126,42,0.2),transparent_56%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,166,35,0.28)_0%,transparent_62%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_64%_28%,rgba(255,199,100,0.18),transparent_58%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_36%_74%,rgba(194,120,10,0.22),transparent_56%)]" />
     </div>
   );
 }

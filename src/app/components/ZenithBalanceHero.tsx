@@ -1,6 +1,10 @@
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Activity, ArrowRight, BarChart3, Target } from 'lucide-react';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import uaqcLogoMark from '@/public/UAQC2.png';
+import { useT } from '@/i18n/locale';
+
+const MotionLink = motion.create(Link);
 
 function BalanceAnimation() {
   const colorLong = 'var(--taiji-white)';
@@ -102,7 +106,7 @@ function BalanceAnimation() {
             transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-1.5 w-1.5 rounded-full bg-[var(--taiji-gold-soft)] shadow-[0_0_12px_rgba(184,154,74,0.3)]" />
+            <div className="h-1.5 w-1.5 rounded-full bg-[var(--taiji-gold-soft)] shadow-[0_0_12px_rgba(245,166,35,0.35)]" />
           </div>
           <motion.div
             className="absolute -inset-4 rounded-full border border-white/10"
@@ -123,22 +127,65 @@ function BalanceAnimation() {
 }
 
 export function ZenithBalanceHero() {
+  const t = useT();
   const navigate = useNavigate();
+  const reducedMotion = useReducedMotion();
 
   return (
     <div className="group relative aspect-square w-full max-w-[480px]">
 
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 z-0 flex items-center justify-center">
         <BalanceAnimation />
+      </div>
+
+      <div className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center px-[6%]">
+        <MotionLink
+          to="/rwafi"
+          aria-label={t('zenith.enterRwafiAria')}
+          className="pointer-events-auto inline-flex max-h-[64%] w-[68%] origin-center select-none rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--gold-champagne)]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(5,6,12,0.6)] transform-gpu opacity-[0.38] transition-shadow"
+          initial={false}
+          whileHover={
+            reducedMotion
+              ? { opacity: 0.46 }
+              : { scale: 1.08, opacity: 0.48, filter: 'brightness(1.06)' }
+          }
+          whileTap={reducedMotion ? undefined : { scale: 0.98 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+        >
+          <img
+            src={uaqcLogoMark}
+            alt=""
+            width={520}
+            height={160}
+            draggable={false}
+            className="h-auto w-full object-contain"
+          />
+        </MotionLink>
       </div>
 
       {/* Pole quick actions removed */}
 
       {/* Side status cards */}
       <motion.div
-        animate={{ opacity: [0.88, 1, 0.88] }}
-        transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute right-0 top-10 hidden w-[220px] rounded-2xl border border-white/16 bg-[linear-gradient(160deg,rgba(12,13,17,0.72)_0%,rgba(12,13,17,0.5)_58%,rgba(12,13,17,0.3)_100%)] px-4 py-3 backdrop-blur-[3px] md:block"
+        animate={
+          reducedMotion
+            ? { opacity: [0.88, 1, 0.88] }
+            : { opacity: [0.88, 1, 0.88], y: [0, -8, 0] }
+        }
+        transition={
+          reducedMotion
+            ? { duration: 5.5, repeat: Infinity, ease: 'easeInOut' }
+            : {
+                opacity: { duration: 5.5, repeat: Infinity, ease: 'easeInOut' },
+                y: { duration: 3.6, repeat: Infinity, ease: 'easeInOut', delay: 0.15 },
+              }
+        }
+        whileHover={
+          reducedMotion
+            ? undefined
+            : { y: -6, boxShadow: '0 14px 36px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.12)' }
+        }
+        className="absolute right-0 top-10 z-[6] hidden w-[220px] translate-x-3 rounded-2xl border border-white/16 bg-[linear-gradient(160deg,rgba(12,13,17,0.72)_0%,rgba(12,13,17,0.5)_58%,rgba(12,13,17,0.3)_100%)] px-4 py-3 shadow-[0_8px_28px_rgba(0,0,0,0.22)] backdrop-blur-[3px] transition-shadow duration-300 md:block md:translate-x-8"
       >
         <div className="mb-2 flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-white/82">
@@ -157,9 +204,25 @@ export function ZenithBalanceHero() {
       </motion.div>
 
       <motion.div
-        animate={{ opacity: [0.88, 1, 0.88] }}
-        transition={{ duration: 5.9, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
-        className="absolute bottom-10 left-0 hidden w-[220px] rounded-2xl border border-[var(--taiji-gold-soft)]/14 bg-[linear-gradient(160deg,rgba(12,13,17,0.72)_0%,rgba(12,13,17,0.5)_58%,rgba(12,13,17,0.3)_100%)] px-4 py-3 backdrop-blur-[3px] md:block"
+        animate={
+          reducedMotion
+            ? { opacity: [0.88, 1, 0.88] }
+            : { opacity: [0.88, 1, 0.88], y: [0, -8, 0] }
+        }
+        transition={
+          reducedMotion
+            ? { duration: 5.9, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }
+            : {
+                opacity: { duration: 5.9, repeat: Infinity, ease: 'easeInOut', delay: 0.4 },
+                y: { duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
+              }
+        }
+        whileHover={
+          reducedMotion
+            ? undefined
+            : { y: -6, boxShadow: '0 14px 36px rgba(0,0,0,0.35), 0 0 0 1px rgba(245,166,35,0.12)' }
+        }
+        className="absolute bottom-10 left-0 z-[6] hidden w-[220px] -translate-x-3 rounded-2xl border border-[var(--taiji-gold-soft)]/14 bg-[linear-gradient(160deg,rgba(12,13,17,0.72)_0%,rgba(12,13,17,0.5)_58%,rgba(12,13,17,0.3)_100%)] px-4 py-3 shadow-[0_8px_28px_rgba(0,0,0,0.22)] backdrop-blur-[3px] transition-shadow duration-300 md:block md:-translate-x-5"
       >
         <div className="mb-2 flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-white/82">
@@ -170,7 +233,7 @@ export function ZenithBalanceHero() {
         </div>
         <div className="mt-1 h-[2px] w-full overflow-hidden rounded-full bg-white/12">
           <motion.div
-            className="h-full bg-[linear-gradient(90deg,rgba(184,154,74,0.2),rgba(184,154,74,0.68),rgba(184,154,74,0.24))]"
+            className="h-full bg-[linear-gradient(90deg,rgba(245,166,35,0.22),rgba(245,166,35,0.72),rgba(245,166,35,0.26))]"
             animate={{ width: ['36%', '46%', '41%'] }}
             transition={{ duration: 5.4, repeat: Infinity, ease: 'easeInOut' }}
           />
@@ -187,7 +250,7 @@ export function ZenithBalanceHero() {
           onClick={() => navigate('/rwafi')}
           className="lux-button flex h-11 items-center justify-center gap-2 text-[14px] tracking-[0.08em]"
         >
-          进入 RWAFI
+          {t('zenith.enterRwafi')}
           <ArrowRight className="h-4 w-4" />
         </button>
         <div className="grid grid-cols-2 gap-2">
@@ -196,15 +259,15 @@ export function ZenithBalanceHero() {
             onClick={() => navigate('/fund')}
             className="flex h-10 items-center justify-center rounded-lg border border-white/12 bg-transparent text-xs tracking-[0.08em] text-white/80 transition-colors hover:border-white/22 hover:text-white"
           >
-            查看 FUND
+            {t('zenith.viewFund')}
           </button>
           <button
             type="button"
             onClick={() => navigate('/fund#product-4')}
-            className="flex h-10 items-center justify-center gap-1.5 rounded-lg border border-[var(--taiji-gold-soft)]/24 bg-[rgba(184,154,74,0.06)] px-2 text-[12px] font-medium tracking-[0.07em] text-[var(--taiji-gold-soft)]/96 transition-colors hover:border-[var(--taiji-gold-soft)]/38 hover:bg-[rgba(184,154,74,0.1)]"
+            className="flex h-10 items-center justify-center gap-1.5 rounded-lg border border-[var(--taiji-gold-soft)]/24 bg-[rgba(245,166,35,0.08)] px-2 text-[12px] font-medium tracking-[0.07em] text-[var(--taiji-gold-soft)]/96 transition-colors hover:border-[var(--taiji-gold-soft)]/38 hover:bg-[rgba(245,166,35,0.12)]"
           >
             <Target className="h-4 w-4" />
-            4号产品
+            {t('zenith.product4')}
           </button>
         </div>
       </div>

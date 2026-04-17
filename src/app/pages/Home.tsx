@@ -3,8 +3,11 @@ import { Shield, TrendingUp, Zap } from 'lucide-react';
 import { ImpossibleTriangle } from '../components/ImpossibleTriangle';
 import { GlassReveal } from '../components/site/GlassReveal';
 import { ZenithBalanceHero } from '../components/ZenithBalanceHero';
+import { ComplianceMarquee } from '../components/ComplianceMarquee';
+import { useT } from '@/i18n/locale';
 
 export function Home() {
+  const t = useT();
   const reducedMotion = useReducedMotion();
   const reveal = (delay = 0) =>
     reducedMotion
@@ -29,24 +32,22 @@ export function Home() {
           >
             <div className="grid items-center gap-12 md:gap-14 lg:gap-[var(--hero-grid-gap-desktop)] lg:grid-cols-[1.04fr_0.96fr]">
               <motion.div {...reveal(0.04)}>
-                <motion.span className="brand-kicker mb-6 md:mb-8" {...reveal(0.1)}>
-                  <span className="brand-dot" />
-                  WEB3 资管引擎枢纽
-                </motion.span>
                 <motion.h1
-                  className="mb-7 font-[var(--font-body)] font-semibold leading-[1.04] tracking-[0.01em] text-white"
+                  className="mb-7 font-[var(--font-body)] font-bold leading-[1.02] tracking-[-0.02em]"
                   style={{ fontSize: 'clamp(2.9rem,4.7vw,4.6rem)' }}
                   {...reveal(0.16)}
                 >
-                  全球领先的
-                  <br />
-                  <span className="text-white/78">合规去中心化</span>
-                  <br />
-                  <span className="text-[var(--gold-light)]/92">AI 资管引擎</span>
+                  <span className="block bg-gradient-to-r from-white to-[#48586f] bg-clip-text text-transparent">
+                    {t('home.h1a')}
+                  </span>
+                  <span className="block bg-gradient-to-r from-white to-[#48586f] bg-clip-text text-transparent">
+                    {t('home.h1b')}
+                  </span>
+                  <span className="block text-[var(--gold-light)]/92">{t('home.h1c')}</span>
                 </motion.h1>
                 <motion.div className="gold-divider mb-8 max-w-[220px]" {...reveal(0.22)} />
                 <motion.h2 className="section-subheading mb-10 max-w-[560px]" {...reveal(0.28)}>
-                  重塑资本主权，定义 Web3 资管枢纽
+                  {t('home.subtitle')}
                 </motion.h2>
                 <motion.div
                   className="mb-8 grid max-w-[560px] gap-3 text-[12px] tracking-[0.12em] text-white/56 sm:mb-10 sm:grid-cols-2 sm:text-[13px] sm:tracking-[0.14em]"
@@ -54,17 +55,17 @@ export function Home() {
                 >
                   <span className="flex items-center gap-3 rounded-full border border-white/12 bg-white/[0.01] px-4 py-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-white/65" />
-                    AI 驱动 ALPHA
+                    {t('home.badge1')}
                   </span>
                   <span className="flex items-center gap-3 rounded-full border border-white/12 bg-white/[0.01] px-4 py-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--gold-light)]/70" />
-                    WEB3 飞轮价值
+                    {t('home.badge2')}
                   </span>
                 </motion.div>
                 <motion.div className="max-w-[560px] border-l border-white/16 pl-5" {...reveal(0.4)}>
                   <p className="relative text-[14px] leading-relaxed text-white/70">
-                    <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/56">生态远景</span>
-                    通过 UAQC 最佳实践，以金融科技赋能现实世界资产，共建开放的 <span className="font-medium text-white">RWAFi</span> 产业生态
+                    <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/56">{t('home.visionLabel')}</span>
+                    {t('home.visionBody')}
                   </p>
                 </motion.div>
               </motion.div>
@@ -74,12 +75,13 @@ export function Home() {
             </div>
           </div>
         </div>
+        <ComplianceMarquee />
       </section>
 
       <section className="section-shell bg-gradient-to-b from-transparent via-[rgba(10,11,16,0.72)] to-[rgba(14,15,22,0.94)]">
         <div className="page-container">
           <motion.h3 className="section-heading mb-5 text-center text-white/92" {...reveal(0.08)}>
-            突破"不可能三角"
+            {t('home.triangleTitle')}
           </motion.h3>
           <motion.p
             className="mx-auto mb-12 max-w-2xl text-center text-sm tracking-[0.08em] text-white/48"
@@ -96,18 +98,18 @@ export function Home() {
             {[
               {
                 icon: <Shield className="w-8 h-8" />,
-                title: '通信级架构',
-                desc: '来自华为、中兴骨干，保障毫秒级低延迟',
+                title: t('home.card1Title'),
+                desc: t('home.card1Desc'),
               },
               {
                 icon: <TrendingUp className="w-8 h-8" />,
-                title: '百亿量化血统',
-                desc: '源自幻方量化等头部私募的算法专家',
+                title: t('home.card2Title'),
+                desc: t('home.card2Desc'),
               },
               {
                 icon: <Zap className="w-8 h-8" />,
-                title: '跨周期商业大脑',
-                desc: '10+ 年经验及 IPO 操盘背景的合规领袖',
+                title: t('home.card3Title'),
+                desc: t('home.card3Desc'),
               },
             ].map((card, i) => (
               <GlassReveal

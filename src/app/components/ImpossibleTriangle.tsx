@@ -10,9 +10,10 @@ import {
   Text,
 } from '@react-three/drei';
 import { motion } from 'motion/react';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GlassReveal } from './site/GlassReveal';
+import { useT } from '@/i18n/locale';
 
 type PillarPointProps = {
   position: [number, number, number];
@@ -50,12 +51,19 @@ function PillarPoint({ position, label, subtitle, description, color }: PillarPo
   );
 }
 
+type PillarCopy = {
+  label: string;
+  subtitle: string;
+  description: string;
+};
+
 type TrinityCoreProps = {
   isHovered: boolean;
   reducedMotion: boolean;
+  pillars: { security: PillarCopy; yield: PillarCopy; liquidity: PillarCopy };
 };
 
-function TrinityCore({ isHovered, reducedMotion }: TrinityCoreProps) {
+function TrinityCore({ isHovered, reducedMotion, pillars }: TrinityCoreProps) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state, delta) => {
@@ -93,23 +101,23 @@ function TrinityCore({ isHovered, reducedMotion }: TrinityCoreProps) {
 
       <PillarPoint
         position={[-1.7, -1, 0]}
-        label="安全性"
-        subtitle="Security"
-        description="基础资产合规稳定"
+        label={pillars.security.label}
+        subtitle={pillars.security.subtitle}
+        description={pillars.security.description}
         color="var(--triangle-security)"
       />
       <PillarPoint
         position={[0, 2, 0]}
-        label="收益性"
-        subtitle="Yield"
-        description="指数级资本溢价"
+        label={pillars.yield.label}
+        subtitle={pillars.yield.subtitle}
+        description={pillars.yield.description}
         color="var(--triangle-yield)"
       />
       <PillarPoint
         position={[1.7, -1, 0]}
-        label="流动性"
-        subtitle="Liquidity"
-        description="RWA 映射与智能合约实现高流动性"
+        label={pillars.liquidity.label}
+        subtitle={pillars.liquidity.subtitle}
+        description={pillars.liquidity.description}
         color="var(--triangle-liquidity)"
       />
     </group>
@@ -117,8 +125,30 @@ function TrinityCore({ isHovered, reducedMotion }: TrinityCoreProps) {
 }
 
 export function ImpossibleTriangle() {
+  const t = useT();
   const [isHovered, setIsHovered] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  const pillars = useMemo(
+    () => ({
+      security: {
+        label: t('tri.security'),
+        subtitle: t('tri.securitySub'),
+        description: t('tri.securityDesc'),
+      },
+      yield: {
+        label: t('tri.yield'),
+        subtitle: t('tri.yieldSub'),
+        description: t('tri.yieldDesc'),
+      },
+      liquidity: {
+        label: t('tri.liquidity'),
+        subtitle: t('tri.liquiditySub'),
+        description: t('tri.liquidityDesc'),
+      },
+    }),
+    [t],
+  );
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -132,12 +162,15 @@ export function ImpossibleTriangle() {
   const colorYield = 'var(--triangle-yield)';
   const colorLiquidity = 'var(--triangle-liquidity)';
 
-  const stats = [
-    { value: 60, label: '自营策略年化回报', color: colorYield, prefix: '', suffix: '+%' },
-    { value: 1, label: '自营策略历史最大回撤', color: colorSecurity, prefix: '<', suffix: '%' },
-    { value: 5, label: '合规基金历史最大回撤', color: colorLiquidity, prefix: '<', suffix: '%' },
-    { value: 3.5, label: '全周期原生交易样本', color: colorYield, prefix: '', suffix: '亿+' },
-  ];
+  const stats = useMemo(
+    () => [
+      { value: 60, label: t('tri.stat1'), color: colorYield, prefix: '', suffix: '+%' },
+      { value: 1, label: t('tri.stat2'), color: colorSecurity, prefix: '<', suffix: '%' },
+      { value: 5, label: t('tri.stat3'), color: colorLiquidity, prefix: '<', suffix: '%' },
+      { value: 3.5, label: t('tri.stat4'), color: colorYield, prefix: '', suffix: t('tri.stat4Suffix') },
+    ],
+    [t, colorYield, colorSecurity, colorLiquidity],
+  );
 
   const [displayStats, setDisplayStats] = useState(() => stats.map(() => 0));
 
@@ -160,7 +193,7 @@ export function ImpossibleTriangle() {
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [reducedMotion]);
+  }, [reducedMotion, stats]);
 
   return (
     <div className="page-container relative mb-20 py-16">
@@ -196,7 +229,7 @@ export function ImpossibleTriangle() {
                   azimuth={[-Math.PI / 1.4, Math.PI / 1.4]}
                 >
                   <group position={[0.1, -0.25, 0]}>
-                    <TrinityCore isHovered={isHovered} reducedMotion={reducedMotion} />
+                    <TrinityCore isHovered={isHovered} reducedMotion={reducedMotion} pillars={pillars} />
                   </group>
                 </PresentationControls>
 
@@ -216,7 +249,7 @@ export function ImpossibleTriangle() {
             interactive
             className="group relative rounded-xl p-8 transition-all duration-700 hover:scale-[1.02]"
             style={{
-              borderColor: `${stat.color === colorYield ? 'rgba(184,154,74,0.22)' : 'rgba(255,255,255,0.13)'}`,
+              borderColor: `${stat.color === colorYield ? 'rgba(245,166,35,0.24)' : 'rgba(255,255,255,0.13)'}`,
             }}
           >
             <div
@@ -224,7 +257,7 @@ export function ImpossibleTriangle() {
               style={{
                 background:
                   stat.color === colorYield
-                    ? 'linear-gradient(to right, transparent, rgba(184,154,74,0.62), transparent)'
+                    ? 'linear-gradient(to right, transparent, rgba(245,166,35,0.65), transparent)'
                     : 'linear-gradient(to right, transparent, rgba(230,235,243,0.52), transparent)',
               }}
             />
@@ -236,7 +269,7 @@ export function ImpossibleTriangle() {
                   color: stat.color === colorYield ? colorYield : 'var(--taiji-white)',
                   textShadow:
                     stat.color === colorYield
-                      ? '0 0 14px rgba(184,154,74,0.24)'
+                      ? '0 0 14px rgba(245,166,35,0.26)'
                       : '0 0 12px rgba(231,235,242,0.14)',
                 }}
               >
@@ -255,20 +288,20 @@ export function ImpossibleTriangle() {
         transition={{ delay: 0.8, duration: 0.8 }}
       >
         <p className="text-[15px] font-[var(--font-body)] leading-[1.8] text-white/56">
-          通过创新技术架构实现{' '}
+          {t('tri.footerPrefix')}{' '}
           <span style={{ color: colorSecurity }} className="font-medium opacity-90">
-            安全性
+            {t('tri.security')}
           </span>
-          、
+          {t('tri.footerMid1')}
           <span style={{ color: colorYield }} className="font-medium opacity-90">
-            收益性
+            {t('tri.yield')}
           </span>
-          、
+          {t('tri.footerMid2')}
           <span style={{ color: colorLiquidity }} className="font-medium opacity-90">
-            流动性
+            {t('tri.liquidity')}
           </span>
           {' '}
-          三者的完美统一，重新定义 Web3 资管标准
+          {t('tri.footerSuffix')}
         </p>
       </motion.div>
     </div>

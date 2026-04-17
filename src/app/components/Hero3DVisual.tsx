@@ -12,7 +12,7 @@ export function Hero3DVisual() {
           style={{ 
             transformStyle: 'preserve-3d',
             transform: 'rotateX(60deg) rotateY(30deg)',
-            boxShadow: '0 0 40px rgba(235,213,169,0.1), inset 0 0 40px rgba(235,213,169,0.05)'
+            boxShadow: '0 0 40px rgba(255,199,100,0.12), inset 0 0 40px rgba(255,199,100,0.06)'
           }}
         />
         
@@ -22,7 +22,7 @@ export function Hero3DVisual() {
           style={{ 
             transformStyle: 'preserve-3d',
             transform: 'rotateX(45deg) rotateY(60deg)',
-            boxShadow: '0 0 30px rgba(218,165,32,0.15), inset 0 0 30px rgba(218,165,32,0.08)'
+            boxShadow: '0 0 30px rgba(245,166,35,0.16), inset 0 0 30px rgba(245,166,35,0.09)'
           }}
         />
         
@@ -40,7 +40,7 @@ export function Hero3DVisual() {
         <div 
           className="absolute w-32 h-32 rounded-full bg-gradient-radial from-[var(--gold-champagne)]/20 via-[var(--gold-dark)]/10 to-transparent animate-pulse"
           style={{ 
-            boxShadow: '0 0 60px rgba(235,213,169,0.3), inset 0 0 40px rgba(218,165,32,0.2)'
+            boxShadow: '0 0 60px rgba(255,199,100,0.32), inset 0 0 40px rgba(245,166,35,0.22)'
           }}
         />
 
@@ -65,7 +65,7 @@ export function Hero3DVisual() {
                 marginTop: `${y}px`,
                 opacity: Math.random() * 0.5 + 0.2,
                 animation: `float ${duration}s ease-in-out ${delay}s infinite`,
-                boxShadow: `0 0 ${size * 3}px rgba(235,213,169,0.6)`
+                boxShadow: `0 0 ${size * 3}px rgba(255,199,100,0.62)`
               }}
             />
           );

@@ -1,8 +1,9 @@
 import { ChevronRight, Globe } from 'lucide-react';
 import { ComposableMap, Geographies, Geography, Marker, Line } from 'react-simple-maps';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router';
 import { GlassReveal } from '../components/site/GlassReveal';
+import { useT } from '@/i18n/locale';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -16,6 +17,7 @@ type FundNode = {
 };
 
 export function Fund() {
+  const t = useT();
   const location = useLocation();
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
@@ -72,69 +74,113 @@ export function Fund() {
     }
   };
 
-  // 节点数据配置
-  const nodes: FundNode[] = [
-    { 
-      id: 'us', 
-      name: 'New York', 
-      desc: 'TradFi 资金端', 
-      coords: [-74.006, 40.7128],
-      flagCode: 'us',
-      licenses: [
-        'SEC 注册投资顾问 (RIA)',
-        'FINRA 会员资格',
-        'NFA 期货牌照'
-      ]
-    },
-    { 
-      id: 'dubai', 
-      name: 'Dubai', 
-      desc: '合规监管中心', 
-      coords: [55.2708, 25.2048],
-      flagCode: 'ae',
-      licenses: [
-        'VARA 虚拟资产监管局牌照',
-        'DFSA 金融服务牌照',
-        'ADGM 资管牌照'
-      ]
-    },
-    { 
-      id: 'hk', 
-      name: 'Hong Kong', 
-      desc: '亚太现货基石', 
-      coords: [114.1694, 22.3193],
-      flagCode: 'hk',
-      licenses: [
-        'SFC Type 9 资管牌照',
-        'SFC Type 1 证券交易牌照',
-        'SFC Type 4 期货合约顾问牌照'
-      ]
-    },
-    { 
-      id: 'japan', 
-      name: 'Tokyo', 
-      desc: '合规做市网络', 
-      coords: [139.6917, 35.6895],
-      flagCode: 'jp',
-      licenses: [
-        'FSA 金融工具业者注册',
-        'JVCEA 虚拟货币交易所协会会员',
-        'JSDA 证券业协会会员'
-      ]
-    },
-    { 
-      id: 'singapore', 
-      name: 'Singapore', 
-      desc: 'VCC 资管总部', 
-      coords: [103.8198, 1.3521],
-      flagCode: 'sg',
-      licenses: [
-        'MAS VCC 可变资本公司架构',
-        'MAS CMS 资本市场服务牌照',
-        'MAS DPT 数字支付令牌服务牌照'
-      ]
-    },
-  ];
+  const nodes: FundNode[] = useMemo(
+    () => [
+      {
+        id: 'us',
+        name: 'New York',
+        desc: t('fund.node.us.desc'),
+        coords: [-74.006, 40.7128],
+        flagCode: 'us',
+        licenses: [t('fund.node.us.l0'), t('fund.node.us.l1'), t('fund.node.us.l2')],
+      },
+      {
+        id: 'dubai',
+        name: 'Dubai',
+        desc: t('fund.node.dubai.desc'),
+        coords: [55.2708, 25.2048],
+        flagCode: 'ae',
+        licenses: [t('fund.node.dubai.l0'), t('fund.node.dubai.l1'), t('fund.node.dubai.l2')],
+      },
+      {
+        id: 'hk',
+        name: 'Hong Kong',
+        desc: t('fund.node.hk.desc'),
+        coords: [114.1694, 22.3193],
+        flagCode: 'hk',
+        licenses: [t('fund.node.hk.l0'), t('fund.node.hk.l1'), t('fund.node.hk.l2')],
+      },
+      {
+        id: 'japan',
+        name: 'Tokyo',
+        desc: t('fund.node.jp.desc'),
+        coords: [139.6917, 35.6895],
+        flagCode: 'jp',
+        licenses: [t('fund.node.jp.l0'), t('fund.node.jp.l1'), t('fund.node.jp.l2')],
+      },
+      {
+        id: 'singapore',
+        name: 'Singapore',
+        desc: t('fund.node.sg.desc'),
+        coords: [103.8198, 1.3521],
+        flagCode: 'sg',
+        licenses: [t('fund.node.sg.l0'), t('fund.node.sg.l1'), t('fund.node.sg.l2')],
+      },
+    ],
+    [t],
+  );
+
+  const products = useMemo(
+    () => [
+      {
+        productId: '4',
+        number: t('fund.p0.number'),
+        title: t('fund.p0.title'),
+        position: t('fund.p0.position'),
+        desc: t('fund.p0.desc'),
+        tag: t('fund.p0.tag'),
+        colorStyle: { text: '#f5a623', bg: 'rgba(245, 166, 35, 0.12)', border: 'rgba(245, 166, 35, 0.32)' },
+        featured: true,
+      },
+      {
+        productId: '11',
+        number: t('fund.p1.number'),
+        title: t('fund.p1.title'),
+        position: t('fund.p1.position'),
+        desc: t('fund.p1.desc'),
+        tag: t('fund.p1.tag'),
+        colorStyle: { text: '#f5a623', bg: 'rgba(245, 166, 35, 0.12)', border: 'rgba(245, 166, 35, 0.32)' },
+        featured: true,
+      },
+      {
+        productId: '3',
+        number: t('fund.p2.number'),
+        title: t('fund.p2.title'),
+        position: t('fund.p2.position'),
+        desc: t('fund.p2.desc'),
+        tag: t('fund.p2.tag'),
+        colorStyle: { text: '#DAA520', bg: 'rgba(218, 165, 32, 0.1)', border: 'rgba(218, 165, 32, 0.3)' },
+      },
+      {
+        productId: '7',
+        number: t('fund.p3.number'),
+        title: t('fund.p3.title'),
+        position: t('fund.p3.position'),
+        desc: t('fund.p3.desc'),
+        tag: t('fund.p3.tag'),
+        colorStyle: { text: '#DAA520', bg: 'rgba(218, 165, 32, 0.1)', border: 'rgba(218, 165, 32, 0.3)' },
+      },
+      {
+        productId: '8',
+        number: t('fund.p4.number'),
+        title: t('fund.p4.title'),
+        position: t('fund.p4.position'),
+        desc: t('fund.p4.desc'),
+        tag: t('fund.p4.tag'),
+        colorStyle: { text: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.05)', border: 'rgba(255, 255, 255, 0.15)' },
+      },
+      {
+        productId: '12',
+        number: t('fund.p5.number'),
+        title: t('fund.p5.title'),
+        position: t('fund.p5.position'),
+        desc: t('fund.p5.desc'),
+        tag: t('fund.p5.tag'),
+        colorStyle: { text: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.05)', border: 'rgba(255, 255, 255, 0.15)' },
+      },
+    ],
+    [t],
+  );
 
   useEffect(() => {
     if (location.hash !== '#product-4') return;
@@ -154,84 +200,33 @@ export function Fund() {
             Fund Layer
           </span>
           <h2 className="section-heading mb-4">
-            合规资管引擎
+            {t('fund.heroTitle')}
           </h2>
           <p className="section-subheading font-[var(--font-body)]">
-            筑牢机构安全垫
+            {t('fund.heroSub')}
           </p>
         </div>
 
         <div className="mb-12">
           <h3 className="content-block-title mb-2">
-            合规基本盘：TradFi 产品矩阵
+            {t('fund.sectionTitle')}
           </h3>
           <p className="section-lead mb-2 font-[var(--font-body)]">
-            Compliance Foundation: TradFi Product Matrix
+            {t('fund.sectionLead')}
           </p>
           <p className="text-white/60 font-[var(--font-body)]">
-            以 100% 合规牌照为驱动，聚焦链下 B 端机构与老钱，承接巨量资金
+            {t('fund.sectionBody')}
           </p>
         </div>
 
         {/* Product Cards Grid */}
         <div className="panel-grid md:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              number: '4号产品',
-              title: '新加坡去中心化对冲套利',
-              position: '链上套利资管基石',
-              desc: '区块链原生基金，基于 ETH / SOL 公链的流动、跨链及借贷等套利',
-              tag: '已稳定运行',
-              colorStyle: { text: '#D4AF37', bg: 'rgba(212, 175, 55, 0.1)', border: 'rgba(212, 175, 55, 0.3)' },
-              featured: true,
-            },
-            {
-              number: '11号产品',
-              title: '阿联酋多币种趋势对冲基金',
-              position: '高波动期货策略基金',
-              desc: '部署于 Binance 交易所，主打高波动性期货策略',
-              tag: '预计2026Q2',
-              colorStyle: { text: '#D4AF37', bg: 'rgba(212, 175, 55, 0.1)', border: 'rgba(212, 175, 55, 0.3)' },
-              featured: true,
-            },
-            {
-              number: '3号产品',
-              title: '香港多策略加密现货基金',
-              position: '合规现货资管底盘',
-              desc: '部署于合规交易所，聚焦 CMC 前 20 标的的现货网格策略',
-              tag: '已发行',
-              colorStyle: { text: '#DAA520', bg: 'rgba(218, 165, 32, 0.1)', border: 'rgba(218, 165, 32, 0.3)' },
-            },
-            {
-              number: '7号产品',
-              title: '新加坡矢量分级基金',
-              position: 'TradFi 溢出资金承接器',
-              desc: 'VCC 基金的单一 FOF 架构，支持"优先-劣后"分级',
-              tag: '已发行',
-              colorStyle: { text: '#DAA520', bg: 'rgba(218, 165, 32, 0.1)', border: 'rgba(218, 165, 32, 0.3)' },
-            },
-            {
-              number: '8号产品',
-              title: '新加坡智选多策略基金',
-              position: '跨资产多策略配置平台',
-              desc: 'VCC 基金的混合 FOF 架构，跨界结合加密与传统证券期货衍生品',
-              tag: '2026Q2',
-              colorStyle: { text: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.05)', border: 'rgba(255, 255, 255, 0.15)' },
-            },
-            {
-              number: '12号产品',
-              title: '合一量投指数增强基金',
-              position: '传统金融底层资管基石',
-              desc: '布局 A 股、商品期货及股指期货',
-              tag: '2026H2',
-              colorStyle: { text: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.05)', border: 'rgba(255, 255, 255, 0.15)' },
-            },
-          ].map((product, i) => (
+          {products.map((product) => (
             <GlassReveal
-              key={i}
+              key={product.productId}
               interactive
               variant="muted"
-              id={product.number === '4号产品' ? 'product-4' : undefined}
+              id={product.productId === '4' ? 'product-4' : undefined}
               className={`panel-card group relative flex flex-col rounded-[var(--radius-card)] p-6 transition-all duration-500 hover:-translate-y-1 ${
                 product.featured ? 'panel-card--featured' : ''
               }`}
@@ -274,9 +269,9 @@ export function Fund() {
                     type="button"
                     tone="gold"
                     interactive
-                    className="w-full rounded py-3 font-semibold shadow-[0_0_15px_rgba(212,175,55,0.28)] transition-all hover:brightness-110"
+                    className="w-full rounded py-3 font-semibold shadow-[0_0_15px_rgba(245,166,35,0.3)] transition-all hover:brightness-110"
                   >
-                    优先 RWA 映射
+                    {t('fund.rwaCta')}
                   </GlassReveal>
                 </div>
               )}
@@ -291,10 +286,10 @@ export function Fund() {
           
           <div className="relative z-10">
             <h4 className="mb-2 text-3xl font-[var(--font-display)] text-[var(--gold-champagne)]">
-              合作渠道专属通道
+              {t('fund.bannerTitle')}
             </h4>
             <p className="text-white/60 font-[var(--font-body)] text-lg">
-              预约合作渠道尽调，获取《私募备忘录》及详细合规文件
+              {t('fund.bannerDesc')}
             </p>
           </div>
           <GlassReveal
@@ -304,14 +299,14 @@ export function Fund() {
             interactive
             className="lux-button relative z-10 whitespace-nowrap px-8 py-4"
           >
-            提交尽调申请 <ChevronRight className="ml-2 inline h-4 w-4" />
+            {t('fund.bannerBtn')} <ChevronRight className="ml-2 inline h-4 w-4" />
           </GlassReveal>
         </div>
 
         {/* Global Network Map (Independent Row) */}
         <div className="group panel-card relative mt-12 overflow-hidden rounded-[var(--radius-panel)] p-10 md:p-16">
           {/* Subtle vignette / center glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.06)_0%,_transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(245,166,35,0.07)_0%,_transparent_70%)]" />
           
           {/* Background Grid Pattern for TradFi aesthetic */}
           <div 
@@ -326,10 +321,10 @@ export function Fund() {
           <div className="relative z-10 mb-16 text-center">
             <h4 className="text-3xl font-[var(--font-display)] mb-4 text-[var(--gold-champagne)] flex items-center justify-center gap-3">
               <Globe className="w-8 h-8 opacity-80" />
-              全球合规网络
+              {t('fund.mapTitle')}
             </h4>
             <p className="section-lead mx-auto max-w-2xl font-[var(--font-body)] text-sm tracking-wide">
-              立足全球核心金融枢纽，通过 VCC 及开曼合规架构搭建连接 TradFi 与 Web3 的价值桥梁。
+              {t('fund.mapLead')}
             </p>
           </div>
           
@@ -356,7 +351,7 @@ export function Fund() {
               
               return (
                 <div 
-                  className="absolute z-20 w-80 bg-black/95 backdrop-blur-xl border border-[var(--gold-champagne)]/40 rounded-xl shadow-[0_12px_48px_rgba(212,175,55,0.25)] p-6 animate-fade-in-up pointer-events-none"
+                  className="absolute z-20 w-80 bg-black/95 backdrop-blur-xl border border-[var(--gold-champagne)]/40 rounded-xl shadow-[0_12px_48px_rgba(245,166,35,0.28)] p-6 animate-fade-in-up pointer-events-none"
                   style={{
                     left: `${(leftPos / 800) * 100}%`,
                     top: `${(topPos / 400) * 100}%`,
@@ -380,7 +375,7 @@ export function Fund() {
                   {/* Licenses */}
                   <div>
                     <h6 className="text-xs text-white/40 font-[var(--font-body)] uppercase tracking-wider mb-3">
-                      监管牌照 / Licenses
+                      {t('fund.licenseHdr')}
                     </h6>
                     <ul className="space-y-2.5">
                       {selectedNode.licenses.map((license, idx) => (
@@ -397,7 +392,7 @@ export function Fund() {
                   {/* Close hint */}
                   <div className="mt-4 pt-4 border-t border-white/5">
                     <p className="text-[10px] text-white/30 font-[var(--font-body)] text-center tracking-wider">
-                      点击节点关闭 / Click node to close
+                      {t('fund.closeHint')}
                     </p>
                   </div>
                   
@@ -568,7 +563,7 @@ export function Fund() {
                 <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-[var(--gold-champagne)] opacity-50"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--gold-champagne)]/80"></span>
               </span>
-              <span className="tracking-[0.2em] uppercase text-[10px]">Global Compliance Network</span>
+              <span className="tracking-[0.2em] uppercase text-[10px]">{t('fund.mapTitle')}</span>
             </div>
             <div className="text-[var(--gold-champagne)]/50 tracking-[0.2em] font-[var(--font-display)] text-[10px]">
               EST. 2024
