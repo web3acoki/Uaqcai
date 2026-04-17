@@ -1,12 +1,23 @@
 import { ChevronRight, Globe } from 'lucide-react';
 import { ComposableMap, Geographies, Geography, Marker, Line } from 'react-simple-maps';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import { GlassReveal } from '../components/site/GlassReveal';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
+type FundNode = {
+  id: string;
+  name: string;
+  desc: string;
+  coords: [number, number];
+  flagCode: string;
+  licenses: string[];
+};
+
 export function Fund() {
-  const [activeNode, setActiveNode] = useState<string | null>('singapore');
+  const location = useLocation();
+  const [activeNode, setActiveNode] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
   const [isPinned, setIsPinned] = useState(false); // 是否锁定弹窗
 
@@ -62,7 +73,7 @@ export function Fund() {
   };
 
   // 节点数据配置
-  const nodes = [
+  const nodes: FundNode[] = [
     { 
       id: 'us', 
       name: 'New York', 
@@ -125,35 +136,36 @@ export function Fund() {
     },
   ];
 
-  // 初始化显示新加坡的tooltip
   useEffect(() => {
-    const singaporeNode = nodes.find(n => n.id === 'singapore');
-    if (singaporeNode) {
-      const pos = getScreenPosition(singaporeNode.coords);
-      setTooltipPosition({ x: pos.x, y: pos.y });
-    }
-  }, []);
+    if (location.hash !== '#product-4') return;
+    const el = document.getElementById('product-4');
+    if (!el) return;
+    window.requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }, [location.hash]);
 
   return (
-    <section className="min-h-screen bg-transparent py-20">
+    <section className="section-shell min-h-screen bg-transparent">
       <div className="page-container">
-        <div className="text-center mb-16">
-          <h2
-            className="font-[var(--font-display)] text-5xl mb-4"
-            style={{ color: 'var(--gold-champagne)' }}
-          >
+        <div className="mb-16 text-center">
+          <span className="brand-kicker mb-4">
+            <span className="brand-dot" />
+            Fund Layer
+          </span>
+          <h2 className="section-heading mb-4">
             合规资管引擎
           </h2>
-          <p className="font-[var(--font-body)] text-xl text-white/70">
+          <p className="section-subheading font-[var(--font-body)]">
             筑牢机构安全垫
           </p>
         </div>
 
         <div className="mb-12">
-          <h3 className="font-[var(--font-body)] text-2xl mb-2 text-white">
+          <h3 className="content-block-title mb-2">
             合规基本盘：TradFi 产品矩阵
           </h3>
-          <p className="text-sm text-white/50 mb-2 font-[var(--font-body)]">
+          <p className="section-lead mb-2 font-[var(--font-body)]">
             Compliance Foundation: TradFi Product Matrix
           </p>
           <p className="text-white/60 font-[var(--font-body)]">
@@ -162,7 +174,7 @@ export function Fund() {
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="panel-grid md:grid-cols-2 lg:grid-cols-3">
           {[
             {
               number: '4号产品',
@@ -219,8 +231,9 @@ export function Fund() {
               key={i}
               interactive
               variant="muted"
-              className={`group relative flex flex-col rounded-xl p-6 transition-all duration-500 hover:-translate-y-1 ${
-                product.featured ? 'ring-1 ring-[var(--gold-champagne)]/45' : ''
+              id={product.number === '4号产品' ? 'product-4' : undefined}
+              className={`panel-card group relative flex flex-col rounded-[var(--radius-card)] p-6 transition-all duration-500 hover:-translate-y-1 ${
+                product.featured ? 'panel-card--featured' : ''
               }`}
             >
               <div className="flex items-start justify-between mb-4">
@@ -272,12 +285,12 @@ export function Fund() {
         </div>
 
         {/* CTA Banner */}
-        <div className="relative mt-20 flex flex-col items-center justify-between gap-8 overflow-hidden rounded-2xl border border-[var(--gold-champagne)]/16 bg-gradient-to-r from-[rgba(12,12,18,0.76)] to-[rgba(8,8,12,0.6)] p-8 shadow-[0_0_40px_rgba(212,175,55,0.03)] md:flex-row md:p-12">
+        <div className="hero-shell relative mt-20 flex flex-col items-center justify-between gap-8 overflow-hidden p-8 md:flex-row md:p-12">
           {/* Subtle gold accent */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--gold-champagne)]/10 rounded-full blur-[80px] translate-x-1/2 -translate-y-1/2" />
           
           <div className="relative z-10">
-            <h4 className="text-3xl font-[var(--font-display)] mb-2 text-[var(--gold-champagne)]">
+            <h4 className="mb-2 text-3xl font-[var(--font-display)] text-[var(--gold-champagne)]">
               合作渠道专属通道
             </h4>
             <p className="text-white/60 font-[var(--font-body)] text-lg">
@@ -289,14 +302,14 @@ export function Fund() {
             type="button"
             tone="gold"
             interactive
-            className="relative z-10 whitespace-nowrap rounded px-8 py-4 font-semibold shadow-[0_0_20px_rgba(212,175,55,0.22)] transition-all hover:brightness-110"
+            className="lux-button relative z-10 whitespace-nowrap px-8 py-4"
           >
             提交尽调申请 <ChevronRight className="ml-2 inline h-4 w-4" />
           </GlassReveal>
         </div>
 
         {/* Global Network Map (Independent Row) */}
-        <div className="group relative mt-12 overflow-hidden rounded-2xl border border-white/8 bg-[rgba(7,7,10,0.66)] p-10 shadow-2xl md:p-16">
+        <div className="group panel-card relative mt-12 overflow-hidden rounded-[var(--radius-panel)] p-10 md:p-16">
           {/* Subtle vignette / center glow */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.06)_0%,_transparent_70%)]" />
           
@@ -315,7 +328,7 @@ export function Fund() {
               <Globe className="w-8 h-8 opacity-80" />
               全球合规网络
             </h4>
-            <p className="text-white/50 font-[var(--font-body)] max-w-2xl mx-auto text-sm tracking-wide">
+            <p className="section-lead mx-auto max-w-2xl font-[var(--font-body)] text-sm tracking-wide">
               立足全球核心金融枢纽，通过 VCC 及开曼合规架构搭建连接 TradFi 与 Web3 的价值桥梁。
             </p>
           </div>

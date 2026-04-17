@@ -9,6 +9,8 @@ type GlassRevealBase = {
   variant?: 'default' | 'muted';
   tone?: 'neutral' | 'gold';
   interactive?: boolean;
+  revealDelay?: number;
+  revealAmount?: number;
 };
 
 type GlassRevealDivProps = GlassRevealBase &
@@ -24,7 +26,17 @@ type GlassRevealButtonProps = GlassRevealBase &
 export type GlassRevealProps = GlassRevealDivProps | GlassRevealButtonProps;
 
 export function GlassReveal(props: GlassRevealProps) {
-  const { children, className, variant = 'default', tone = 'neutral', interactive = false, as = 'div', ...rest } =
+  const {
+    children,
+    className,
+    variant = 'default',
+    tone = 'neutral',
+    interactive = false,
+    revealDelay = 0,
+    revealAmount = 0.24,
+    as = 'div',
+    ...rest
+  } =
     props;
   const reduceMotion = useReducedMotion();
 
@@ -39,10 +51,10 @@ export function GlassReveal(props: GlassRevealProps) {
   const motionRest = reduceMotion
     ? {}
     : {
-        initial: { opacity: 0.86, y: 12 } as const,
+        initial: { opacity: 0, y: 12 } as const,
         whileInView: { opacity: 1, y: 0 } as const,
-        viewport: { once: true, margin: '-10% 0px' } as const,
-        transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] as const },
+        viewport: { once: true, amount: revealAmount, margin: '0px 0px -8% 0px' } as const,
+        transition: { duration: 0.52, delay: revealDelay, ease: [0.22, 1, 0.36, 1] as const },
       };
 
   if (as === 'button') {

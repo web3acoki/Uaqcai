@@ -120,11 +120,11 @@ export function Layout() {
     <div className="min-h-screen overflow-x-hidden bg-[var(--deep-black)] text-white">
       {/* Global Ticker */}
       {tickerVisible && (
-        <div className="fixed top-0 left-0 right-0 z-50 flex h-[40px] items-center justify-center border-b border-white/10 bg-[rgba(8,8,12,0.82)] px-6 backdrop-blur-xl animate-fade-in transition-all">
-          <div className="flex items-center gap-3 text-xs md:text-sm font-[var(--font-body)] text-white/90">
+        <div className="fixed top-0 left-0 right-0 z-50 flex h-[40px] items-center justify-center border-b border-[var(--line-subtle)] bg-[rgba(8,8,12,0.9)] px-6 backdrop-blur-xl animate-fade-in transition-all">
+          <div className="flex items-center gap-3 text-xs font-[var(--font-body)] text-white/88 md:text-sm">
             <span className="hidden sm:inline tracking-wide">Ondo and Binance Bring Tokenized Securities to Hundreds of Millions</span>
             <span className="sm:hidden truncate max-w-[200px] tracking-wide">Tokenized Securities Live on Binance</span>
-            <a href="https://ondo.finance/blog/tokenized-stocks-live-on-binance" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[var(--gold-champagne)] hover:opacity-80 transition-opacity font-semibold ml-2">
+            <a href="https://ondo.finance/blog/tokenized-stocks-live-on-binance" target="_blank" rel="noopener noreferrer" className="ml-2 flex items-center gap-1 font-semibold text-[var(--gold-light)]/90 transition-opacity hover:opacity-80">
               Learn More
               <svg width="14px" height="14px" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M7.33936 19.2393L14.5394 12.0393L7.33936 4.83934L8.40002 3.77868L16.6607 12.0393L8.40002 20.3L7.33936 19.2393Z" fill="currentColor" />
@@ -133,7 +133,7 @@ export function Layout() {
           </div>
           <button
             onClick={() => setTickerVisible(false)}
-            className="absolute right-4 p-1.5 text-white/50 hover:text-[var(--gold-champagne)] rounded-full transition-colors"
+            className="absolute right-4 rounded-full p-1.5 text-white/50 transition-colors hover:text-[var(--gold-champagne)]"
           >
             <X size={16} />
           </button>
@@ -154,7 +154,7 @@ export function Layout() {
         <div 
           className={`flex items-center justify-between ${
             scrolled 
-              ? 'h-[58px] w-full max-w-[min(var(--nav-pill-max),calc(100%-2rem))] rounded-[12px] border border-[rgba(255,255,255,0.12)] bg-[rgba(10,10,14,0.42)] px-4 shadow-[0_14px_42px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl md:px-7' 
+              ? 'h-[58px] w-full max-w-[min(var(--nav-pill-max),calc(100%-2rem))] rounded-[12px] border border-[var(--line-strong)] bg-[rgba(9,9,12,0.64)] px-4 shadow-[0_14px_42px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl md:px-7'
               : 'h-[58px] w-full max-w-[min(100%,var(--layout-page-max))] rounded-none border border-transparent bg-transparent px-[var(--layout-page-gutter)] shadow-none'
           }`}
           style={{
@@ -165,9 +165,13 @@ export function Layout() {
           {/* Logo — no horizontal Motion here (was fighting max-width shrink → rightward jerk) */}
           <Link to="/" className="z-10 shrink-0">
             <div className="flex items-center">
-              <span className="font-[var(--font-display)] font-bold tracking-wider text-[var(--gold-champagne)] text-[20px] md:text-[24px]">
-                UAQC
-              </span>
+              <img
+                src="/@fs/e:/uaqc-ai/Uaqcai/src/public/UAQC2.png"
+                alt="UAQC"
+                className="h-9 w-auto object-contain md:h-11"
+                loading="eager"
+                decoding="async"
+              />
             </div>
           </Link>
 
@@ -188,13 +192,13 @@ export function Layout() {
                 <Link
                   key={item}
                   to={path}
-                  className={`group relative transition-colors duration-200 ease-[var(--nav-ease)] ${isActive ? 'text-[var(--gold-champagne)]' : 'text-white/78 hover:text-[var(--gold-light)]'}`}
+                  className={`group relative transition-colors duration-200 ease-[var(--nav-ease)] ${isActive ? 'text-[var(--gold-light)]/95' : 'text-white/78 hover:text-white/92'}`}
                 >
-                  <span className="font-[var(--font-body)] font-medium tracking-wide text-[15px]">
+                  <span className="font-[var(--font-body)] text-[15px] font-medium tracking-[0.06em]">
                     {item}
                   </span>
                   <div
-                    className={`absolute -bottom-1.5 left-0 h-[2px] bg-[var(--gold-champagne)] transition-all ease-[var(--nav-ease)] ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
+                    className={`absolute -bottom-1.5 left-0 h-[2px] bg-[var(--gold-dark)]/70 transition-all ease-[var(--nav-ease)] ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
                     style={{ transitionDuration: 'var(--nav-link-underline-ms)' }}
                   />
                 </Link>
@@ -205,15 +209,15 @@ export function Layout() {
           <div className="z-10 flex shrink-0 items-center gap-2 md:gap-3">
             <button
               type="button"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/14 bg-white/[0.06] text-white transition-colors hover:bg-white/10 md:hidden"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/14 bg-white/[0.06] text-white transition-colors hover:bg-white/10 md:hidden"
               aria-label="打开菜单"
               onClick={() => setMobileNavOpen(true)}
             >
-              <Menu size={22} strokeWidth={2} />
+              <Menu size={20} strokeWidth={2} />
             </button>
             <button
               type="button"
-              className="flex h-11 min-h-[44px] min-w-0 items-center justify-center rounded-lg bg-[var(--gold-champagne)] px-3 text-sm font-bold text-black shadow-[0_8px_24px_rgba(212,175,55,0.2)] transition-colors duration-200 ease-[var(--nav-ease)] hover:bg-[#FFF1C8] hover:shadow-[0_10px_30px_rgba(235,213,169,0.38)] md:h-10 md:px-6 md:text-[15px]"
+              className="lux-button flex h-10 min-h-[40px] min-w-0 items-center justify-center px-3 text-xs md:h-9 md:px-5 md:text-sm"
             >
               Launch App
             </button>
@@ -224,7 +228,7 @@ export function Layout() {
       <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
         <SheetContent
           side="right"
-          className="z-[100] flex h-full max-h-[100dvh] w-[min(100%,20rem)] flex-col gap-0 border-l border-white/10 bg-[var(--deep-black)] p-0 text-white sm:max-w-sm [&>button]:text-white/70 [&>button]:hover:text-[var(--gold-champagne)]"
+          className="z-[100] flex h-full max-h-[100dvh] w-[min(100%,20rem)] flex-col gap-0 border-l border-[var(--line-subtle)] bg-[var(--surface-1)] p-0 text-white sm:max-w-sm [&>button]:text-white/70 [&>button]:hover:text-[var(--gold-champagne)]"
         >
           <SheetHeader className="shrink-0 border-b border-white/10 px-5 py-4 text-left">
             <SheetTitle className="font-[var(--font-body)] text-base font-semibold tracking-wide text-white">
@@ -242,7 +246,7 @@ export function Layout() {
                   to={path}
                   onClick={() => setMobileNavOpen(false)}
                   className={`rounded-lg px-4 py-3.5 text-[15px] font-medium font-[var(--font-body)] transition-colors hover:text-[var(--gold-light)] ${
-                    isActive ? 'bg-white/[0.06] text-[var(--gold-champagne)]' : 'text-white/80 active:bg-white/5'
+                    isActive ? 'bg-white/[0.06] text-[var(--gold-light)]/95' : 'text-white/80 active:bg-white/5'
                   }`}
                 >
                   {item}
@@ -253,7 +257,7 @@ export function Layout() {
           <div className="shrink-0 border-t border-white/10 p-4">
             <button
               type="button"
-              className="flex h-12 w-full items-center justify-center rounded-lg bg-[var(--gold-champagne)] text-[15px] font-bold text-black shadow-[0_8px_24px_rgba(212,175,55,0.2)]"
+              className="lux-button flex h-12 w-full items-center justify-center text-[15px]"
               onClick={() => setMobileNavOpen(false)}
             >
               Launch App
@@ -263,50 +267,64 @@ export function Layout() {
       </Sheet>
 
       {/* Main Content */}
-      <main style={{ paddingTop: tickerVisible ? '120px' : '80px', minHeight: 'calc(100vh - 200px)' }}>
+      <main style={{ paddingTop: tickerVisible ? '126px' : '84px', minHeight: 'calc(100vh - 200px)' }}>
         <Outlet />
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-white/10 bg-black py-16">
+      <footer className="mt-auto border-t border-[var(--line-subtle)] bg-[var(--surface-0)] py-16 md:py-20">
         <div className="page-container">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            <div>
-              <h4 className="font-[var(--font-body)] font-semibold mb-4 text-white">
-                机构业务
-              </h4>
-              <p className="text-sm text-white/60">institutional@uaqc.net</p>
+          <div className="px-2 py-[calc(var(--footer-shell-pad-y)*0.9)] md:px-4">
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+              <div className="space-y-2">
+                <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.14em] text-white/68">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--taiji-gold-soft)]/85 shadow-[0_0_6px_rgba(184,154,74,0.3)]" />
+                  UAQC Investor Desk
+                </span>
+                <p className="text-sm text-white/50">Institutional gateway for compliant digital asset operations</p>
+              </div>
+              <span className="text-[10px] tracking-[0.14em] text-white/34">GLOBAL COMPLIANCE RAIL</span>
             </div>
-            <div>
-              <h4 className="font-[var(--font-body)] font-semibold mb-4 text-white">
-                全球运营中心
-              </h4>
-              <p className="text-sm text-white/60">
-                新加坡总枢纽 · 香港 Web3 中心
-                <br />
-                日本东京研发中心 · 美国
-              </p>
-            </div>
-            <div>
-              <h4 className="font-[var(--font-body)] font-semibold mb-4 text-white">
-                社群链接
-              </h4>
-              <div className="flex gap-4">
-                <a href="#" className="text-white/60 hover:text-[var(--tech-cyan)] transition-colors">
-                  Twitter
-                </a>
-                <a href="#" className="text-white/60 hover:text-[var(--tech-cyan)] transition-colors">
-                  Discord
-                </a>
-                <a href="#" className="text-white/60 hover:text-[var(--tech-cyan)] transition-colors">
-                  YouTube
-                </a>
+            <div className="mb-8 h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent" />
+            <div className="mb-10 grid gap-[calc(var(--footer-grid-gap)*0.88)] md:grid-cols-3">
+              <div>
+                <h4 className="mb-2 text-[12px] font-[var(--font-body)] font-medium tracking-[0.08em] text-white/76">
+                  机构业务
+                </h4>
+                <p className="text-sm text-white/58">institutional@uaqc.net</p>
+                <p className="mt-1.5 text-xs text-white/38">机构合作与尽调通道</p>
+              </div>
+              <div>
+                <h4 className="mb-2 text-[12px] font-[var(--font-body)] font-medium tracking-[0.08em] text-white/76">
+                  全球运营中心
+                </h4>
+                <p className="text-sm leading-relaxed text-white/58">
+                  新加坡总枢纽 · 香港 Web3 中心
+                  <br />
+                  日本东京研发中心 · 美国
+                </p>
+              </div>
+              <div>
+                <h4 className="mb-2 text-[12px] font-[var(--font-body)] font-medium tracking-[0.08em] text-white/76">
+                  社群链接
+                </h4>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+                  <a href="#" className="text-sm tracking-[0.06em] text-white/54 transition-colors hover:text-white/78">
+                    Twitter
+                  </a>
+                  <a href="#" className="text-sm tracking-[0.06em] text-white/54 transition-colors hover:text-white/78">
+                    Discord
+                  </a>
+                  <a href="#" className="text-sm tracking-[0.06em] text-white/54 transition-colors hover:text-white/78">
+                    YouTube
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="pt-8 border-t border-white/10 text-center text-xs text-white/40 font-[var(--font-body)]">
-            <p>© 2026 UAQC. Regulated by SFC/MAS. All rights reserved.</p>
+            <div className="flex flex-col items-center justify-between gap-2.5 pt-4 text-center text-xs text-white/34 md:flex-row md:text-left">
+              <p>© 2026 UAQC. Regulated by SFC/MAS. All rights reserved.</p>
+              <p className="tracking-[0.12em] text-white/28">COMPLIANCE · SECURITY · TRANSPARENCY</p>
+            </div>
           </div>
         </div>
       </footer>
