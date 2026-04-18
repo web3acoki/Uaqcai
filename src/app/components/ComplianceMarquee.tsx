@@ -4,6 +4,9 @@ import { useT } from '@/i18n/locale';
 
 const iconClass = 'mr-2 size-4 shrink-0';
 
+/** Duplicate strip count — must match `--marquee-segments` in theme.css for seamless loop */
+const MARQUEE_STRIP_COUNT = 4;
+
 export function ComplianceMarquee() {
   const t = useT();
   const reducedMotion = useReducedMotion();
@@ -15,6 +18,20 @@ export function ComplianceMarquee() {
     { Icon: Globe, label: t('home.marquee.gc') },
   ] as const;
 
+  const strip = (copy: number) => (
+    <div key={copy} className="flex shrink-0 items-center gap-12 px-6 opacity-50">
+      {items.map(({ Icon, label }, i) => (
+        <span
+          key={`${copy}-${i}`}
+          className="flex items-center whitespace-nowrap font-mono text-sm uppercase tracking-widest text-white"
+        >
+          <Icon className={iconClass} strokeWidth={2} aria-hidden />
+          {label}
+        </span>
+      ))}
+    </div>
+  );
+
   return (
     <div
       className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden border-b border-slate-800 bg-black"
@@ -23,20 +40,13 @@ export function ComplianceMarquee() {
     >
       <div
         className={`flex w-max whitespace-nowrap py-4 ${reducedMotion ? '' : 'home-compliance-marquee-track'}`}
+        style={
+          reducedMotion
+            ? undefined
+            : ({ ['--marquee-segments' as string]: String(MARQUEE_STRIP_COUNT) } as React.CSSProperties)
+        }
       >
-        {[0, 1].map((copy) => (
-          <div key={copy} className="flex shrink-0 items-center gap-12 px-6 opacity-50">
-            {items.map(({ Icon, label }, i) => (
-              <span
-                key={`${copy}-${i}`}
-                className="flex items-center whitespace-nowrap font-mono text-sm uppercase tracking-widest text-white"
-              >
-                <Icon className={iconClass} strokeWidth={2} aria-hidden />
-                {label}
-              </span>
-            ))}
-          </div>
-        ))}
+        {Array.from({ length: MARQUEE_STRIP_COUNT }, (_, copy) => strip(copy))}
       </div>
     </div>
   );

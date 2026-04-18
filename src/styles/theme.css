@@ -179,19 +179,21 @@ html:lang(en) {
   --font-display: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* One segment = 1/(--marquee-segments); must match ComplianceMarquee strip count */
 @keyframes home-compliance-marquee {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(calc(-100% / var(--marquee-segments, 4)), 0, 0);
   }
 }
 
 .home-compliance-marquee-track {
   display: flex;
   width: max-content;
-  animation: home-compliance-marquee 50s linear infinite;
+  will-change: transform;
+  animation: home-compliance-marquee 45s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
