@@ -1,5 +1,6 @@
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { Activity, ArrowRight, BarChart3, Target } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import uaqcLogoMark from '@/public/UAQC2.png';
 import { useT } from '@/i18n/locale';
@@ -7,26 +8,28 @@ import { useT } from '@/i18n/locale';
 const MotionLink = motion.create(Link);
 
 function BalanceAnimation() {
-  const colorLong = 'var(--taiji-white)';
+  const colorLong = 'var(--taiji-ash)';
   const colorShort = 'var(--taiji-ash)';
   const colorAccent = 'var(--taiji-gold-soft)';
   const colorBg = 'var(--taiji-ink)';
 
   return (
-    <div className="relative flex aspect-square w-full max-w-[600px] items-center justify-center">
+    <div
+      className="relative flex aspect-square w-full max-w-[600px] items-center justify-center"
+      style={{ animation: 'zenith-float 9s ease-in-out infinite' }}
+    >
       {/* Main rotating container */}
-      <motion.div
+      <div
         className="relative w-full h-full"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 42, repeat: Infinity, ease: 'linear' }}
+        style={{ animation: 'spin-slow 42s linear infinite' }}
       >
         {/* Long side */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <svg viewBox="0 0 200 200" className="h-full w-full drop-shadow-[0_0_12px_rgba(231,235,242,0.12)]" aria-hidden="true">
+          <svg viewBox="0 0 200 200" className="h-full w-full drop-shadow-[0_0_10px_rgba(188,195,209,0.08)]" aria-hidden="true">
             <defs>
               <linearGradient id="uaqcLongGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={colorLong} stopOpacity="0.82" />
-              <stop offset="100%" stopColor={colorLong} stopOpacity="0.06" />
+              <stop offset="0%" stopColor={colorLong} stopOpacity="0.64" />
+              <stop offset="100%" stopColor={colorLong} stopOpacity="0.05" />
               </linearGradient>
             </defs>
             <path
@@ -34,14 +37,7 @@ function BalanceAnimation() {
               fill="url(#uaqcLongGradient)"
             />
             <circle cx="100" cy="50" r="12" fill={colorBg} />
-            <motion.circle
-              cx="100"
-              cy="50"
-              r="4"
-              fill={colorLong}
-              animate={{ scale: [1, 1.26, 1], opacity: [0.36, 0.62, 0.36] }}
-              transition={{ duration: 4.8, repeat: Infinity }}
-            />
+            <circle cx="100" cy="50" r="4" fill={colorShort} opacity="0.32" />
           </svg>
         </div>
 
@@ -59,66 +55,41 @@ function BalanceAnimation() {
               fill="url(#uaqcShortGradient)"
             />
             <circle cx="100" cy="50" r="12" fill={colorBg} />
-            <motion.circle
-              cx="100"
-              cy="50"
-              r="4"
-              fill={colorAccent}
-              animate={{ scale: [1, 1.26, 1], opacity: [0.28, 0.52, 0.28] }}
-              transition={{ duration: 4.8, repeat: Infinity, delay: 2.2 }}
-            />
+            <circle cx="100" cy="50" r="4" fill={colorAccent} opacity="0.34" />
           </svg>
         </div>
 
         {/* Flowing particles */}
         <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
           {Array.from({ length: 6 }).map((_, i) => (
-            <motion.circle
+            <circle
               key={`long-p-${i}`}
               r="1.2"
-              fill={colorLong}
-              initial={{ offsetDistance: `${(i * 100) / 8}%`, opacity: 0 }}
-              animate={{ offsetDistance: ['0%', '100%'], opacity: [0, 0.52, 0.52, 0] }}
-              transition={{ duration: 9, repeat: Infinity, delay: i * 1.1, ease: 'linear' }}
-              style={{ offsetPath: "path('M 100 0 A 50 50 0 0 1 100 100 A 50 50 0 0 0 100 200')" }}
+              fill={i % 3 === 0 ? colorAccent : colorShort}
+              opacity={i % 3 === 0 ? '0.32' : '0.22'}
+              style={{
+                offsetPath: "path('M 100 0 A 50 50 0 0 1 100 100 A 50 50 0 0 0 100 200')",
+                offsetDistance: `${12 + i * 12}%`,
+                animation: 'zenith-particle-long 18s linear infinite',
+                animationDelay: `${-i * 2.4}s`,
+              }}
             />
           ))}
           {Array.from({ length: 6 }).map((_, i) => (
-            <motion.circle
+            <circle
               key={`short-p-${i}`}
               r="1.2"
-              fill={i % 5 === 0 ? colorAccent : colorShort}
-              initial={{ offsetDistance: `${(i * 100) / 8}%`, opacity: 0 }}
-              animate={{ offsetDistance: ['0%', '100%'], opacity: [0, 0.5, 0.5, 0] }}
-              transition={{ duration: 9, repeat: Infinity, delay: i * 1.1 + 4.2, ease: 'linear' }}
-              style={{ offsetPath: "path('M 100 200 A 50 50 0 0 1 100 100 A 50 50 0 0 0 100 0')" }}
+              fill={i % 2 === 0 ? colorShort : colorAccent}
+              opacity={i % 2 === 0 ? '0.24' : '0.34'}
+              style={{
+                offsetPath: "path('M 100 200 A 50 50 0 0 1 100 100 A 50 50 0 0 0 100 0')",
+                offsetDistance: `${10 + i * 13}%`,
+                animation: 'zenith-particle-short 20s linear infinite',
+                animationDelay: `${-i * 2.6}s`,
+              }}
             />
           ))}
         </svg>
-      </motion.div>
-
-      {/* Central core */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="relative w-20 h-20">
-          <motion.div
-            className="absolute inset-0 rounded-full border border-white/12 bg-[rgba(255,255,255,0.02)] shadow-[0_0_10px_rgba(255,255,255,0.04)] backdrop-blur-[1px]"
-            animate={{ scale: [1, 1.05, 1], rotate: [0, 90, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-1.5 w-1.5 rounded-full bg-[var(--taiji-gold-soft)] shadow-[0_0_12px_rgba(245,166,35,0.35)]" />
-          </div>
-          <motion.div
-            className="absolute -inset-4 rounded-full border border-white/10"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.div
-            className="absolute -inset-8 rounded-full border border-[var(--taiji-gold-soft)]/12"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-          />
-        </div>
       </div>
 
       {/* Labels removed */}
@@ -129,12 +100,31 @@ function BalanceAnimation() {
 export function ZenithBalanceHero() {
   const t = useT();
   const navigate = useNavigate();
-  const reducedMotion = useReducedMotion();
+  const [fxReady, setFxReady] = useState(false);
+
+  useEffect(() => {
+    let raf1 = 0;
+    let raf2 = 0;
+    raf1 = window.requestAnimationFrame(() => {
+      raf2 = window.requestAnimationFrame(() => {
+        setFxReady(true);
+      });
+    });
+    return () => {
+      if (raf1) window.cancelAnimationFrame(raf1);
+      if (raf2) window.cancelAnimationFrame(raf2);
+    };
+  }, []);
 
   return (
     <div className="group relative aspect-square w-full max-w-[480px]">
 
-      <div className="absolute inset-0 z-0 flex items-center justify-center">
+      <div
+        className={`absolute inset-0 z-0 flex items-center justify-center transition-opacity duration-200 ${
+          fxReady ? 'opacity-100' : 'opacity-0'
+        }`}
+        aria-hidden={!fxReady}
+      >
         <BalanceAnimation />
       </div>
 
@@ -144,12 +134,8 @@ export function ZenithBalanceHero() {
           aria-label={t('zenith.enterRwafiAria')}
           className="pointer-events-auto inline-flex max-h-[64%] w-[68%] origin-center select-none rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--gold-champagne)]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(5,6,12,0.6)] transform-gpu opacity-[0.38] transition-shadow"
           initial={false}
-          whileHover={
-            reducedMotion
-              ? { opacity: 0.46 }
-              : { scale: 1.05, opacity: 0.44, filter: 'brightness(1.03)' }
-          }
-          whileTap={reducedMotion ? undefined : { scale: 0.98 }}
+          whileHover={{ scale: 1.03, opacity: 0.42, filter: 'brightness(1.02)' }}
+          whileTap={{ scale: 0.99 }}
           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
         >
           <img
@@ -166,63 +152,27 @@ export function ZenithBalanceHero() {
       {/* Pole quick actions removed */}
 
       {/* Side status cards */}
-      <motion.div
-        animate={
-          reducedMotion
-            ? { opacity: [0.74, 0.84, 0.74] }
-            : { opacity: [0.74, 0.84, 0.74], y: [0, -4, 0] }
-        }
-        transition={
-          reducedMotion
-            ? { duration: 6.5, repeat: Infinity, ease: 'easeInOut' }
-            : {
-                opacity: { duration: 6.5, repeat: Infinity, ease: 'easeInOut' },
-                y: { duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
-              }
-        }
-        whileHover={
-          reducedMotion
-            ? undefined
-            : { y: -3, boxShadow: '0 10px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.08)' }
-        }
-        className="absolute right-0 top-10 z-[6] hidden w-[220px] translate-x-3 rounded-2xl border border-white/12 bg-[linear-gradient(160deg,rgba(12,13,17,0.68)_0%,rgba(12,13,17,0.48)_58%,rgba(12,13,17,0.28)_100%)] px-4 py-3 shadow-[0_6px_18px_rgba(0,0,0,0.2)] backdrop-blur-[2px] transition-shadow duration-300 md:block md:translate-x-8"
+      <div
+        className="absolute right-0 top-10 z-[6] hidden w-[220px] translate-x-3 rounded-2xl border bg-[linear-gradient(160deg,rgba(12,13,17,0.68)_0%,rgba(12,13,17,0.48)_58%,rgba(12,13,17,0.28)_100%)] px-4 py-3 shadow-[0_6px_18px_rgba(0,0,0,0.2)] backdrop-blur-[2px] md:block md:translate-x-8"
+        style={{ borderColor: 'rgba(168,176,196,0.16)' }}
+        aria-hidden={!fxReady}
       >
         <div className="mb-2 flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-white/82">
-            <BarChart3 className="h-3.5 w-3.5 text-white/82" />
+          <div className="flex items-center gap-1.5 text-[var(--taiji-ash)]/82">
+            <BarChart3 className="h-3.5 w-3.5 text-[var(--taiji-ash)]/82" />
             <span className="text-[11px] tracking-[0.04em]">Bullish Momentum</span>
           </div>
-          <span className="font-mono text-[17px] font-semibold text-white/92">+2.4%</span>
+          <span className="font-mono text-[17px] font-semibold text-[var(--taiji-ash)]/88">+2.4%</span>
         </div>
-        <div className="mt-1 h-[2px] w-full overflow-hidden rounded-full bg-white/12">
-          <motion.div
-            className="h-full bg-[linear-gradient(90deg,rgba(231,235,242,0.2),rgba(231,235,242,0.9),rgba(231,235,242,0.28))]"
-            animate={{ width: ['58%', '66%', '62%'] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-          />
+        <div className="mt-1 h-[2px] w-full overflow-hidden rounded-full bg-[var(--taiji-ash)]/16">
+          <div className="h-full w-[62%] bg-[linear-gradient(90deg,rgba(168,176,196,0.16),rgba(168,176,196,0.66),rgba(168,176,196,0.24))]" />
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        animate={
-          reducedMotion
-            ? { opacity: [0.74, 0.84, 0.74] }
-            : { opacity: [0.74, 0.84, 0.74], y: [0, -4, 0] }
-        }
-        transition={
-          reducedMotion
-            ? { duration: 6.8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }
-            : {
-                opacity: { duration: 6.8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 },
-                y: { duration: 4.6, repeat: Infinity, ease: 'easeInOut', delay: 0.25 },
-              }
-        }
-        whileHover={
-          reducedMotion
-            ? undefined
-            : { y: -3, boxShadow: '0 10px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(245,166,35,0.08)' }
-        }
-        className="absolute bottom-10 left-0 z-[6] hidden w-[220px] -translate-x-3 rounded-2xl border border-[var(--taiji-gold-soft)]/10 bg-[linear-gradient(160deg,rgba(12,13,17,0.68)_0%,rgba(12,13,17,0.48)_58%,rgba(12,13,17,0.28)_100%)] px-4 py-3 shadow-[0_6px_18px_rgba(0,0,0,0.2)] backdrop-blur-[2px] transition-shadow duration-300 md:block md:-translate-x-5"
+      <div
+        className="absolute bottom-10 left-0 z-[6] hidden w-[220px] -translate-x-3 rounded-2xl border bg-[linear-gradient(160deg,rgba(12,13,17,0.68)_0%,rgba(12,13,17,0.48)_58%,rgba(12,13,17,0.28)_100%)] px-4 py-3 shadow-[0_6px_18px_rgba(0,0,0,0.2)] backdrop-blur-[2px] md:block md:-translate-x-5"
+        style={{ borderColor: 'rgba(245,166,35,0.1)' }}
+        aria-hidden={!fxReady}
       >
         <div className="mb-2 flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-white/82">
@@ -231,14 +181,10 @@ export function ZenithBalanceHero() {
           </div>
           <span className="font-mono text-[17px] font-semibold text-[var(--taiji-gold-soft)]/82">-1.2%</span>
         </div>
-        <div className="mt-1 h-[2px] w-full overflow-hidden rounded-full bg-white/12">
-          <motion.div
-            className="h-full bg-[linear-gradient(90deg,rgba(245,166,35,0.22),rgba(245,166,35,0.72),rgba(245,166,35,0.26))]"
-            animate={{ width: ['36%', '46%', '41%'] }}
-            transition={{ duration: 5.4, repeat: Infinity, ease: 'easeInOut' }}
-          />
+        <div className="mt-1 h-[2px] w-full overflow-hidden rounded-full bg-[rgba(245,166,35,0.14)]">
+          <div className="h-full w-[41%] bg-[linear-gradient(90deg,rgba(245,166,35,0.22),rgba(245,166,35,0.72),rgba(245,166,35,0.26))]" />
         </div>
-      </motion.div>
+      </div>
 
       {/* Frame */}
       <div className="pointer-events-none absolute inset-0 rounded-[40px] border border-transparent shadow-none" />
@@ -271,6 +217,20 @@ export function ZenithBalanceHero() {
           </button>
         </div>
       </div>
+      <style>{`
+        @keyframes zenith-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-3px); }
+        }
+        @keyframes zenith-particle-long {
+          from { offset-distance: 0%; }
+          to { offset-distance: 100%; }
+        }
+        @keyframes zenith-particle-short {
+          from { offset-distance: 0%; }
+          to { offset-distance: 100%; }
+        }
+      `}</style>
     </div>
   );
 }
