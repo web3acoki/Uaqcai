@@ -94,37 +94,47 @@ export function Home() {
             <ImpossibleTriangle />
           </motion.div>
 
-          <div className="panel-grid md:grid-cols-3">
-            {[
-              {
-                icon: <Shield className="w-8 h-8" />,
-                title: t('home.card1Title'),
-                desc: t('home.card1Desc'),
-              },
-              {
-                icon: <TrendingUp className="w-8 h-8" />,
-                title: t('home.card2Title'),
-                desc: t('home.card2Desc'),
-              },
-              {
-                icon: <Zap className="w-8 h-8" />,
-                title: t('home.card3Title'),
-                desc: t('home.card3Desc'),
-              },
-            ].map((card, i) => (
-              <GlassReveal
-                key={i}
-                interactive
-                revealDelay={0.2 + i * 0.1}
-                className="panel-card group rounded-[var(--radius-card)] p-8 transition-all duration-500 hover:scale-[1.02]"
-              >
-                <div className="mb-4 inline-flex items-center justify-center text-[var(--taiji-gold-soft)] transition-transform duration-300 ease-out transform-gpu origin-center group-hover:scale-110">
-                  {card.icon}
-                </div>
-                <h4 className="mb-3 text-xl font-semibold text-white">{card.title}</h4>
-                <p className="text-sm leading-relaxed text-white/60">{card.desc}</p>
-              </GlassReveal>
-            ))}
+          <div className="panel-grid--lux">
+            <GlassReveal
+              interactive
+              revealDelay={0.24}
+              className="panel-card panel-card--featured group rounded-[var(--radius-card)] p-8 md:p-9"
+            >
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--gold-light)]/30 bg-black/35 px-3 py-1 text-[11px] uppercase tracking-[0.12em] text-[var(--gold-light)]/88">
+                <Shield className="h-3.5 w-3.5" />
+                Core Thesis
+              </div>
+              <h4 className="mb-3 text-2xl font-semibold text-white">{t('home.card1Title')}</h4>
+              <p className="max-w-2xl text-sm leading-relaxed text-white/68">{t('home.card1Desc')}</p>
+            </GlassReveal>
+
+            <div className="grid gap-3">
+              {[
+                {
+                  icon: <TrendingUp className="h-4.5 w-4.5" />,
+                  title: t('home.card2Title'),
+                  desc: t('home.card2Desc'),
+                },
+                {
+                  icon: <Zap className="h-4.5 w-4.5" />,
+                  title: t('home.card3Title'),
+                  desc: t('home.card3Desc'),
+                },
+              ].map((card, i) => (
+                <GlassReveal
+                  key={card.title}
+                  interactive
+                  revealDelay={0.3 + i * 0.08}
+                  className="panel-card group rounded-[var(--radius-card)] p-6 md:p-7"
+                >
+                  <div className="mb-3 inline-flex items-center justify-center text-white/72 transition-colors duration-300 group-hover:text-[var(--gold-light)]/85">
+                    {card.icon}
+                  </div>
+                  <h4 className="mb-2 text-lg font-semibold text-white">{card.title}</h4>
+                  <p className="text-sm leading-relaxed text-white/60">{card.desc}</p>
+                </GlassReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>

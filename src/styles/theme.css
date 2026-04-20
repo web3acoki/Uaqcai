@@ -77,10 +77,10 @@
   --line-subtle: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.18);
   --line-gold: rgba(245, 166, 35, 0.26);
-  --radius-card: 20px;
-  --radius-panel: 28px;
-  --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.32);
-  --shadow-gold: 0 8px 22px rgba(245, 166, 35, 0.16);
+  --radius-card: 16px;
+  --radius-panel: 24px;
+  --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.3);
+  --shadow-gold: 0 6px 16px rgba(245, 166, 35, 0.12);
   --section-space: clamp(4.2rem, 8vw, 7.6rem);
   --focus-ring: 0 0 0 2px rgba(245, 166, 35, 0.32);
   --hero-min-h-desktop: 93vh;
@@ -403,12 +403,26 @@ html:lang(en) {
     gap: clamp(1rem, 2vw, 1.6rem);
   }
 
+  .panel-grid--lux {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: clamp(0.9rem, 1.5vw, 1.2rem);
+  }
+
+  @media (max-width: 1023px) {
+    .panel-grid--lux {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .content-block-title {
     font-family: var(--font-body);
     font-size: clamp(1.28rem, 2.2vw, 1.8rem);
     font-weight: 600;
     color: #fff;
     letter-spacing: 0.01em;
+    margin-bottom: clamp(0.7rem, 1.2vw, 1rem);
+    line-height: 1.25;
   }
 
   .panel-card {
@@ -416,7 +430,7 @@ html:lang(en) {
     border-radius: var(--radius-card);
     background: linear-gradient(160deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 36%, transparent 76%),
       rgba(8, 10, 18, 0.82);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    box-shadow: var(--shadow-soft);
   }
 
   .panel-card--featured {
@@ -431,24 +445,29 @@ html:lang(en) {
   }
 
   .lux-button {
-    border-radius: 0.7rem;
-    border: 1px solid rgba(245, 166, 35, 0.32);
-    background: linear-gradient(105deg, #a35f08 0%, #d98710 42%, #f5a623 72%, #ffb24c 100%);
+    border-radius: 0.65rem;
+    border: 1px solid rgba(245, 166, 35, 0.26);
+    background: linear-gradient(110deg, #a66310 0%, #c97a12 42%, #e89a1e 78%, #f5a623 100%);
     color: #0a0a0c;
+    min-height: 2.75rem;
+    padding-inline: 1.15rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
     font-weight: 700;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-    box-shadow: 0 8px 20px rgba(245, 166, 35, 0.18);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+    box-shadow: var(--shadow-gold);
   }
 
   .lux-button:hover {
     transform: translateY(-1px);
-    filter: brightness(1.05);
-    box-shadow: 0 11px 24px rgba(245, 166, 35, 0.22);
+    filter: brightness(1.03);
+    box-shadow: 0 8px 18px rgba(245, 166, 35, 0.16);
   }
 
   .lux-button:focus-visible {
     outline: none;
-    box-shadow: 0 11px 24px rgba(245, 166, 35, 0.22), var(--focus-ring);
+    box-shadow: 0 8px 18px rgba(245, 166, 35, 0.16), var(--focus-ring);
   }
 
   .glass-surface {

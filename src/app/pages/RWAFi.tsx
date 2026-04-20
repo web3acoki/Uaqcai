@@ -123,28 +123,28 @@ export function RWAFi() {
                 interactive
                 id={product.anchorId}
                 variant="muted"
-                className="panel-card group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] p-6 transition-all duration-500 hover:-translate-y-1"
+                className="panel-card group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] p-6 transition-all duration-400 hover:-translate-y-0.5"
               >
-                <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 bg-gradient-to-br from-[var(--gold-champagne)]/10 to-transparent opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
+                <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 bg-gradient-to-br from-[var(--gold-champagne)]/6 to-transparent opacity-0 blur-2xl transition-opacity group-hover:opacity-80" />
 
                 <div className="relative">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 bg-black/50 rounded-lg" style={{ color: `var(--${product.color})` }}>
+                    <div className="rounded-lg border border-white/10 bg-black/45 p-3 text-white/76">
                       {product.icon}
                     </div>
                     <span
                       className="rounded-full px-3 py-1 text-xs font-[var(--font-body)] backdrop-blur-sm"
                       style={{
-                        backgroundColor: `var(--${product.color})20`,
-                        color: `var(--${product.color})`,
-                        border: `1px solid var(--${product.color})40`,
+                        backgroundColor: `rgba(255,255,255,0.04)`,
+                        color: `rgba(255,255,255,0.72)`,
+                        border: `1px solid rgba(255,255,255,0.16)`,
                       }}
                     >
                       {product.tag}
                     </span>
                   </div>
 
-                  <h4 className="mb-1 text-lg font-[var(--font-body)] font-semibold text-white transition-colors group-hover:text-[var(--gold-light)]">
+                  <h4 className="mb-1 text-lg font-[var(--font-body)] font-semibold text-white transition-colors group-hover:text-white/92">
                     {product.title}
                     {product.subtitle && (
                       <span className="ml-2 text-sm font-normal text-white/40">
@@ -153,10 +153,7 @@ export function RWAFi() {
                     )}
                   </h4>
 
-                  <p
-                    className="text-sm mb-3 font-[var(--font-body)]"
-                    style={{ color: 'var(--gold-light)' }}
-                  >
+                  <p className="mb-3 text-sm font-[var(--font-body)] text-white/52">
                     {product.position}
                   </p>
 
@@ -182,8 +179,7 @@ export function RWAFi() {
                 <div key={i} className="relative">
                   <GlassReveal variant="muted" className="rounded-xl p-6 text-center">
                     <div
-                      className="mb-3 text-4xl font-[var(--font-display)] opacity-30"
-                      style={{ color: 'var(--gold-champagne)' }}
+                      className="mb-3 text-4xl font-[var(--font-display)] text-white/28"
                     >
                       {item.step}
                     </div>
@@ -192,7 +188,7 @@ export function RWAFi() {
                   </GlassReveal>
                   {i < 3 && (
                     <div className="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 z-10">
-                      <ArrowRight className="w-6 h-6 text-[var(--gold-champagne)]/30" />
+                      <ArrowRight className="h-6 w-6 text-white/22" />
                     </div>
                   )}
                 </div>
@@ -207,12 +203,12 @@ export function RWAFi() {
               <div className="flex flex-col items-center justify-between gap-8 xl:flex-row xl:gap-10">
                 <div className="hidden xl:block xl:translate-x-4">
                   <div className="mb-4 ml-2 flex items-center gap-2 opacity-55">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--gold-dark)]" />
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-white/38" />
                     <span className="text-[10px] uppercase tracking-[0.22em] text-white/45">{t('rwafi.yieldEntry')}</span>
                   </div>
-                  <div className="w-72 overflow-hidden rounded-3xl border border-[var(--gold-dark)]/35 bg-black/35 p-6">
+                  <div className="w-72 overflow-hidden rounded-3xl border border-white/16 bg-black/35 p-6">
                     <div className="mb-4 flex items-center gap-3">
-                      <div className="rounded-xl bg-[var(--gold-dark)]/15 p-2 text-[var(--gold-dark)]">
+                      <div className="rounded-xl bg-white/8 p-2 text-white/75">
                         <TrendingUp size={20} />
                       </div>
                       <h4 className="text-xl font-bold tracking-tight text-white">$UAQ</h4>
@@ -220,7 +216,7 @@ export function RWAFi() {
                     <div className="space-y-4">
                       <div>
                         <p className="mb-1 text-[10px] uppercase tracking-[0.2em] text-white/40">Core Utility</p>
-                        <p className="text-lg font-semibold text-[var(--gold-dark)]">{t('rwafi.yieldLayer')}</p>
+                        <p className="text-lg font-semibold text-white/88">{t('rwafi.yieldLayer')}</p>
                       </div>
                       <div className="border-t border-white/10 pt-4">
                         <p className="mb-1 text-[10px] uppercase tracking-[0.2em] text-white/40">Logic Attribute</p>
@@ -237,7 +233,7 @@ export function RWAFi() {
                         initial={false}
                         animate={{ height: isStaking ? '100%' : '28%' }}
                         transition={{ duration: 0.28, ease: 'easeOut' }}
-                        className="absolute top-0 left-0 w-full bg-[var(--gold-dark)]/35"
+                        className="absolute top-0 left-0 w-full bg-white/30"
                       />
                     </div>
                     <div className="text-[10px] uppercase tracking-[0.2em] text-white/30">{t('rwafi.liquidityStream')}</div>
@@ -258,10 +254,10 @@ export function RWAFi() {
                       transition={{ duration: 0.28, ease: 'easeOut' }}
                       className="relative z-20 mb-10 flex flex-col items-center"
                     >
-                      <div className="glass-surface flex h-24 w-24 items-center justify-center rounded-2xl border border-[var(--gold-champagne)]/50 bg-black/45 shadow-[0_0_30px_rgba(245,166,35,0.38)]">
+                      <div className="glass-surface flex h-24 w-24 items-center justify-center rounded-2xl border border-[var(--gold-champagne)]/34 bg-black/45 shadow-[0_0_18px_rgba(245,166,35,0.24)]">
                         <span className="text-2xl font-bold text-[var(--gold-champagne)]">$UAQC</span>
                       </div>
-                      <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-[var(--gold-champagne)]/55">
+                      <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-white/48">
                         {t('rwafi.govLayer')}
                       </div>
                     </motion.div>
@@ -399,8 +395,8 @@ export function RWAFi() {
                     onClick={() => setIsStaking((prev) => !prev)}
                     className={`group relative mt-4 overflow-hidden rounded-full border px-10 py-3 text-sm font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 ${
                       isStaking
-                        ? 'border-[var(--gold-champagne)]/65 bg-[var(--gold-champagne)]/20 shadow-[0_0_26px_rgba(245,166,35,0.32)]'
-                        : 'border-white/20 bg-white/10 hover:bg-white/20'
+                        ? 'border-[var(--gold-champagne)]/42 bg-[var(--gold-champagne)]/14 shadow-[0_0_16px_rgba(245,166,35,0.2)]'
+                        : 'border-white/18 bg-white/8 hover:bg-white/16'
                     }`}
                   >
                     <span className="relative z-10 flex items-center gap-3">
@@ -420,11 +416,11 @@ export function RWAFi() {
                 <div className="hidden xl:block xl:-translate-x-4">
                   <div className="mb-4 mr-2 flex items-center justify-end gap-2 opacity-55">
                     <span className="text-[10px] uppercase tracking-[0.22em] text-white/45">{t('rwafi.govExit')}</span>
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--gold-champagne)]" />
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-white/40" />
                   </div>
-                  <div className="w-72 overflow-hidden rounded-3xl border border-[var(--gold-champagne)]/35 bg-black/35 p-6">
+                  <div className="w-72 overflow-hidden rounded-3xl border border-white/16 bg-black/35 p-6">
                     <div className="mb-4 flex items-center gap-3">
-                      <div className="rounded-xl bg-[var(--gold-champagne)]/15 p-2 text-[var(--gold-champagne)]">
+                      <div className="rounded-xl bg-white/8 p-2 text-white/76">
                         <ShieldCheck size={20} />
                       </div>
                       <h4 className="text-xl font-bold tracking-tight text-white">$UAQC</h4>
@@ -432,7 +428,7 @@ export function RWAFi() {
                     <div className="space-y-4">
                       <div>
                         <p className="mb-1 text-[10px] uppercase tracking-[0.2em] text-white/40">Core Utility</p>
-                        <p className="text-lg font-semibold text-[var(--gold-champagne)]">{t('rwafi.govLayer2')}</p>
+                        <p className="text-lg font-semibold text-white/88">{t('rwafi.govLayer2')}</p>
                       </div>
                       <div className="border-t border-white/10 pt-4">
                         <p className="mb-1 text-[10px] uppercase tracking-[0.2em] text-white/40">Logic Attribute</p>
@@ -450,7 +446,7 @@ export function RWAFi() {
                         initial={false}
                         animate={{ height: isStaking ? '100%' : '28%' }}
                         transition={{ duration: 0.28, ease: 'easeOut' }}
-                        className="absolute bottom-0 left-0 w-full bg-[var(--gold-champagne)]/35"
+                        className="absolute bottom-0 left-0 w-full bg-white/30"
                       />
                     </div>
                   </div>

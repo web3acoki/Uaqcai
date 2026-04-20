@@ -133,14 +133,14 @@ export function PowerCalculator() {
     'h-13 w-full rounded-full border bg-black/45 px-5 text-sm font-[var(--font-body)] text-white/95 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-300 ease-out focus:outline-none focus:-translate-y-[1px]';
   const summaryCapsuleClass =
     'group relative flex h-14 items-center justify-between gap-4 overflow-hidden rounded-full px-5 py-3 transition-all duration-300 ease-out hover:-translate-y-[2px] hover:bg-black/55 hover:shadow-[0_8px_24px_rgba(0,0,0,0.28)] focus-within:-translate-y-[2px] focus-within:ring-2 focus-within:ring-[var(--gold-alpha-22)]';
-  const luxuryValueClass = `text-lg font-[var(--font-display)] font-bold tracking-[0.08em] transition-all duration-300 ${valueBump ? 'scale-[1.08] drop-shadow-[0_0_8px_rgba(245,166,35,0.48)]' : 'scale-100'}`;
+  const luxuryValueClass = `text-lg font-[var(--font-display)] font-bold tracking-[0.08em] transition-all duration-300 ${valueBump ? 'scale-[1.05] drop-shadow-[0_0_5px_rgba(245,166,35,0.34)]' : 'scale-100'}`;
 
   return (
     <div className="panel-card panel-card--featured relative w-full rounded-[var(--radius-panel)] p-6 md:p-7">
       <div className="mb-6 rounded-[var(--radius-card)] border border-white/10 bg-black/20 p-4">
         <div className="mb-2 text-[11px] uppercase tracking-[0.16em] text-white/45">{t('power.snapshot')}</div>
         <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
-          <div className={`border border-[var(--gold-light)]/45 bg-gradient-to-b from-black/50 to-black/35 ${summaryCapsuleClass} hover:border-[var(--gold-light)]/70`}>
+          <div className={`border border-[var(--gold-light)]/32 bg-gradient-to-b from-black/50 to-black/35 ${summaryCapsuleClass} hover:border-[var(--gold-light)]/52`}>
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(255,255,255,0.16),transparent_48%)] opacity-80" />
             <div className="pointer-events-none absolute inset-0 translate-x-[-130%] bg-gradient-to-r from-transparent via-white/14 to-transparent transition-transform duration-1000 group-hover:translate-x-[130%]" />
             <div className="text-[13px] tracking-[0.06em] text-white/60">{t('power.timeLabel')}</div>
@@ -148,7 +148,7 @@ export function PowerCalculator() {
               {timeFactor.toFixed(2)}
             </div>
           </div>
-          <div className={`border border-[var(--gold-champagne)]/45 bg-gradient-to-b from-black/50 to-black/35 ${summaryCapsuleClass} hover:border-[var(--gold-champagne)]/72`}>
+          <div className={`border border-[var(--gold-champagne)]/32 bg-gradient-to-b from-black/50 to-black/35 ${summaryCapsuleClass} hover:border-[var(--gold-champagne)]/54`}>
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(255,255,255,0.16),transparent_48%)] opacity-80" />
             <div className="pointer-events-none absolute inset-0 translate-x-[-130%] bg-gradient-to-r from-transparent via-white/14 to-transparent transition-transform duration-1000 group-hover:translate-x-[130%]" />
             <div className="text-[13px] tracking-[0.06em] text-white/60">{t('power.scaleLabel')}</div>
@@ -156,7 +156,7 @@ export function PowerCalculator() {
               {scaleFactor.toFixed(2)}
             </div>
           </div>
-          <div className={`border border-[var(--gold-dark)]/45 bg-gradient-to-b from-black/50 to-black/35 ${summaryCapsuleClass} hover:border-[var(--gold-dark)]/72`}>
+          <div className={`border border-[var(--gold-dark)]/32 bg-gradient-to-b from-black/50 to-black/35 ${summaryCapsuleClass} hover:border-[var(--gold-dark)]/54`}>
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(255,255,255,0.16),transparent_48%)] opacity-80" />
             <div className="pointer-events-none absolute inset-0 translate-x-[-130%] bg-gradient-to-r from-transparent via-white/14 to-transparent transition-transform duration-1000 group-hover:translate-x-[130%]" />
             <div className="text-[13px] tracking-[0.06em] text-white/60">{t('power.lockLabel')}</div>
@@ -164,7 +164,7 @@ export function PowerCalculator() {
               {lockFactor.toFixed(2)}
             </div>
           </div>
-          <div className="group relative flex h-14 items-center justify-between gap-4 overflow-hidden rounded-full border border-[var(--gold-champagne)]/55 bg-gradient-to-b from-black/58 to-black/40 px-5 py-3 transition-all duration-300 ease-out hover:-translate-y-[2px] hover:border-[var(--gold-champagne)]/80 hover:bg-black/58 hover:shadow-[0_10px_30px_rgba(245,166,35,0.22)]">
+          <div className="group relative flex h-14 items-center justify-between gap-4 overflow-hidden rounded-full border border-[var(--gold-champagne)]/42 bg-gradient-to-b from-black/58 to-black/40 px-5 py-3 transition-all duration-300 ease-out hover:-translate-y-[2px] hover:border-[var(--gold-champagne)]/62 hover:bg-black/58 hover:shadow-[0_8px_20px_rgba(245,166,35,0.16)]">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_30%,rgba(255,255,255,0.2),transparent_48%)] opacity-90" />
             <div className="pointer-events-none absolute inset-0 translate-x-[-130%] bg-gradient-to-r from-transparent via-[var(--gold-champagne)]/18 to-transparent transition-transform duration-1000 group-hover:translate-x-[130%]" />
             <div className="text-[13px] tracking-[0.06em] text-white/60">{t('power.multiplier')}</div>
@@ -205,9 +205,9 @@ export function PowerCalculator() {
               ))}
             </select>
 
-            <div className="relative rounded-[var(--radius-card)] border border-[var(--gold-light)]/45 bg-[radial-gradient(circle_at_8%_28%,rgba(245,166,35,0.3),transparent_58%)] p-2 shadow-[0_10px_28px_rgba(245,166,35,0.14)]">
-              <div className="pointer-events-none absolute inset-0 rounded-[var(--radius-card)] border border-[var(--gold-light)]/25 opacity-70" />
-              <div className="pointer-events-none absolute -inset-[1px] rounded-[var(--radius-card)] border border-[var(--gold-light)]/22 animate-pulse" />
+            <div className="relative rounded-[var(--radius-card)] border border-[var(--gold-light)]/34 bg-[radial-gradient(circle_at_8%_28%,rgba(245,166,35,0.2),transparent_58%)] p-2 shadow-[0_7px_18px_rgba(245,166,35,0.1)]">
+              <div className="pointer-events-none absolute inset-0 rounded-[var(--radius-card)] border border-[var(--gold-light)]/16 opacity-70" />
+              <div className="pointer-events-none absolute -inset-[1px] rounded-[var(--radius-card)] border border-[var(--gold-light)]/14" />
               <div className="mb-2 flex items-center justify-between px-2">
                 <span className="text-[11px] uppercase tracking-[0.14em] text-[var(--gold-light)]">{t('power.step1')}</span>
                 <span className="rounded-full border border-[var(--gold-light)]/35 bg-black/35 px-2 py-0.5 text-[10px] text-white/70">
@@ -226,7 +226,7 @@ export function PowerCalculator() {
                   inputMode="numeric"
                   value={investment}
                   onChange={(e) => setInvestment(clamp(Number(e.target.value), 0, MAX_INVESTMENT))}
-                  className={`${capsuleClass} border-[var(--gold-light)]/45 bg-black/55 pl-10 pr-24 text-base font-semibold tracking-[0.03em] shadow-[0_0_0_1px_rgba(245,166,35,0.2),0_10px_24px_rgba(0,0,0,0.26),inset_0_1px_0_rgba(255,255,255,0.1)] hover:border-[var(--gold-light)]/65 hover:bg-black/62 focus:border-[var(--gold-light)] focus:bg-black/68 focus:ring-2 focus:ring-[var(--gold-alpha-22)]`}
+                  className={`${capsuleClass} border-[var(--gold-light)]/36 bg-black/55 pl-10 pr-24 text-base font-semibold tracking-[0.03em] shadow-[0_0_0_1px_rgba(245,166,35,0.14),0_8px_18px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-[var(--gold-light)]/52 hover:bg-black/62 focus:border-[var(--gold-light)]/64 focus:bg-black/68 focus:ring-2 focus:ring-[var(--gold-alpha-22)]`}
                   aria-label={t('power.ariaInvest')}
                 />
                 <span className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 rounded-full border border-white/15 bg-black/45 px-2 py-1 text-[10px] tracking-[0.06em] text-white/65 transition-colors duration-300 group-focus-within:border-[var(--gold-light)]/45 group-focus-within:text-[var(--gold-light)]/85">
@@ -278,12 +278,12 @@ export function PowerCalculator() {
 
         <div className="relative flex min-h-[320px] min-w-0 items-center justify-center rounded-[var(--radius-card)] border border-white/10 bg-black/20 p-5 md:min-h-[360px] md:p-6">
           <div
-            className={`pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-500 ease-out ${valueBump ? 'scale-105 opacity-95' : 'scale-100 opacity-75'}`}
+            className={`pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-500 ease-out ${valueBump ? 'scale-[1.03] opacity-85' : 'scale-100 opacity-62'}`}
             style={{
               width: `${getCircleSize(multiplier) + 44}px`,
               height: `${getCircleSize(multiplier) + 44}px`,
               background:
-                'radial-gradient(circle, rgba(245,166,35,0.24) 0%, rgba(245,166,35,0.11) 36%, rgba(245,166,35,0.05) 56%, transparent 74%)',
+                'radial-gradient(circle, rgba(245,166,35,0.16) 0%, rgba(245,166,35,0.08) 36%, rgba(245,166,35,0.03) 56%, transparent 74%)',
               filter: 'blur(1px)',
             }}
           />
@@ -293,15 +293,15 @@ export function PowerCalculator() {
               width: `${getCircleSize(multiplier) - 22}px`,
               height: `${getCircleSize(multiplier) - 22}px`,
               background: 'radial-gradient(circle, var(--gold-champagne)40, var(--gold-champagne)10, transparent)',
-              boxShadow: `0 0 ${10 + multiplier * 6}px var(--gold-champagne)30`,
+              boxShadow: `0 0 ${8 + multiplier * 4}px var(--gold-champagne)22`,
             }}
           >
             <div
               className="pointer-events-none absolute inset-0 rounded-full"
               style={{
-                border: '1px solid rgba(245,166,35,0.38)',
+                border: '1px solid rgba(245,166,35,0.24)',
                 boxShadow:
-                  'inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -10px 20px rgba(0,0,0,0.25), 0 0 28px rgba(245,166,35,0.2)',
+                  'inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -8px 16px rgba(0,0,0,0.22), 0 0 18px rgba(245,166,35,0.14)',
               }}
             />
             <div
@@ -314,7 +314,7 @@ export function PowerCalculator() {
             <div className="text-center">
               <div className="mb-1 text-xs font-[var(--font-body)] text-white/70">{t('power.totalPower')}</div>
               <div
-                className={`text-3xl font-[var(--font-display)] font-bold transition-all duration-300 md:text-4xl ${valueBump ? 'scale-105 drop-shadow-[0_0_12px_rgba(245,166,35,0.52)]' : 'scale-100'}`}
+                className={`text-3xl font-[var(--font-display)] font-bold transition-all duration-300 md:text-4xl ${valueBump ? 'scale-[1.03] drop-shadow-[0_0_8px_rgba(245,166,35,0.36)]' : 'scale-100'}`}
                 style={{ color: 'var(--gold-champagne)' }}
               >
                 {multiplier.toFixed(2)}x
@@ -353,7 +353,7 @@ export function PowerCalculator() {
                   style={{
                     background: `radial-gradient(circle, var(--${factor.color})30, var(--${factor.color})08)`,
                     borderColor: `var(--${factor.color})`,
-                    boxShadow: `0 0 ${5 + factor.value * 5}px var(--${factor.color})30`,
+                    boxShadow: `0 0 ${3 + factor.value * 3}px var(--${factor.color})24`,
                   }}
                   aria-label={t('power.ariaFactor')
                     .replace('{label}', factor.label)
@@ -379,19 +379,19 @@ export function PowerCalculator() {
           })}
 
           <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2">
-            <div className="group relative inline-flex h-12 items-center justify-between overflow-hidden rounded-full border border-[var(--gold-light)]/45 bg-gradient-to-b from-black/52 to-black/35 px-4 text-[12px] text-white/82 transition-all duration-300 hover:-translate-y-[1px] hover:border-[var(--gold-light)]/72 hover:bg-black/58">
+            <div className="group relative inline-flex h-12 items-center justify-between overflow-hidden rounded-full border border-[var(--gold-light)]/30 bg-gradient-to-b from-black/52 to-black/35 px-4 text-[12px] text-white/82 transition-all duration-300 hover:-translate-y-[1px] hover:border-[var(--gold-light)]/52 hover:bg-black/58">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_30%,rgba(255,255,255,0.18),transparent_50%)] opacity-80" />
               <div className="pointer-events-none absolute inset-0 translate-x-[-130%] bg-gradient-to-r from-transparent via-white/14 to-transparent transition-transform duration-1000 group-hover:translate-x-[130%]" />
               <span className="text-white/60">{t('power.lblTime')}</span>
               <span className="font-semibold">{timeFactor.toFixed(1)}</span>
             </div>
-            <div className="group relative inline-flex h-12 items-center justify-between overflow-hidden rounded-full border border-[var(--gold-champagne)]/45 bg-gradient-to-b from-black/52 to-black/35 px-4 text-[12px] text-white/82 transition-all duration-300 hover:-translate-y-[1px] hover:border-[var(--gold-champagne)]/72 hover:bg-black/58">
+            <div className="group relative inline-flex h-12 items-center justify-between overflow-hidden rounded-full border border-[var(--gold-champagne)]/30 bg-gradient-to-b from-black/52 to-black/35 px-4 text-[12px] text-white/82 transition-all duration-300 hover:-translate-y-[1px] hover:border-[var(--gold-champagne)]/52 hover:bg-black/58">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_30%,rgba(255,255,255,0.18),transparent_50%)] opacity-80" />
               <div className="pointer-events-none absolute inset-0 translate-x-[-130%] bg-gradient-to-r from-transparent via-white/14 to-transparent transition-transform duration-1000 group-hover:translate-x-[130%]" />
               <span className="text-white/60">{t('power.lblScale')}</span>
               <span className="font-semibold">{scaleFactor.toFixed(1)}</span>
             </div>
-            <div className="group relative inline-flex h-12 items-center justify-between overflow-hidden rounded-full border border-[var(--gold-dark)]/45 bg-gradient-to-b from-black/52 to-black/35 px-4 text-[12px] text-white/82 transition-all duration-300 hover:-translate-y-[1px] hover:border-[var(--gold-dark)]/72 hover:bg-black/58">
+            <div className="group relative inline-flex h-12 items-center justify-between overflow-hidden rounded-full border border-[var(--gold-dark)]/30 bg-gradient-to-b from-black/52 to-black/35 px-4 text-[12px] text-white/82 transition-all duration-300 hover:-translate-y-[1px] hover:border-[var(--gold-dark)]/52 hover:bg-black/58">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_30%,rgba(255,255,255,0.18),transparent_50%)] opacity-80" />
               <div className="pointer-events-none absolute inset-0 translate-x-[-130%] bg-gradient-to-r from-transparent via-white/14 to-transparent transition-transform duration-1000 group-hover:translate-x-[130%]" />
               <span className="text-white/60">{t('power.lblLock')}</span>

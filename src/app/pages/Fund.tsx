@@ -232,24 +232,22 @@ export function Fund() {
                   {product.number}
                 </span>
                 <span
-                  className="px-3 py-1 text-xs font-[var(--font-body)] rounded-full backdrop-blur-sm"
+                  className="rounded-full px-3 py-1 text-xs font-[var(--font-body)] text-white/72 backdrop-blur-sm"
                   style={{
-                    backgroundColor: product.colorStyle.bg,
-                    color: product.colorStyle.text,
-                    border: `1px solid ${product.colorStyle.border}`,
+                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(255, 255, 255, 0.16)',
                   }}
                 >
                   {product.tag}
                 </span>
               </div>
 
-              <h4 className="text-xl font-[var(--font-body)] font-semibold mb-2 text-white group-hover:text-[var(--gold-light)] transition-colors">
+              <h4 className="mb-2 text-xl font-[var(--font-body)] font-semibold text-white transition-colors group-hover:text-white/92">
                 {product.title}
               </h4>
 
               <p
-                className="text-sm mb-4 font-[var(--font-body)] font-medium"
-                style={{ color: product.featured ? 'var(--gold-champagne)' : 'rgba(255,255,255,0.7)' }}
+                className="mb-4 text-sm font-[var(--font-body)] font-medium text-white/58"
               >
                 {product.position}
               </p>
@@ -265,7 +263,7 @@ export function Fund() {
                     type="button"
                     tone="gold"
                     interactive
-                    className="w-full rounded py-3 font-semibold shadow-[0_0_15px_rgba(245,166,35,0.3)] transition-all hover:brightness-110"
+                    className="w-full rounded py-3 font-semibold shadow-[0_0_10px_rgba(245,166,35,0.2)] transition-all hover:brightness-105"
                   >
                     {t('fund.rwaCta')}
                   </GlassReveal>
@@ -278,10 +276,10 @@ export function Fund() {
         {/* CTA Banner */}
         <div className="hero-shell relative mt-20 flex flex-col items-center justify-between gap-8 overflow-hidden p-8 md:flex-row md:p-12">
           {/* Subtle gold accent */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--gold-champagne)]/10 rounded-full blur-[80px] translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute right-0 top-0 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--gold-champagne)]/6 blur-[90px]" />
           
           <div className="relative z-10">
-            <h4 className="mb-2 text-3xl font-[var(--font-display)] text-[var(--gold-champagne)]">
+            <h4 className="mb-2 text-3xl font-[var(--font-display)] text-white/92">
               {t('fund.bannerTitle')}
             </h4>
             <p className="text-white/60 font-[var(--font-body)] text-lg">
@@ -293,7 +291,7 @@ export function Fund() {
             type="button"
             tone="gold"
             interactive
-            className="lux-button relative z-10 whitespace-nowrap px-8 py-4"
+            className="lux-button relative z-10 whitespace-nowrap px-8"
           >
             {t('fund.bannerBtn')} <ChevronRight className="ml-2 inline h-4 w-4" />
           </GlassReveal>

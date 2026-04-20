@@ -140,11 +140,11 @@ function LayoutContent() {
     <div className="min-h-screen overflow-x-hidden bg-[var(--deep-black)] text-white">
       {/* Global Ticker */}
       {tickerVisible && (
-        <div className="fixed top-0 left-0 right-0 z-50 flex h-[40px] items-center justify-center border-b border-[var(--line-subtle)] bg-[rgba(8,8,12,0.9)] px-6 backdrop-blur-xl animate-fade-in transition-all">
-          <div className="flex items-center gap-3 text-xs font-[var(--font-body)] text-white/88 md:text-sm">
-            <span className="hidden sm:inline tracking-wide">Ondo and Binance Bring Tokenized Securities to Hundreds of Millions</span>
-            <span className="sm:hidden truncate max-w-[200px] tracking-wide">Tokenized Securities Live on Binance</span>
-            <a href="https://ondo.finance/blog/tokenized-stocks-live-on-binance" target="_blank" rel="noopener noreferrer" className="ml-2 flex items-center gap-1 font-semibold text-[var(--gold-light)]/90 transition-opacity hover:opacity-80">
+        <div className="fixed top-0 left-0 right-0 z-50 flex h-[36px] items-center justify-center border-b border-white/7 bg-[rgba(7,8,12,0.72)] px-6 backdrop-blur-md animate-fade-in transition-all">
+          <div className="flex items-center gap-3 text-[11px] font-[var(--font-body)] text-white/66 md:text-xs">
+            <span className="hidden sm:inline tracking-[0.06em]">Ondo and Binance Bring Tokenized Securities to Hundreds of Millions</span>
+            <span className="sm:hidden truncate max-w-[200px] tracking-[0.06em]">Tokenized Securities Live on Binance</span>
+            <a href="https://ondo.finance/blog/tokenized-stocks-live-on-binance" target="_blank" rel="noopener noreferrer" className="ml-1.5 flex items-center gap-1 font-medium text-[var(--gold-light)]/72 transition-colors hover:text-[var(--gold-light)]/88">
               Learn More
               <svg width="14px" height="14px" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M7.33936 19.2393L14.5394 12.0393L7.33936 4.83934L8.40002 3.77868L16.6607 12.0393L8.40002 20.3L7.33936 19.2393Z" fill="currentColor" />
@@ -153,9 +153,9 @@ function LayoutContent() {
           </div>
           <button
             onClick={() => setTickerVisible(false)}
-            className="absolute right-4 rounded-full p-1.5 text-white/50 transition-colors hover:text-[var(--gold-champagne)]"
+            className="absolute right-4 rounded-full p-1 text-white/40 transition-colors hover:text-white/66"
           >
-            <X size={16} />
+            <X size={14} />
           </button>
         </div>
       )}
@@ -163,7 +163,7 @@ function LayoutContent() {
       {/* Sticky Navigation */}
       <nav
         className={`fixed left-0 right-0 z-40 flex justify-center ${
-          tickerVisible ? 'top-[40px]' : 'top-0'
+          tickerVisible ? 'top-[36px]' : 'top-0'
         }`}
         style={{
           paddingTop: scrolled ? '20px' : '0px',
@@ -303,7 +303,7 @@ function LayoutContent() {
       </Sheet>
 
       {/* Main Content */}
-      <main style={{ paddingTop: tickerVisible ? '126px' : '84px', minHeight: 'calc(100vh - 200px)' }}>
+      <main style={{ paddingTop: tickerVisible ? '122px' : '84px', minHeight: 'calc(100vh - 200px)' }}>
         <Outlet />
       </main>
 

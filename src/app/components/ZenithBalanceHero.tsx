@@ -18,7 +18,7 @@ function BalanceAnimation() {
       <motion.div
         className="relative w-full h-full"
         animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 42, repeat: Infinity, ease: 'linear' }}
       >
         {/* Long side */}
         <div className="absolute inset-0 flex items-center justify-center">
@@ -39,8 +39,8 @@ function BalanceAnimation() {
               cy="50"
               r="4"
               fill={colorLong}
-              animate={{ scale: [1, 1.42, 1], opacity: [0.42, 0.88, 0.42] }}
-              transition={{ duration: 3.6, repeat: Infinity }}
+              animate={{ scale: [1, 1.26, 1], opacity: [0.36, 0.62, 0.36] }}
+              transition={{ duration: 4.8, repeat: Infinity }}
             />
           </svg>
         </div>
@@ -64,8 +64,8 @@ function BalanceAnimation() {
               cy="50"
               r="4"
               fill={colorAccent}
-              animate={{ scale: [1, 1.42, 1], opacity: [0.34, 0.7, 0.34] }}
-              transition={{ duration: 3.6, repeat: Infinity, delay: 1.8 }}
+              animate={{ scale: [1, 1.26, 1], opacity: [0.28, 0.52, 0.28] }}
+              transition={{ duration: 4.8, repeat: Infinity, delay: 2.2 }}
             />
           </svg>
         </div>
@@ -78,8 +78,8 @@ function BalanceAnimation() {
               r="1.2"
               fill={colorLong}
               initial={{ offsetDistance: `${(i * 100) / 8}%`, opacity: 0 }}
-              animate={{ offsetDistance: ['0%', '100%'], opacity: [0, 0.82, 0.82, 0] }}
-              transition={{ duration: 7, repeat: Infinity, delay: i * 0.9, ease: 'linear' }}
+              animate={{ offsetDistance: ['0%', '100%'], opacity: [0, 0.52, 0.52, 0] }}
+              transition={{ duration: 9, repeat: Infinity, delay: i * 1.1, ease: 'linear' }}
               style={{ offsetPath: "path('M 100 0 A 50 50 0 0 1 100 100 A 50 50 0 0 0 100 200')" }}
             />
           ))}
@@ -89,8 +89,8 @@ function BalanceAnimation() {
               r="1.2"
               fill={i % 5 === 0 ? colorAccent : colorShort}
               initial={{ offsetDistance: `${(i * 100) / 8}%`, opacity: 0 }}
-              animate={{ offsetDistance: ['0%', '100%'], opacity: [0, 0.8, 0.8, 0] }}
-              transition={{ duration: 7, repeat: Infinity, delay: i * 0.9 + 3.4, ease: 'linear' }}
+              animate={{ offsetDistance: ['0%', '100%'], opacity: [0, 0.5, 0.5, 0] }}
+              transition={{ duration: 9, repeat: Infinity, delay: i * 1.1 + 4.2, ease: 'linear' }}
               style={{ offsetPath: "path('M 100 200 A 50 50 0 0 1 100 100 A 50 50 0 0 0 100 0')" }}
             />
           ))}
@@ -147,7 +147,7 @@ export function ZenithBalanceHero() {
           whileHover={
             reducedMotion
               ? { opacity: 0.46 }
-              : { scale: 1.08, opacity: 0.48, filter: 'brightness(1.06)' }
+              : { scale: 1.05, opacity: 0.44, filter: 'brightness(1.03)' }
           }
           whileTap={reducedMotion ? undefined : { scale: 0.98 }}
           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -169,23 +169,23 @@ export function ZenithBalanceHero() {
       <motion.div
         animate={
           reducedMotion
-            ? { opacity: [0.88, 1, 0.88] }
-            : { opacity: [0.88, 1, 0.88], y: [0, -8, 0] }
+            ? { opacity: [0.74, 0.84, 0.74] }
+            : { opacity: [0.74, 0.84, 0.74], y: [0, -4, 0] }
         }
         transition={
           reducedMotion
-            ? { duration: 5.5, repeat: Infinity, ease: 'easeInOut' }
+            ? { duration: 6.5, repeat: Infinity, ease: 'easeInOut' }
             : {
-                opacity: { duration: 5.5, repeat: Infinity, ease: 'easeInOut' },
-                y: { duration: 3.6, repeat: Infinity, ease: 'easeInOut', delay: 0.15 },
+                opacity: { duration: 6.5, repeat: Infinity, ease: 'easeInOut' },
+                y: { duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
               }
         }
         whileHover={
           reducedMotion
             ? undefined
-            : { y: -6, boxShadow: '0 14px 36px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.12)' }
+            : { y: -3, boxShadow: '0 10px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.08)' }
         }
-        className="absolute right-0 top-10 z-[6] hidden w-[220px] translate-x-3 rounded-2xl border border-white/16 bg-[linear-gradient(160deg,rgba(12,13,17,0.72)_0%,rgba(12,13,17,0.5)_58%,rgba(12,13,17,0.3)_100%)] px-4 py-3 shadow-[0_8px_28px_rgba(0,0,0,0.22)] backdrop-blur-[3px] transition-shadow duration-300 md:block md:translate-x-8"
+        className="absolute right-0 top-10 z-[6] hidden w-[220px] translate-x-3 rounded-2xl border border-white/12 bg-[linear-gradient(160deg,rgba(12,13,17,0.68)_0%,rgba(12,13,17,0.48)_58%,rgba(12,13,17,0.28)_100%)] px-4 py-3 shadow-[0_6px_18px_rgba(0,0,0,0.2)] backdrop-blur-[2px] transition-shadow duration-300 md:block md:translate-x-8"
       >
         <div className="mb-2 flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-white/82">
@@ -206,23 +206,23 @@ export function ZenithBalanceHero() {
       <motion.div
         animate={
           reducedMotion
-            ? { opacity: [0.88, 1, 0.88] }
-            : { opacity: [0.88, 1, 0.88], y: [0, -8, 0] }
+            ? { opacity: [0.74, 0.84, 0.74] }
+            : { opacity: [0.74, 0.84, 0.74], y: [0, -4, 0] }
         }
         transition={
           reducedMotion
-            ? { duration: 5.9, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }
+            ? { duration: 6.8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }
             : {
-                opacity: { duration: 5.9, repeat: Infinity, ease: 'easeInOut', delay: 0.4 },
-                y: { duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
+                opacity: { duration: 6.8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 },
+                y: { duration: 4.6, repeat: Infinity, ease: 'easeInOut', delay: 0.25 },
               }
         }
         whileHover={
           reducedMotion
             ? undefined
-            : { y: -6, boxShadow: '0 14px 36px rgba(0,0,0,0.35), 0 0 0 1px rgba(245,166,35,0.12)' }
+            : { y: -3, boxShadow: '0 10px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(245,166,35,0.08)' }
         }
-        className="absolute bottom-10 left-0 z-[6] hidden w-[220px] -translate-x-3 rounded-2xl border border-[var(--taiji-gold-soft)]/14 bg-[linear-gradient(160deg,rgba(12,13,17,0.72)_0%,rgba(12,13,17,0.5)_58%,rgba(12,13,17,0.3)_100%)] px-4 py-3 shadow-[0_8px_28px_rgba(0,0,0,0.22)] backdrop-blur-[3px] transition-shadow duration-300 md:block md:-translate-x-5"
+        className="absolute bottom-10 left-0 z-[6] hidden w-[220px] -translate-x-3 rounded-2xl border border-[var(--taiji-gold-soft)]/10 bg-[linear-gradient(160deg,rgba(12,13,17,0.68)_0%,rgba(12,13,17,0.48)_58%,rgba(12,13,17,0.28)_100%)] px-4 py-3 shadow-[0_6px_18px_rgba(0,0,0,0.2)] backdrop-blur-[2px] transition-shadow duration-300 md:block md:-translate-x-5"
       >
         <div className="mb-2 flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-white/82">

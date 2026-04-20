@@ -147,7 +147,7 @@ export function About() {
                 className="panel-card rounded-[var(--radius-card)] p-6 text-center transition-all hover:border-[var(--line-gold)]"
               >
                 <div className="mb-2 text-lg font-semibold text-white">{item.name}</div>
-                <div className="text-sm text-[var(--gold-champagne)]">{item.license}</div>
+                <div className="text-sm text-white/66">{item.license}</div>
               </GlassReveal>
             ))}
           </div>
@@ -172,7 +172,7 @@ export function About() {
               <GlassReveal
                 key={license.imageSrc}
                 interactive
-                className="panel-card group cursor-pointer rounded-[var(--radius-card)] p-4 transition-all hover:-translate-y-1"
+                className="panel-card group cursor-pointer rounded-[var(--radius-card)] p-4 transition-all hover:-translate-y-0.5"
                 onClick={() => setActiveLicense(license)}
               >
                 <div className="mb-3 overflow-hidden rounded-lg border border-white/10 bg-black/30 p-2">
@@ -184,7 +184,7 @@ export function About() {
                 </div>
                 <div className="text-center">
                   <h4 className="text-sm font-semibold text-white">{license.title}</h4>
-                  <p className="mt-1 text-xs text-[var(--gold-champagne)]">{license.code}</p>
+                  <p className="mt-1 text-xs text-white/58">{license.code}</p>
                 </div>
               </GlassReveal>
             ))}
@@ -268,7 +268,7 @@ export function About() {
               <GlassReveal
                 key={member.name}
                 interactive
-                className="panel-card rounded-[var(--radius-card)] p-6 transition-all hover:-translate-y-1"
+                className="panel-card rounded-[var(--radius-card)] p-6 transition-all hover:-translate-y-0.5"
               >
                 <div className="mx-auto mb-4 h-24 w-24 overflow-hidden rounded-full border border-[var(--gold-champagne)]/50 bg-black/40">
                   <ImageWithFallback
@@ -279,7 +279,7 @@ export function About() {
                 </div>
                 <div className="text-center">
                   <h4 className="text-lg font-semibold text-white">{member.name}</h4>
-                  <p className="mt-1 text-sm text-[var(--gold-champagne)]">{member.role}</p>
+                  <p className="mt-1 text-sm text-white/70">{member.role}</p>
                   <p className="mt-3 text-sm text-white/65 leading-relaxed">{member.bio}</p>
                   <p className="mt-2 text-[11px] text-white/35">{member.initials}</p>
                 </div>
@@ -310,7 +310,7 @@ export function About() {
               <GlassReveal
                 key={i}
                 interactive
-                className="panel-card group cursor-pointer rounded-[var(--radius-card)] p-6 transition-all hover:scale-[1.02]"
+                className="panel-card group cursor-pointer rounded-[var(--radius-card)] p-6 transition-all hover:-translate-y-0.5"
               >
                 <div className="mb-3 flex items-center gap-3">
                   <span className="text-xs text-white/40">{news.date}</span>
@@ -324,7 +324,7 @@ export function About() {
                     {news.tag}
                   </span>
                 </div>
-                <h4 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-[var(--gold-champagne)]">
+                <h4 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-white/92">
                   {news.title}
                 </h4>
                 <p className="text-sm text-white/60">{news.desc}</p>
