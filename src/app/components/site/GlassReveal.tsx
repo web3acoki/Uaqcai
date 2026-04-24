@@ -23,7 +23,12 @@ type GlassRevealButtonProps = GlassRevealBase &
     as: 'button';
   };
 
-export type GlassRevealProps = GlassRevealDivProps | GlassRevealButtonProps;
+type GlassRevealAnchorProps = GlassRevealBase &
+  Omit<ComponentPropsWithoutRef<'a'>, 'children'> & {
+    as: 'a';
+  };
+
+export type GlassRevealProps = GlassRevealDivProps | GlassRevealButtonProps | GlassRevealAnchorProps;
 
 export function GlassReveal(props: GlassRevealProps) {
   const {
@@ -63,6 +68,14 @@ export function GlassReveal(props: GlassRevealProps) {
       <motion.button type={type} className={glassClass} {...buttonRest} {...motionRest}>
         {children}
       </motion.button>
+    );
+  }
+
+  if (as === 'a') {
+    return (
+      <motion.a className={glassClass} {...(rest as ComponentPropsWithoutRef<'a'>)} {...motionRest}>
+        {children}
+      </motion.a>
     );
   }
 

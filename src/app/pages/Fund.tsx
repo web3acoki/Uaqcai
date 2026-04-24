@@ -6,6 +6,8 @@ import { GlassReveal } from '../components/site/GlassReveal';
 import { useT } from '@/i18n/locale';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+const DD_REQUEST_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSfqnqt-PV3p_2iXscp9uyw3LiDoeTEFvsRCdFVgmkYRabgPRw/viewform?usp=dialog';
 
 type FundNode = {
   id: string;
@@ -287,11 +289,13 @@ export function Fund() {
             </p>
           </div>
           <GlassReveal
-            as="button"
-            type="button"
+            as="a"
+            href={DD_REQUEST_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             tone="gold"
             interactive
-            className="lux-button relative z-10 whitespace-nowrap px-8"
+            className="lux-button relative z-10 inline-flex items-center justify-center whitespace-nowrap px-8"
           >
             {t('fund.bannerBtn')} <ChevronRight className="ml-2 inline h-4 w-4" />
           </GlassReveal>
