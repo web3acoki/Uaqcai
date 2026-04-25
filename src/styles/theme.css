@@ -189,6 +189,31 @@ html:lang(en) {
   }
 }
 
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 18px rgba(245, 166, 35, 0.32), 0 0 36px rgba(245, 166, 35, 0.18);
+}
+
 .home-compliance-marquee-track {
   display: flex;
   width: max-content;
@@ -354,6 +379,12 @@ html:lang(en) {
     border-color: transparent;
     background: transparent;
     box-shadow: none;
+  }
+
+  /* Allow full-bleed hero atmospheres without a clipped rectangle frame */
+  .hero-shell--bare.hero-shell--no-clip {
+    overflow: visible;
+    border-radius: 0;
   }
 
   .brand-kicker {

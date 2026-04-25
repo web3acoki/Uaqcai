@@ -2,7 +2,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { Shield, TrendingUp, Zap } from 'lucide-react';
 import { ImpossibleTriangle } from '../components/ImpossibleTriangle';
 import { GlassReveal } from '../components/site/GlassReveal';
-import { ZenithBalanceHero } from '../components/ZenithBalanceHero';
+import { RwafiHudHero } from '../components/RwafiHudHero';
 import { ComplianceMarquee } from '../components/ComplianceMarquee';
 import { useT } from '@/i18n/locale';
 
@@ -26,9 +26,44 @@ export function Home() {
         className="section-shell relative -mt-4 px-2 pt-4 md:-mt-6 md:pt-6"
         style={{ paddingBottom: 'var(--hero-to-next-gap)' }}
       >
+        {/* Full-bleed halo atmosphere for first screen (no rectangular edges). */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 left-1/2 w-screen -translate-x-1/2"
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              maskImage:
+                'radial-gradient(circle at 50% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 78%)',
+              WebkitMaskImage:
+                'radial-gradient(circle at 50% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 78%)',
+            }}
+          >
+            <div
+              className="absolute left-1/2 top-[-38%] h-[1100px] w-[1100px] -translate-x-1/2 rounded-full blur-[170px]"
+              style={{ background: 'radial-gradient(circle, rgba(245,166,35,0.18) 0%, transparent 62%)' }}
+            />
+            <div
+              className="absolute right-[-22%] top-[-30%] h-[980px] w-[980px] rounded-full blur-[190px]"
+              style={{ background: 'radial-gradient(circle, rgba(168,176,196,0.14) 0%, transparent 60%)' }}
+            />
+            <div
+              className="absolute bottom-[-42%] left-[-24%] h-[980px] w-[980px] rounded-full blur-[200px]"
+              style={{ background: 'radial-gradient(circle, rgba(245,166,35,0.10) 0%, transparent 64%)' }}
+            />
+          </div>
+          <div
+            className="absolute inset-0 opacity-[0.55]"
+            style={{
+              background:
+                'radial-gradient(circle at 50% 40%, rgba(255,255,255,0.035) 0%, transparent 55%), linear-gradient(180deg, rgba(5,6,12,0.04) 0%, rgba(5,6,12,0.42) 100%)',
+            }}
+          />
+        </div>
         <div className="page-container">
           <div
-            className="hero-shell hero-shell--bare min-h-[var(--hero-min-h-mobile)] px-5 py-[var(--hero-block-pad-y-mobile)] md:min-h-[var(--hero-min-h-desktop)] md:px-10 md:py-[var(--hero-block-pad-y-desktop)]"
+            className="hero-shell hero-shell--bare hero-shell--no-clip min-h-[var(--hero-min-h-mobile)] px-5 py-[var(--hero-block-pad-y-mobile)] md:min-h-[var(--hero-min-h-desktop)] md:px-10 md:py-[var(--hero-block-pad-y-desktop)]"
           >
             <div className="grid items-center gap-12 md:gap-14 lg:gap-[var(--hero-grid-gap-desktop)] lg:grid-cols-[1.04fr_0.96fr]">
               <motion.div {...reveal(0.04)}>
@@ -70,7 +105,7 @@ export function Home() {
                 </motion.div>
               </motion.div>
               <motion.div className="flex flex-col items-center gap-14 md:gap-16" {...reveal(0.22)}>
-                <ZenithBalanceHero />
+                <RwafiHudHero />
               </motion.div>
             </div>
           </div>
