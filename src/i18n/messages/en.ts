@@ -114,6 +114,8 @@ export const enMessages: Record<MessageKey, string> = {
   'fund.sectionLead': 'Compliance Foundation: TradFi Product Matrix',
   'fund.sectionBody':
     '100% licensed stack focused on off-chain B-side institutions and deep capital',
+  'fund.moreCta': 'View all products',
+  'fund.moreCtaAria': 'Scroll to all products',
   'fund.p0.number': 'Product 4',
   'fund.p0.title': 'Singapore decentralized hedge arbitrage',
   'fund.p0.position': 'On-chain arbitrage cornerstone',
@@ -151,6 +153,8 @@ export const enMessages: Record<MessageKey, string> = {
   'fund.mapTitle': 'Global compliance network',
   'fund.mapLead':
     'Anchored in core financial hubs, bridging TradFi and Web3 via VCC and Cayman structures.',
+  'fund.moreTitle': 'All products',
+  'fund.moreSub': 'Product lineup and roadmap overview; priority is on featured products.',
   'fund.licenseHdr': 'Regulatory licenses',
   'fund.closeHint': 'Click node to close',
   'fund.node.us.desc': 'TradFi capital gateway',

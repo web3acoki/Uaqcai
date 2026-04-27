@@ -74,6 +74,7 @@
   --text-primary: rgba(255, 255, 255, 0.92);
   --text-secondary: rgba(255, 255, 255, 0.72);
   --text-tertiary: rgba(255, 255, 255, 0.48);
+  --text-quaternary: rgba(255, 255, 255, 0.34);
   --line-subtle: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.18);
   --line-gold: rgba(245, 166, 35, 0.26);
@@ -81,6 +82,20 @@
   --radius-panel: 24px;
   --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.3);
   --shadow-gold: 0 6px 16px rgba(245, 166, 35, 0.12);
+  /* Elevation system (institutional, restrained) */
+  --shadow-0: 0 0 0 rgba(0, 0, 0, 0);
+  --shadow-1: 0 10px 22px rgba(0, 0, 0, 0.26);
+  --shadow-2: 0 12px 30px rgba(0, 0, 0, 0.34);
+  --shadow-3: 0 16px 44px rgba(0, 0, 0, 0.38);
+  --shadow-inset-1: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --shadow-outline-gold: 0 0 0 1px rgba(245, 166, 35, 0.08);
+  --shadow-glow-gold: 0 10px 26px rgba(245, 166, 35, 0.14);
+  /* Motion (shared) */
+  --ease-out-1: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-1: cubic-bezier(0.2, 0, 0, 1);
+  --dur-1: 180ms;
+  --dur-2: 240ms;
+  --dur-3: 320ms;
   --section-space: clamp(4.2rem, 8vw, 7.6rem);
   --focus-ring: 0 0 0 2px rgba(245, 166, 35, 0.32);
   --hero-min-h-desktop: 93vh;
@@ -461,12 +476,28 @@ html:lang(en) {
     border-radius: var(--radius-card);
     background: linear-gradient(160deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 36%, transparent 76%),
       rgba(8, 10, 18, 0.82);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-1);
   }
 
   .panel-card--featured {
     border-color: rgba(245, 166, 35, 0.26);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34), 0 4px 16px rgba(245, 166, 35, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-2), var(--shadow-glow-gold), var(--shadow-inset-1);
+  }
+
+  .panel-card--primary {
+    border-color: rgba(245, 166, 35, 0.42);
+    box-shadow:
+      var(--shadow-3),
+      0 8px 22px rgba(245, 166, 35, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 0 0 1px rgba(245, 166, 35, 0.2);
+  }
+
+  .panel-card--subtle {
+    border-color: rgba(255, 255, 255, 0.06);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.012) 36%, transparent 76%),
+      rgba(8, 10, 18, 0.74);
+    box-shadow: var(--shadow-1);
   }
 
   .gold-divider {
@@ -476,6 +507,9 @@ html:lang(en) {
   }
 
   .lux-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 0.65rem;
     border: 1px solid rgba(245, 166, 35, 0.26);
     background: linear-gradient(110deg, #a66310 0%, #c97a12 42%, #e89a1e 78%, #f5a623 100%);
@@ -486,14 +520,14 @@ html:lang(en) {
     letter-spacing: 0.07em;
     text-transform: uppercase;
     font-weight: 700;
-    transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+    transition: transform var(--dur-2) var(--ease-out-1), box-shadow var(--dur-2) var(--ease-out-1), filter var(--dur-2) var(--ease-out-1);
     box-shadow: var(--shadow-gold);
   }
 
   .lux-button:hover {
     transform: translateY(-1px);
     filter: brightness(1.03);
-    box-shadow: 0 8px 18px rgba(245, 166, 35, 0.16);
+    box-shadow: 0 10px 22px rgba(245, 166, 35, 0.16);
   }
 
   .lux-button:focus-visible {
@@ -516,7 +550,7 @@ html:lang(en) {
     );
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    box-shadow: var(--glass-inset), var(--glass-shade);
+    box-shadow: var(--shadow-inset-1), var(--glass-shade);
   }
 
   .glass-surface::before {
@@ -528,7 +562,7 @@ html:lang(en) {
     opacity: 0.45;
     background: linear-gradient(
       125deg,
-      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.11) 0%,
       transparent 40%,
       rgba(255, 255, 255, 0.04) 78%,
       transparent 100%
@@ -549,19 +583,19 @@ html:lang(en) {
   .glass-surface--interactive {
     cursor: pointer;
     transition:
-      border-color 0.35s ease,
-      box-shadow 0.35s ease,
-      transform 0.35s ease;
+      border-color var(--dur-3) var(--ease-out-1),
+      box-shadow var(--dur-3) var(--ease-out-1),
+      transform var(--dur-3) var(--ease-out-1);
   }
 
   .glass-surface--interactive:hover {
     border-color: var(--glass-border-strong);
-    box-shadow: var(--glass-inset), 0 14px 36px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(245, 166, 35, 0.08);
+    box-shadow: var(--shadow-inset-1), 0 14px 36px rgba(0, 0, 0, 0.3), var(--shadow-outline-gold);
   }
 
   .glass-surface--interactive:focus-visible {
     outline: none;
-    box-shadow: var(--glass-inset), 0 14px 36px rgba(0, 0, 0, 0.3), var(--focus-ring);
+    box-shadow: var(--shadow-inset-1), 0 14px 36px rgba(0, 0, 0, 0.3), var(--focus-ring);
   }
 
   .glass-surface.glass-surface--gold {

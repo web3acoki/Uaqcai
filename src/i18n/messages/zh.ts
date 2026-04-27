@@ -109,6 +109,8 @@ export const zhMessages = {
   'fund.sectionTitle': '合规基本盘：TradFi 产品矩阵',
   'fund.sectionLead': 'Compliance Foundation: TradFi Product Matrix',
   'fund.sectionBody': '以 100% 合规牌照为驱动，聚焦链下 B 端机构与老钱，承接巨量资金',
+  'fund.moreCta': '查看全部产品',
+  'fund.moreCtaAria': '滚动到全部产品',
   'fund.p0.number': '4号产品',
   'fund.p0.title': '新加坡去中心化对冲套利',
   'fund.p0.position': '链上套利资管基石',
@@ -146,6 +148,8 @@ export const zhMessages = {
   'fund.mapTitle': '全球合规网络',
   'fund.mapLead':
     '立足全球核心金融枢纽，通过 VCC 及开曼合规架构搭建连接 TradFi 与 Web3 的价值桥梁。',
+  'fund.moreTitle': '更多产品',
+  'fund.moreSub': '产品谱系与路线图展示，优先级以重点产品为准。',
   'fund.licenseHdr': '监管牌照 / Licenses',
   'fund.closeHint': '点击节点关闭 / Click node to close',
   'fund.node.us.desc': 'TradFi 资金端',

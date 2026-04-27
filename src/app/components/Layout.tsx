@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router';
 import { Menu, X } from 'lucide-react';
 import uaqcNavLogo from '@/public/UAQC2.png';
+import tgChannelQr from '@/public/tg-channel.png';
+import tgCommunityQr from '@/public/tg-community-.png';
+import xQr from '@/public/x.png';
 import {
   Sheet,
   SheetContent,
@@ -142,9 +145,9 @@ function LayoutContent() {
       {tickerVisible && (
         <div className="fixed top-0 left-0 right-0 z-50 flex h-[36px] items-center justify-center border-b border-white/7 bg-[rgba(7,8,12,0.72)] px-6 backdrop-blur-md animate-fade-in transition-all">
           <div className="flex items-center gap-3 text-[11px] font-[var(--font-body)] text-white/66 md:text-xs">
-            <span className="hidden sm:inline tracking-[0.06em]">Ondo and Binance Bring Tokenized Securities to Hundreds of Millions</span>
+            <span className="hidden sm:inline tracking-[0.06em]">UAQC Bring Tokenized Securities to Hundreds of Millions</span>
             <span className="sm:hidden truncate max-w-[200px] tracking-[0.06em]">Tokenized Securities Live on Binance</span>
-            <a href="https://ondo.finance/blog/tokenized-stocks-live-on-binance" target="_blank" rel="noopener noreferrer" className="ml-1.5 flex items-center gap-1 font-medium text-[var(--gold-light)]/72 transition-colors hover:text-[var(--gold-light)]/88">
+            <a href="https://uaqc.io/" target="_blank" rel="noopener noreferrer" className="ml-1.5 flex items-center gap-1 font-medium text-[var(--gold-light)]/72 transition-colors hover:text-[var(--gold-light)]/88">
               Learn More
               <svg width="14px" height="14px" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M7.33936 19.2393L14.5394 12.0393L7.33936 4.83934L8.40002 3.77868L16.6607 12.0393L8.40002 20.3L7.33936 19.2393Z" fill="currentColor" />
@@ -174,7 +177,7 @@ function LayoutContent() {
         <div 
           className={`flex items-center justify-between ${
             scrolled 
-              ? 'h-[58px] w-full max-w-[min(var(--nav-pill-max),calc(100%-2rem))] rounded-[12px] border border-[var(--line-strong)] bg-[rgba(9,9,12,0.64)] px-4 shadow-[0_14px_42px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl md:px-7'
+              ? 'h-[58px] w-full max-w-[min(var(--nav-pill-max),calc(100%-2rem))] rounded-[12px] border border-[var(--line-strong)] bg-[rgba(9,9,12,0.56)] px-4 shadow-[0_14px_42px_rgba(0,0,0,0.34),var(--shadow-outline-gold),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl md:px-7'
               : 'h-[58px] w-full max-w-[min(100%,var(--layout-page-max))] rounded-none border border-transparent bg-transparent px-[var(--layout-page-gutter)] shadow-none'
           }`}
           style={{
@@ -218,7 +221,7 @@ function LayoutContent() {
                     {t(NAV_LABEL_KEY[item])}
                   </span>
                   <div
-                    className={`absolute -bottom-1.5 left-0 h-[2px] bg-[var(--gold-dark)]/70 transition-all ease-[var(--nav-ease)] ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
+                    className={`absolute -bottom-1.5 left-0 h-[2px] bg-[var(--gold-champagne)]/55 transition-all ease-[var(--nav-ease)] ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
                     style={{ transitionDuration: 'var(--nav-link-underline-ms)' }}
                   />
                 </Link>
@@ -342,16 +345,79 @@ function LayoutContent() {
                 <h4 className="mb-2 text-[12px] font-[var(--font-body)] font-medium tracking-[0.08em] text-white/76">
                   {t('footer.community')}
                 </h4>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
-                  <a href="#" className="text-sm tracking-[0.06em] text-white/54 transition-colors hover:text-white/78">
-                    Twitter
-                  </a>
-                  <a href="#" className="text-sm tracking-[0.06em] text-white/54 transition-colors hover:text-white/78">
-                    Discord
-                  </a>
-                  <a href="#" className="text-sm tracking-[0.06em] text-white/54 transition-colors hover:text-white/78">
-                    YouTube
-                  </a>
+                <div className="flex flex-wrap items-center gap-2.5">
+                  {[
+                    {
+                      label: 'Website',
+                      href: 'https://www.uaqc.net',
+                      icon: (
+                        <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" aria-hidden="true">
+                          <path
+                            fill="currentColor"
+                            d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm7.938 9h-3.07a15.6 15.6 0 0 0-1.48-6.02A8.024 8.024 0 0 1 19.938 11ZM12 4.062c.86 1.145 1.74 3.32 2.126 6.938H9.874C10.26 7.382 11.14 5.207 12 4.062ZM4.062 13h3.07a15.6 15.6 0 0 0 1.48 6.02A8.024 8.024 0 0 1 4.062 13Zm0-2a8.024 8.024 0 0 1 4.55-6.02A15.6 15.6 0 0 0 7.132 11Zm5.812 2h4.252C13.74 16.618 12.86 18.793 12 19.938 11.14 18.793 10.26 16.618 9.874 13Zm7.994 0h3.07a8.024 8.024 0 0 1-4.55 6.02A15.6 15.6 0 0 0 16.868 13Zm-1.742 0h-8.252a19.16 19.16 0 0 1 0-2h8.252a19.16 19.16 0 0 1 0 2Zm-7.514 6.02A15.6 15.6 0 0 0 7.132 13h3.07c.234 2.326.82 4.43 1.538 6.02a8.09 8.09 0 0 1-3.128 0Zm6.648 0a8.09 8.09 0 0 1-3.128 0c.718-1.59 1.304-3.694 1.538-6.02h3.07a15.6 15.6 0 0 0-1.48 6.02Z"
+                          />
+                        </svg>
+                      ),
+                    },
+                    {
+                      label: 'X',
+                      href: 'https://x.com/UAQCAI',
+                      icon: (
+                        <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" aria-hidden="true">
+                          <path
+                            fill="currentColor"
+                            d="M18.9 2H22l-6.78 7.75L23 22h-6.8l-5.32-6.95L4.8 22H2l7.36-8.4L1 2h7l4.82 6.25L18.9 2Zm-1.2 18h1.86L7.24 3.92H5.26L17.7 20Z"
+                          />
+                        </svg>
+                      ),
+                    },
+                    {
+                      label: 'YouTube',
+                      href: 'https://youtube.com/@UAQC',
+                      icon: (
+                        <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" aria-hidden="true">
+                          <path
+                            fill="currentColor"
+                            d="M21.58 7.19a2.75 2.75 0 0 0-1.94-1.94C17.93 4.75 12 4.75 12 4.75s-5.93 0-7.64.5A2.75 2.75 0 0 0 2.42 7.19 28.8 28.8 0 0 0 2 12a28.8 28.8 0 0 0 .42 4.81 2.75 2.75 0 0 0 1.94 1.94c1.71.5 7.64.5 7.64.5s5.93 0 7.64-.5a2.75 2.75 0 0 0 1.94-1.94A28.8 28.8 0 0 0 22 12a28.8 28.8 0 0 0-.42-4.81ZM10.25 15.02V8.98L15.5 12l-5.25 3.02Z"
+                          />
+                        </svg>
+                      ),
+                    },
+                  ].map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label}
+                      title={item.label}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/12 bg-white/[0.04] text-white/70 transition-colors hover:border-white/18 hover:bg-white/[0.07] hover:text-white/88 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--gold-light)]/55"
+                    >
+                      {item.icon}
+                    </a>
+                  ))}
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 gap-3">
+                  {[
+                    { label: 'Telegram Community', img: tgCommunityQr, alt: 'Telegram Community QR Code' },
+                    { label: 'Telegram Channel', img: tgChannelQr, alt: 'Telegram Channel QR Code' },
+                    { label: 'X', img: xQr, alt: 'X QR Code' },
+                  ].map((item) => (
+                    <div key={item.label} className="group">
+                      <div className="overflow-hidden rounded-xl border border-white/10 bg-black/30 p-2 transition-colors group-hover:border-white/16">
+                        <img
+                          src={item.img}
+                          alt={item.alt}
+                          loading="lazy"
+                          className="aspect-square w-full rounded-lg object-cover"
+                        />
+                      </div>
+                      <div className="mt-2 text-center text-[11px] tracking-[0.08em] text-white/44">
+                        {item.label}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

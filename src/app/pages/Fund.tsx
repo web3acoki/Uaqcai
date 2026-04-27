@@ -184,6 +184,15 @@ export function Fund() {
     [t],
   );
 
+  const featuredProducts = useMemo(() => products.filter((p) => p.featured), [products]);
+  const otherProducts = useMemo(() => products.filter((p) => !p.featured), [products]);
+
+  const scrollToAllProducts = () => {
+    const el = document.getElementById('fund-products-all');
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   useEffect(() => {
     if (location.hash !== '#product-4') return;
     const el = document.getElementById('product-4');
@@ -217,62 +226,123 @@ export function Fund() {
           </p>
         </div>
 
-        {/* Product Cards Grid */}
-        <div className="panel-grid md:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <GlassReveal
-              key={product.productId}
-              interactive
-              variant="muted"
-              id={product.productId === '4' ? 'product-4' : undefined}
-              className={`panel-card group relative flex flex-col rounded-[var(--radius-card)] p-6 transition-all duration-500 hover:-translate-y-1 ${
-                product.featured ? 'panel-card--featured' : ''
-              }`}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <span className="text-sm font-[var(--font-body)] text-white/50 font-medium">
-                  {product.number}
-                </span>
-                <span
-                  className="rounded-full px-3 py-1 text-xs font-[var(--font-body)] text-white/72 backdrop-blur-sm"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.16)',
-                  }}
-                >
-                  {product.tag}
-                </span>
-              </div>
-
-              <h4 className="mb-2 text-xl font-[var(--font-body)] font-semibold text-white transition-colors group-hover:text-white/92">
-                {product.title}
-              </h4>
-
-              <p
-                className="mb-4 text-sm font-[var(--font-body)] font-medium text-white/58"
+        {/* Featured: Product 4 + 11 */}
+        <div className="panel-grid md:grid-cols-2 lg:grid-cols-2">
+          {featuredProducts.map((product) => {
+            const cardLevel =
+              product.productId === '4'
+                ? 'panel-card--primary'
+                : 'panel-card--featured';
+            return (
+              <GlassReveal
+                key={product.productId}
+                interactive
+                variant="muted"
+                id={product.productId === '4' ? 'product-4' : undefined}
+                className={`panel-card panel-card--featured ${cardLevel} group relative flex flex-col rounded-[var(--radius-card)] p-6 transition-all duration-500 hover:-translate-y-1`}
               >
-                {product.position}
-              </p>
+                <div className="flex items-start justify-between mb-4">
+                  <span className="text-sm font-[var(--font-body)] text-white/50 font-medium">
+                    {product.number}
+                  </span>
+                  <span
+                    className="rounded-full px-3 py-1 text-xs font-[var(--font-body)] text-white/72 backdrop-blur-sm"
+                    style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                      border: '1px solid rgba(255, 255, 255, 0.16)',
+                    }}
+                  >
+                    {product.tag}
+                  </span>
+                </div>
 
-              <p className="text-sm text-white/50 font-[var(--font-body)] leading-relaxed mb-6">
-                {product.desc}
-              </p>
+                <h4 className="mb-2 text-xl font-[var(--font-body)] font-semibold text-white transition-colors group-hover:text-white/92">
+                  {product.title}
+                </h4>
 
-              {product.featured && (
+                <p className="mb-4 text-sm font-[var(--font-body)] font-medium text-white/58">
+                  {product.position}
+                </p>
+
+                <p className="text-sm text-white/50 font-[var(--font-body)] leading-relaxed mb-6">
+                  {product.desc}
+                </p>
+
                 <div className="mt-auto pt-4">
                   <GlassReveal
                     as="button"
                     type="button"
                     tone="gold"
                     interactive
-                    className="w-full rounded py-3 font-semibold shadow-[0_0_10px_rgba(245,166,35,0.2)] transition-all hover:brightness-105"
+                    className="w-full rounded py-3 font-semibold shadow-[0_0_10px_rgba(245,166,35,0.16)] transition-all hover:brightness-105"
                   >
                     {t('fund.rwaCta')}
                   </GlassReveal>
                 </div>
-              )}
-            </GlassReveal>
-          ))}
+              </GlassReveal>
+            );
+          })}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <GlassReveal
+            as="button"
+            type="button"
+            interactive
+            variant="muted"
+            className="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-white/80 border border-white/12 bg-white/[0.01] transition-all hover:text-white hover:border-white/18"
+            onClick={scrollToAllProducts}
+            aria-label={t('fund.moreCtaAria')}
+          >
+            {t('fund.moreCta')}
+            <ChevronRight className="ml-2 inline h-4 w-4 opacity-80" />
+          </GlassReveal>
+        </div>
+
+        {/* Subtle: other products */}
+        <div className="mt-14 border-t border-white/8 pt-12">
+          <div className="mb-8 text-center">
+            <h3 className="content-block-title mb-2 text-white/90">{t('fund.moreTitle')}</h3>
+            <p className="text-sm font-[var(--font-body)] text-white/50">{t('fund.moreSub')}</p>
+          </div>
+
+          <div id="fund-products-all" className="panel-grid md:grid-cols-2 lg:grid-cols-3">
+            {otherProducts.map((product) => (
+              <GlassReveal
+                key={product.productId}
+                interactive
+                variant="muted"
+                className="panel-card panel-card--subtle group relative flex flex-col rounded-[var(--radius-card)] p-6 transition-all duration-500 hover:-translate-y-0.5"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <span className="text-sm font-[var(--font-body)] text-white/45 font-medium">
+                    {product.number}
+                  </span>
+                  <span
+                    className="rounded-full px-3 py-1 text-xs font-[var(--font-body)] text-white/60 backdrop-blur-sm"
+                    style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.10)',
+                    }}
+                  >
+                    {product.tag}
+                  </span>
+                </div>
+
+                <h4 className="mb-2 text-xl font-[var(--font-body)] font-semibold text-white/80 transition-colors group-hover:text-white/86">
+                  {product.title}
+                </h4>
+
+                <p className="mb-4 text-sm font-[var(--font-body)] font-medium text-white/48">
+                  {product.position}
+                </p>
+
+                <p className="text-sm text-white/42 font-[var(--font-body)] leading-relaxed">
+                  {product.desc}
+                </p>
+              </GlassReveal>
+            ))}
+          </div>
         </div>
 
         {/* CTA Banner */}

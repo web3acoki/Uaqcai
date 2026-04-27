@@ -5,10 +5,22 @@ import { GlassReveal } from '../components/site/GlassReveal';
 import { RwafiHudHero } from '../components/RwafiHudHero';
 import { ComplianceMarquee } from '../components/ComplianceMarquee';
 import { useT } from '@/i18n/locale';
+import tgChannelQr from '@/public/tg-channel.png';
+import tgCommunityQr from '@/public/tg-community-.png';
+import xQr from '@/public/x.png';
 
 export function Home() {
   const t = useT();
   const reducedMotion = useReducedMotion();
+
+  const community = {
+    website: 'https://www.uaqc.net',
+    x: 'https://x.com/UAQCAI',
+    youtube: 'https://youtube.com/@UAQC',
+    telegramCommunity: 'https://t.me/',
+    telegramChannel: 'https://t.me/',
+  };
+
   const reveal = (delay = 0) =>
     reducedMotion
       ? {}

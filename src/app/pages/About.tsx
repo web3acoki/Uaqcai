@@ -158,6 +158,40 @@ export function About() {
           </div>
         </div>
 
+        {/* Team Members */}
+        <div className="mb-20">
+          <div className="mb-8 text-center">
+            <h3 className="content-block-title mb-3">{t('about.teamTitle')}</h3>
+            <p className="text-sm text-white/60 font-[var(--font-body)]">
+              {t('about.teamSub')}
+            </p>
+          </div>
+
+          <div className="panel-grid md:grid-cols-3">
+            {team.map((member) => (
+              <GlassReveal
+                key={member.name}
+                interactive
+                className="panel-card rounded-[var(--radius-card)] p-6 transition-all hover:-translate-y-0.5"
+              >
+                <div className="mx-auto mb-4 h-24 w-24 overflow-hidden rounded-full border border-[var(--gold-champagne)]/50 bg-black/40">
+                  <ImageWithFallback
+                    src={member.imageSrc}
+                    alt={member.name}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="text-center">
+                  <h4 className="text-lg font-semibold text-white">{member.name}</h4>
+                  <p className="mt-1 text-sm text-white/70">{member.role}</p>
+                  <p className="mt-3 text-sm text-white/65 leading-relaxed">{member.bio}</p>
+                  <p className="mt-2 text-[11px] text-white/35">{member.initials}</p>
+                </div>
+              </GlassReveal>
+            ))}
+          </div>
+        </div>
+
         {/* Licenses Gallery */}
         <div className="mb-20">
           <div className="mb-8 text-center">
@@ -224,67 +258,6 @@ export function About() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* Algorithm Model */}
-        <div className="panel-card mb-20 rounded-[var(--radius-panel)] p-8">
-          <h3 className="content-block-title mb-6 text-center">
-            {t('about.algoTitle')}
-          </h3>
-          <div className="text-center">
-            <div className="inline-block p-6 bg-black/40 border border-[var(--gold-champagne)]/30 rounded-xl">
-              <p className="text-lg font-[var(--font-body)] text-white/80 mb-4">
-                {t('about.algoEq')}
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-3 text-white/90 font-[var(--font-body)]">
-                <span className="px-4 py-2 bg-[var(--gold-light)]/20 border border-[var(--gold-light)]/40 rounded-lg">
-                  {t('about.algoT')}
-                </span>
-                <span className="text-2xl" style={{ color: 'var(--gold-champagne)' }}>×</span>
-                <span className="px-4 py-2 bg-[var(--gold-champagne)]/20 border border-[var(--gold-champagne)]/40 rounded-lg">
-                  {t('about.algoS')}
-                </span>
-                <span className="text-2xl" style={{ color: 'var(--gold-champagne)' }}>×</span>
-                <span className="px-4 py-2 bg-[var(--gold-dark)]/20 border border-[var(--gold-dark)]/40 rounded-lg">
-                  {t('about.algoL')}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Team Members */}
-        <div className="mb-20">
-          <div className="mb-8 text-center">
-            <h3 className="content-block-title mb-3">{t('about.teamTitle')}</h3>
-            <p className="text-sm text-white/60 font-[var(--font-body)]">
-              {t('about.teamSub')}
-            </p>
-          </div>
-
-          <div className="panel-grid md:grid-cols-3">
-            {team.map((member) => (
-              <GlassReveal
-                key={member.name}
-                interactive
-                className="panel-card rounded-[var(--radius-card)] p-6 transition-all hover:-translate-y-0.5"
-              >
-                <div className="mx-auto mb-4 h-24 w-24 overflow-hidden rounded-full border border-[var(--gold-champagne)]/50 bg-black/40">
-                  <ImageWithFallback
-                    src={member.imageSrc}
-                    alt={member.name}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="text-center">
-                  <h4 className="text-lg font-semibold text-white">{member.name}</h4>
-                  <p className="mt-1 text-sm text-white/70">{member.role}</p>
-                  <p className="mt-3 text-sm text-white/65 leading-relaxed">{member.bio}</p>
-                  <p className="mt-2 text-[11px] text-white/35">{member.initials}</p>
-                </div>
-              </GlassReveal>
-            ))}
           </div>
         </div>
 
