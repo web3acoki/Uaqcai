@@ -35,13 +35,13 @@ export function Home() {
     <>
       <section
         id="home"
-        className="section-shell relative -mt-4 px-2 pt-4 md:-mt-6 md:pt-6"
+        className="section-shell relative -mt-4 overflow-x-clip px-2 pt-4 md:-mt-6 md:pt-6"
         style={{ paddingBottom: 'var(--hero-to-next-gap)' }}
       >
         {/* Full-bleed halo atmosphere for first screen (no rectangular edges). */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 left-1/2 w-screen -translate-x-1/2"
+          className="pointer-events-none absolute inset-0 z-0 left-1/2 w-[100vw] -translate-x-1/2"
         >
           <div
             className="absolute inset-0"
@@ -80,8 +80,8 @@ export function Home() {
             <div className="grid items-center gap-12 md:gap-14 lg:gap-[var(--hero-grid-gap-desktop)] lg:grid-cols-[1.04fr_0.96fr]">
               <motion.div {...reveal(0.04)}>
                 <motion.h1
-                  className="mb-7 font-[var(--font-body)] font-bold leading-[1.02] tracking-[-0.02em]"
-                  style={{ fontSize: 'clamp(2.9rem,4.7vw,4.6rem)' }}
+                  className="mb-7 break-words font-[var(--font-body)] font-bold leading-[1.02] tracking-[-0.02em] [hyphens:auto]"
+                  style={{ fontSize: 'clamp(2.35rem,7.6vw,4.6rem)' }}
                   {...reveal(0.16)}
                 >
                   <span className="block bg-gradient-to-r from-white to-[#48586f] bg-clip-text text-transparent">
@@ -92,7 +92,7 @@ export function Home() {
                   </span>
                   <span className="block text-[var(--gold-light)]/92">{t('home.h1c')}</span>
                 </motion.h1>
-                <motion.div className="gold-divider mb-8 max-w-[220px]" {...reveal(0.22)} />
+                <motion.div className="gold-divider gold-divider--sheen mb-8 max-w-[220px]" {...reveal(0.22)} />
                 <motion.h2 className="section-subheading mb-10 max-w-[560px]" {...reveal(0.28)}>
                   {t('home.subtitle')}
                 </motion.h2>

@@ -20,7 +20,7 @@ export const enMessages: Record<MessageKey, string> = {
   'footer.opsBody':
     'Singapore hub · Hong Kong Web3 center\nTokyo R&D · United States',
   'footer.community': 'Community',
-  'home.h1a': 'GLOBALLY\u00A0LEADING',
+  'home.h1a': 'GLOBALLY LEADING',
   'home.h1b': 'COMPLIANT DECENTRALIZED',
   'home.h1c': 'AI ASSET ENGINE',
   'home.subtitle': 'Reshape capital sovereignty; define the Web3 asset hub',

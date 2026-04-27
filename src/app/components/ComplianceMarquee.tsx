@@ -34,7 +34,7 @@ export function ComplianceMarquee() {
 
   return (
     <div
-      className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden border-b border-slate-800 bg-black"
+      className="relative left-1/2 w-[100vw] max-w-full -translate-x-1/2 overflow-x-clip overflow-hidden border-b border-slate-800 bg-black"
       role="region"
       aria-label={t('home.marqueeAria')}
     >

@@ -253,7 +253,7 @@ export function RwafiHudHero() {
         </motion.div>
       </div>
 
-      <div className="relative z-20 mt-8 flex w-full max-w-[480px] flex-col items-center gap-5 px-6">
+      <div className="relative z-20 mt-0 flex w-full max-w-[480px] flex-col items-center gap-5 px-6 md:translate-x-12">
         <motion.button
           type="button"
           onClick={() => navigate('/rwafi')}
