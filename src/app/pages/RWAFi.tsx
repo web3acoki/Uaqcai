@@ -197,7 +197,10 @@ export function RWAFi() {
           </div>
 
           {/* Token Economics */}
-          <GlassReveal interactive className="panel-card panel-card--featured mb-16 rounded-[var(--radius-panel)] p-8">
+          <GlassReveal
+            interactive
+            className="panel-card panel-card--featured mb-16 rounded-[var(--radius-panel)] p-8 transition-transform duration-[var(--dur-3)] ease-[var(--ease-out-1)] hover:-translate-y-[var(--lift-1)]"
+          >
             <h3 className="content-block-title mb-6 text-center">{t('rwafi.tokenEco')}</h3>
             <div className="w-full">
               <div className="flex flex-col items-center justify-between gap-8 xl:flex-row xl:gap-10">

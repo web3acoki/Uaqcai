@@ -67,22 +67,20 @@ export function About() {
   const newsItems = useMemo(
     () => [
       {
-        date: '2026-04-10',
-        tag: t('about.news0.tag'),
-        title: t('about.news0.title'),
-        desc: t('about.news0.desc'),
+        date: '2026-04-20',
+        tag: t('about.newsTechub1.tag'),
+        title: t('about.newsTechub1.title'),
+        excerpt: t('about.newsTechub1.desc'),
+        href: 'https://www.techub.news/articleDetail/871661fa-ba06-46b6-b910-a6dc79687026',
+        imageSrc: '/newsroom/2.png',
       },
       {
-        date: '2026-03-28',
-        tag: t('about.news1.tag'),
-        title: t('about.news1.title'),
-        desc: t('about.news1.desc'),
-      },
-      {
-        date: '2026-03-15',
-        tag: t('about.news2.tag'),
-        title: t('about.news2.title'),
-        desc: t('about.news2.desc'),
+        date: '2026-01-30',
+        tag: t('about.newsTechub0.tag'),
+        title: t('about.newsTechub0.title'),
+        excerpt: t('about.newsTechub0.desc'),
+        href: 'https://www.techub.news/articleDetail/f95c45f6-5fed-41ed-bb41-3859bbf71f6f',
+        imageSrc: '/newsroom/1.png',
       },
     ],
     [t],
@@ -282,9 +280,23 @@ export function About() {
             {newsItems.map((news, i) => (
               <GlassReveal
                 key={i}
+                as="a"
                 interactive
-                className="panel-card group cursor-pointer rounded-[var(--radius-card)] p-6 transition-all hover:-translate-y-0.5"
+                href={news.href}
+                target={news.href?.startsWith('http') ? '_blank' : undefined}
+                rel={news.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={news.title}
+                className="panel-card group block rounded-[var(--radius-card)] p-6 transition-all hover:-translate-y-0.5"
               >
+                <div className="mb-4 overflow-hidden rounded-xl border border-white/10 bg-black/30">
+                  <img
+                    src={news.imageSrc}
+                    alt={news.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-[16/9] w-full object-cover"
+                  />
+                </div>
                 <div className="mb-3 flex items-center gap-3">
                   <span className="text-xs text-white/40">{news.date}</span>
                   <span
@@ -300,7 +312,7 @@ export function About() {
                 <h4 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-white/92">
                   {news.title}
                 </h4>
-                <p className="text-sm text-white/60">{news.desc}</p>
+                <p className="text-sm text-white/60 line-clamp-3 break-words">{news.excerpt}</p>
               </GlassReveal>
             ))}
           </div>
@@ -313,7 +325,7 @@ export function About() {
           onClick={() => setActiveLicense(null)}
         >
           <div
-            className="relative w-full max-w-5xl rounded-2xl border border-white/10 bg-black/80 p-4"
+            className="relative w-full max-w-5xl rounded-2xl border border-white/10 bg-black/80 p-4 shadow-[var(--shadow-3),var(--shadow-outline-gold)]"
             onClick={(e) => e.stopPropagation()}
           >
             <button

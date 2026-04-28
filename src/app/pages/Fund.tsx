@@ -425,6 +425,18 @@ export function Fund() {
                     top: `${(topPos / 400) * 100}%`,
                   }}
                 >
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl opacity-0 transition-opacity duration-[var(--dur-3)] ease-[var(--ease-out-1)] group-hover:opacity-100"
+                  >
+                    <div
+                      className="absolute -inset-[40%] rotate-[var(--sheen-angle)] animate-[glass-sheen_var(--sheen-speed)_var(--ease-out-1)_1]"
+                      style={{
+                        background:
+                          'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.10) 45%, transparent 60%)',
+                      }}
+                    />
+                  </div>
                   {/* Header */}
                   <div className="flex items-center gap-3 mb-4 pb-4 border-b border-white/10">
                     <img 

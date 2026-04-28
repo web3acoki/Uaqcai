@@ -96,6 +96,19 @@
   --dur-1: 180ms;
   --dur-2: 240ms;
   --dur-3: 320ms;
+  --dur-4: 520ms;
+
+  /* Premium micro-interactions */
+  --sheen-angle: 115deg;
+  --sheen-alpha: 0.075;
+  --sheen-speed: 1650ms;
+  --edge-glow-alpha: 0.045;
+  --lift-1: -0.5px;
+  --lift-2: -2px;
+
+  /* Subtle film grain (very low, institutional) */
+  --grain-alpha: 0.035;
+  --grain-size: 160px;
   --section-space: clamp(4.2rem, 8vw, 7.6rem);
   --focus-ring: 0 0 0 2px rgba(245, 166, 35, 0.32);
   --hero-min-h-desktop: 93vh;
@@ -506,6 +519,43 @@ html:lang(en) {
     background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.48), transparent);
   }
 
+  .gold-divider--sheen {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gold-divider--sheen::after {
+    content: '';
+    position: absolute;
+    inset: -2px 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.22) 45%, transparent 60%);
+    transform: translateX(-55%);
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .gold-divider--sheen::after {
+      animation: gold-divider-sheen 5.6s var(--ease-out-1) infinite;
+    }
+  }
+
+  @keyframes gold-divider-sheen {
+    0% {
+      transform: translateX(-55%);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.55;
+    }
+    22% {
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(55%);
+      opacity: 0;
+    }
+  }
+
   .lux-button {
     display: inline-flex;
     align-items: center;
@@ -551,6 +601,22 @@ html:lang(en) {
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     box-shadow: var(--shadow-inset-1), var(--glass-shade);
+  }
+
+  .glass-surface::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: var(--grain-alpha);
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,0.8) 0.5px, transparent 0.9px),
+      radial-gradient(circle at 70% 30%, rgba(255,255,255,0.7) 0.5px, transparent 0.9px),
+      radial-gradient(circle at 40% 80%, rgba(255,255,255,0.75) 0.5px, transparent 0.9px);
+    background-size: var(--grain-size) var(--grain-size);
+    mix-blend-mode: overlay;
+    filter: blur(0.1px);
   }
 
   .glass-surface::before {
@@ -610,6 +676,20 @@ html:lang(en) {
       ),
       linear-gradient(100deg, #b86b12, #f5a623, #ffc764);
     border-color: rgba(255, 255, 255, 0.26);
+  }
+
+  @keyframes glass-sheen {
+    0% {
+      transform: translateX(-38%);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateX(38%);
+      opacity: 0;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

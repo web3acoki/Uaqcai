@@ -53,6 +53,12 @@ export function GlassReveal(props: GlassRevealProps) {
     className,
   );
 
+  const premiumInteractive =
+    interactive &&
+    'group relative will-change-transform hover:-translate-y-[var(--lift-1)] hover:shadow-[var(--shadow-inset-1),0_10px_26px_rgba(0,0,0,0.24),var(--shadow-outline-gold)]';
+
+  const premiumFx = cn(glassClass, premiumInteractive);
+
   const motionRest = reduceMotion
     ? {}
     : {
@@ -62,10 +68,44 @@ export function GlassReveal(props: GlassRevealProps) {
         transition: { duration: 0.52, delay: revealDelay, ease: [0.22, 1, 0.36, 1] as const },
       };
 
+  const Sheen = reduceMotion || !interactive ? null : (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-[var(--dur-3)] ease-[var(--ease-out-1)] group-hover:opacity-100 group-focus-visible:opacity-100"
+    >
+      <span
+        className="absolute -inset-[40%] translate-x-[-35%] rotate-[var(--sheen-angle)]"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(255,255,255,var(--sheen-alpha)) 45%, transparent 60%)',
+        }}
+      />
+      <span
+        className="absolute -inset-[40%] translate-x-[-35%] rotate-[var(--sheen-angle)] animate-[glass-sheen_var(--sheen-speed)_var(--ease-out-1)_1]"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(255,255,255,calc(var(--sheen-alpha)*0.9)) 45%, transparent 60%)',
+        }}
+      />
+    </span>
+  );
+
+  const EdgeGlow = reduceMotion || !interactive ? null : (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-0 rounded-[inherit] opacity-0 transition-opacity duration-[var(--dur-3)] ease-[var(--ease-out-1)] group-hover:opacity-100 group-focus-visible:opacity-100"
+      style={{
+        boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.06), inset 0 0 12px rgba(245,166,35,var(--edge-glow-alpha))',
+      }}
+    />
+  );
+
   if (as === 'button') {
     const { type = 'button', ...buttonRest } = rest as ComponentPropsWithoutRef<'button'>;
     return (
-      <motion.button type={type} className={glassClass} {...buttonRest} {...motionRest}>
+      <motion.button type={type} className={premiumFx} {...buttonRest} {...motionRest}>
+        {Sheen}
+        {EdgeGlow}
         {children}
       </motion.button>
     );
@@ -73,14 +113,18 @@ export function GlassReveal(props: GlassRevealProps) {
 
   if (as === 'a') {
     return (
-      <motion.a className={glassClass} {...(rest as ComponentPropsWithoutRef<'a'>)} {...motionRest}>
+      <motion.a className={premiumFx} {...(rest as ComponentPropsWithoutRef<'a'>)} {...motionRest}>
+        {Sheen}
+        {EdgeGlow}
         {children}
       </motion.a>
     );
   }
 
   return (
-    <motion.div className={glassClass} {...(rest as ComponentPropsWithoutRef<'div'>)} {...motionRest}>
+    <motion.div className={premiumFx} {...(rest as ComponentPropsWithoutRef<'div'>)} {...motionRest}>
+      {Sheen}
+      {EdgeGlow}
       {children}
     </motion.div>
   );
