@@ -1,4 +1,4 @@
-import { ChevronRight, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { GlassReveal } from '../components/site/GlassReveal';
@@ -63,20 +63,6 @@ export function About() {
       { year: '2026', title: t('about.road0.title'), desc: t('about.road0.desc'), color: 'gold-light' as const },
       { year: '2027', title: t('about.road1.title'), desc: t('about.road1.desc'), color: 'gold-champagne' as const },
       { year: '2028', title: t('about.road2.title'), desc: t('about.road2.desc'), color: 'gold-dark' as const },
-    ],
-    [t],
-  );
-
-  const newsItems = useMemo(
-    () => [
-      {
-        date: '2026-01-30',
-        tag: t('about.newsTechub0.tag'),
-        title: t('about.newsTechub0.title'),
-        excerpt: t('about.newsTechub0.desc'),
-        href: 'https://www.techub.news/articleDetail/f95c45f6-5fed-41ed-bb41-3859bbf71f6f',
-        imageSrc: '/newsroom/1.png',
-      },
     ],
     [t],
   );
@@ -254,64 +240,6 @@ export function About() {
           </div>
         </div>
 
-        {/* Newsroom */}
-        <div>
-          <div className="flex items-center justify-between mb-8">
-            <h3 className="content-block-title">
-              {t('about.newsTitle')}
-            </h3>
-            <GlassReveal
-              as="button"
-              type="button"
-              variant="muted"
-              interactive
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-[var(--gold-champagne)] hover:underline"
-            >
-              {t('about.newsAll')} <ChevronRight className="h-4 w-4" />
-            </GlassReveal>
-          </div>
-
-          <div className="panel-grid md:grid-cols-3">
-            {newsItems.map((news, i) => (
-              <GlassReveal
-                key={i}
-                as="a"
-                interactive
-                href={news.href}
-                target={news.href?.startsWith('http') ? '_blank' : undefined}
-                rel={news.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                aria-label={news.title}
-                className="panel-card group block rounded-[var(--radius-card)] p-6 transition-all hover:-translate-y-0.5"
-              >
-                <div className="mb-4 overflow-hidden rounded-xl border border-white/10 bg-black/30">
-                  <img
-                    src={news.imageSrc}
-                    alt={news.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-[16/9] w-full object-cover"
-                  />
-                </div>
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="text-xs text-white/40">{news.date}</span>
-                  <span
-                    className="rounded px-2 py-1 text-xs"
-                    style={{
-                      backgroundColor: 'var(--gold-champagne)20',
-                      color: 'var(--gold-champagne)',
-                    }}
-                  >
-                    {news.tag}
-                  </span>
-                </div>
-                <h4 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-white/92">
-                  {news.title}
-                </h4>
-                <p className="text-sm text-white/60 line-clamp-3 break-words">{news.excerpt}</p>
-              </GlassReveal>
-            ))}
-          </div>
-        </div>
       </div>
 
       {activeLicense && (
