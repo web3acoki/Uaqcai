@@ -18,16 +18,19 @@ const LICENSE_IMAGE_SRCS = [
   '/assets/image/FINCEN.png',
 ];
 
-const TEAM_IMAGE_SRCS = [
-  '/assets/image/Echo Zeng.png',
-  '/assets/image/Calvin xu.png',
-  '/assets/image/Ho Kar Loong, Kenneth.png',
-  '/assets/image/wenna sun.jpg',
-  '/assets/image/MAX GOH.png',
-  '/assets/image/Kelvin Tan.png',
-];
-
-const TEAM_NAMES = ['Echo Zeng', 'Calvin Xu', 'Ho Kar Loong, Kenneth', '孙文娜', 'MAX GOH', 'Kelvin Tan'] as const;
+const TEAM_MEMBERS = [
+  { name: 'Calvin Xu', imageSrc: '/assets/image/Calvin xu.png', roleKey: 'about.role1', bioKey: 'about.bio1', initials: 'CX' },
+  {
+    name: 'Ho Kar Loong, Kenneth',
+    imageSrc: '/assets/image/Ho Kar Loong, Kenneth.png',
+    roleKey: 'about.role2',
+    bioKey: 'about.bio2',
+    initials: 'HK',
+  },
+  { name: '孙文娜', imageSrc: '/assets/image/wenna sun.jpg', roleKey: 'about.role3', bioKey: 'about.bio3', initials: 'SW' },
+  { name: 'MAX GOH', imageSrc: '/assets/image/MAX GOH.png', roleKey: 'about.role4', bioKey: 'about.bio4', initials: 'MG' },
+  { name: 'Kelvin Tan', imageSrc: '/assets/image/Kelvin Tan.png', roleKey: 'about.role5', bioKey: 'about.bio5', initials: 'KT' },
+] as const;
 
 export function About() {
   const t = useT();
@@ -45,12 +48,12 @@ export function About() {
 
   const team = useMemo(
     () =>
-      TEAM_IMAGE_SRCS.map((imageSrc, i) => ({
-        name: TEAM_NAMES[i],
-        role: t(`about.role${i}` as MessageKey),
-        bio: t(`about.bio${i}` as MessageKey),
-        initials: ['EZ', 'CX', 'HK', 'SW', 'MG', 'KT'][i],
-        imageSrc,
+      TEAM_MEMBERS.map((member) => ({
+        name: member.name,
+        role: t(member.roleKey as MessageKey),
+        bio: t(member.bioKey as MessageKey),
+        initials: member.initials,
+        imageSrc: member.imageSrc,
       })),
     [t],
   );
@@ -66,14 +69,6 @@ export function About() {
 
   const newsItems = useMemo(
     () => [
-      {
-        date: '2026-04-20',
-        tag: t('about.newsTechub1.tag'),
-        title: t('about.newsTechub1.title'),
-        excerpt: t('about.newsTechub1.desc'),
-        href: 'https://www.techub.news/articleDetail/871661fa-ba06-46b6-b910-a6dc79687026',
-        imageSrc: '/newsroom/2.png',
-      },
       {
         date: '2026-01-30',
         tag: t('about.newsTechub0.tag'),
@@ -96,7 +91,7 @@ export function About() {
   }, [activeLicense]);
 
   useEffect(() => {
-    const allImageSources = [...LICENSE_IMAGE_SRCS, ...TEAM_IMAGE_SRCS];
+    const allImageSources = [...LICENSE_IMAGE_SRCS, ...TEAM_MEMBERS.map((member) => member.imageSrc)];
 
     allImageSources.forEach((src) => {
       const image = new Image();
